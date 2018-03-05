@@ -5,5 +5,6 @@ export class Event {
  Description: string;
  EventDateTime: string;
  Location: string;
+ RelatedEvents: Event[];
 
 }
