@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { TimelineListComponent } from './timeline-list/timeline-list.component';
+import { TimelineSearchComponent } from './timeline-search/timeline-search.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    TimelineListComponent
+    TimelineListComponent,
+    TimelineSearchComponent
   ],
   imports: [
     BrowserModule,
