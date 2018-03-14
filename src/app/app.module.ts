@@ -5,12 +5,14 @@ import { FormsModule }   from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { EventFormComponent } from './event-form/event-form.component';
+import { TimelineFormComponent } from './timeline-form/timeline-form.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    EventFormComponent
+    EventFormComponent,
+    TimelineFormComponent
   ],
   imports: [
     BrowserModule,
