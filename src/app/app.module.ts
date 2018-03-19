@@ -30,12 +30,10 @@ import { EventSearchComponent } from './event-search/event-search.component';
     DashboardComponent,
     TimelineListComponent,
     TimelineSearchComponent,
-    EventSearchComponent
-  ],
-  imports: [
-    BrowserModule,
+    EventSearchComponent,
     AppRoutingModule
   ],
+  
   providers: [ApiService, DataService],
   bootstrap: [AppComponent]
 })

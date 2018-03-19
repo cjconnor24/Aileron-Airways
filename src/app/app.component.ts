@@ -26,9 +26,4 @@ public ngOnInit(){
         this.data = data;
   });
 }
-
-
-
-export class AppComponent {
-  title = 'Aileron Airways';
 }
