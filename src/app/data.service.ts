@@ -21,7 +21,7 @@ export class DataService {
 
 
    getAllData(): Observable<Data[]> {
-     return this.api.getAllData();
+     return this.api.getTimelines();
    }
 
 
