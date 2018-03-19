@@ -1,0 +1,147 @@
+
+// REGISTER
+.register {
+  display:flex;
+  flex-wrap: wrap;
+  justify-content:space-between;
+
+
+
+  // TIMELINE BOX
+  .tline {
+    display:flex;
+    width:calc(50% - 40px);
+    /* width:100%; */
+    border-radius:10px;
+    box-shadow:0px 0px 10px #CCC;
+    padding:1em;
+    margin:0 0 20px 0;
+    transition: 0.5s;
+
+    // TIMELINE HOVER
+    &:hover {
+      background:$highlightyellow;
+      /* box-shadow:0px 0px 5px rgba(0,0,0,0.5); */
+    }
+
+    .events {
+      display:flex;
+      flex-direction:column;
+      justify-content: center;
+      align-items: center;
+      margin:0;
+      padding:0 20px;
+      background:#CCC;
+      text-align:center;
+      font-size:30px;
+      border-radius:5px;
+      box-shadow:inset 0px 0px 15px rgba(0,0,0,0.2);
+      transition:all 0.3s;
+    }
+
+  }
+
+  // .tline.rows {
+  //   width:100%!important;
+  // }
+
+}
+
+// MAKE LINES STRETCH ON SLIDER CLICK
+.register.rows .tline {
+  width:100%;
+}
+
+.tline .events i,
+.tline .events span {
+/*   display:block; */
+}
+.tline .events span {
+  background:$darkred;
+  color:#FFF;
+  padding:5px 10px;
+  border-radius:5px;
+  margin:5px 0 0 0;
+  font-size:15px;
+  font-weight:bold;
+}
+.tline .details p {
+  margin:0;
+  padding:0;
+}
+.tline .details {
+  margin:0 1.8em;
+  display:flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.tline .details .details__name {
+  font-size:1.9em;
+  margin:0;
+  padding:0;
+}
+.tline .details .details__time {
+  color:$darkgreen;
+  margin:0 0 20px 0;
+  padding:0;
+}
+.tline .details .details__time i {
+  color:$darkgray;
+}
+.tline .details .button {
+  margin:0;
+}
+.tline .buttons {
+  min-width: 90px;
+  /* align-self: flex-end; */
+}
+.tline .buttons ul {
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.tline .buttons ul li {
+  margin:0;
+  padding:0;
+  display:inline-block;
+}
+.tline .buttons ul li a {
+  text-decoration: none;
+  display:inline-block;
+  text-align:center;
+  line-height:40px;
+  border-radius:50%;
+  color:#FFF;
+  height:40px;
+  width:40px;
+  margin:0 0 5px 0;
+  transition: $transitionspeed;
+}
+
+.tline .buttons ul li:nth-child(1) a {background:$navyblue;}
+.tline .buttons ul li:nth-child(1) a:hover {background:darken($navyblue,20);}
+.tline .buttons ul li:nth-child(2) a {background:$darkred;}
+.tline .buttons ul li:nth-child(2) a:hover {background:lighten($darkred,10);}
+.tline .buttons ul li:nth-child(3) a {background:$darkgreen;}
+.tline .buttons ul li:nth-child(3) a:hover {background:lighten($darkgreen,10);}
+.tline .buttons ul li a span {
+  display:none;
+}
+@media(max-width:1080px){
+  .tline .details .details__name {
+    font-size:1.5em;
+  }
+  .tline .details .details__time {
+    font-size:0.9em;
+  }
+}
+@media(max-width:900px){
+  .register .tline {
+    width:100%;
+    /* background:#F00; */
+  }
+  .tline .buttons {
+    min-width:inherit;
+  }
+
+}

@@ -1,0 +1,11 @@
+@import "utilities/variables"; /* CSS VARIABLES - COLOURS etc. */
+@import "utilities/animations"; /* CSS ANIMATION KEYFRAMES */
+@import "base/normalize"; /* NORMALISE CSS */
+@import "base/skeleton"; /* CUSTOMISED SKELETON CSS FRAMEWORK */
+@import "base/base"; /*BASE ELEMENTS FOR THE LOOK AND FEEL*/
+@import "components/timeline";
+@import "components/register";
+// @import "components/slider"; /*SLIDER CONTROL*/
+// @import "timeline"; /* STYLES FOR TIMELINE */
+// @import "register"; /* STYLES FOR TIMELINE REGISTERS */
+// @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
