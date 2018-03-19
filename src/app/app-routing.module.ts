@@ -5,14 +5,14 @@ import {Routes, RouterModule} from '@angular/router';
 import { TimelineListComponent } from './timeline-list/timeline-list.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path : 'dashboard', component: DashboardComponent},
-  { path : 'timeline-list', component: TimelineListComponent}
+  { path: '', redirectTo: './dashboard', pathMatch: 'full' },
+  { path : './dashboard', component: DashboardComponent},
+  { path : './timeline-list', component: TimelineListComponent}
 ];
 
 
 @NgModule({
-  imports: [    
+  imports: [
     RouterModule.forRoot(routes)
   ],
 

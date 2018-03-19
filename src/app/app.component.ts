@@ -8,7 +8,6 @@ import { Data } from './data';
   styleUrls: ['./app.component.css'],
   providers: [DataService]
 })
-<<<<<<< HEAD
 export class AppComponent implements OnInit {
   title = 'Aileron Airways';
 
@@ -27,10 +26,4 @@ public ngOnInit(){
         this.data = data;
   });
 }
-
-
-=======
-export class AppComponent {
-  title = 'Aileron Airways';
->>>>>>> master
 }
