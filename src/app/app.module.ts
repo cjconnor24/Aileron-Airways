@@ -16,7 +16,7 @@ import { EventSearchComponent } from './event-search/event-search.component';
     DashboardComponent,
     TimelineListComponent,
     TimelineSearchComponent,
-    EventSearchComponent
+    EventSearchComponent,
   ],
   imports: [
     BrowserModule,
