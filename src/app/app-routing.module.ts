@@ -6,7 +6,7 @@ import { TimelineListComponent } from './timeline-list/timeline-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path : 'dashboardmain', component: DashboardComponent},
+  { path : 'dashboard', component: DashboardComponent},
   { path : 'timeline-list', component: TimelineListComponent}
 ];
 
