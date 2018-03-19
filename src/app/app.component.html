@@ -1,6 +1,49 @@
-<h1>{{title}}</h1>
-<nav>
-  <a routerLink="/dashboard">Dashboard</a>
-  <a routerLink="/timeline-list">Timelines</a>
-</nav>
-<router-outlet></router-outlet>
+<div class="application">
+    <nav class="navbar">
+        <div class="container">
+          <a routerlink="/dashboard" class="nav__logo"><span>Ideagen Coruson</span></a>
+          <ul>
+            <li><a routerLink="./dashboard"> Dashboard</a></li>
+            <li><a routerLink= "./timeline-list" > Timelines</a></li>
+          </ul>
+          <div class="navbar__hamburger"></div>
+        </div>
+      </nav>
+      </div>
+      
+    <div class="main-body">
+      <div class="container">
+      <router-outlet></router-outlet>
+      </div>
+    </div>
+
+      <footer>
+          <div class="container">
+        
+            <div class="row">
+        
+              <div class="six columns">
+        
+                <img src="assets/img/ideagen-logo-white.svg" alt="Ideagen Logo" class="footer__ideagenlogo">
+                <p class="footer__contactdetails">0800 123 1234 <br> <a href="#">support@ideagen.co.uk</a></p>
+        
+              </div>
+        
+              <!-- TODO: REMOVE THE INLINE STYLES AND FIX  -->
+              <div class="six columns" style="text-align:right;">
+        
+                <img src="assets/img/aileron-airways-logo-white.svg" alt="Airleon Airways Logo" class="footer__aileronlogo">
+                <!-- <p class="footer__contactdetails">0800 123 1234 <br> <a href="#">support@ideagen.co.uk</a></p> -->
+              </div>
+        
+            </div>
+        
+          </div>
+          
+        
+          <p class="disclaimer">© Copyright 2018 Ideagen Plc. <br> Ideagen plc, Ergo House, Mere Way, Ruddington Fields Business Park, Ruddington, Nottinghamshire, NG11 6JS</p>
+        
+        </footer>
+
+
+      
