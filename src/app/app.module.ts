@@ -5,7 +5,6 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { TimelineApiService } from './Timelineapi.service';
 import { DataService } from './data.service';
-import { ApiFormComponent } from './api-form/api-form.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { TimelineListComponent } from './timeline-list/timeline-list.component';
@@ -22,8 +21,7 @@ import { EventAttachmentApiService } from './event-attachment-api.service';
     DashboardComponent,
     TimelineListComponent,
     TimelineSearchComponent,
-    EventSearchComponent,
-    ApiFormComponent
+    EventSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +32,6 @@ import { EventAttachmentApiService } from './event-attachment-api.service';
     // TimelineListComponent,
     // TimelineSearchComponent,
     // EventSearchComponent,
-    // ApiFormComponent,
     AppRoutingModule
   ],
 

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService} from './data.service';
-import { Data } from './data';
+import { Timelines } from './data';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ import { Data } from './data';
 export class AppComponent implements OnInit {
   title = 'Aileron Airways';
 
-data: Data[] = [];
+data: Timelines[] = [];
 
 constructor(
   private DataService:DataService){

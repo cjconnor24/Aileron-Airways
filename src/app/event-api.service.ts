@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Timelines } from './data';
-import { TimelineEvent } from './data';
-import { TimelineEvents } from './data';
-import { LinkedTimeline } from './data';
+import { Timelines, TimelineEvent, TimelineEvents, LinkedTimeline } from './data';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -88,8 +85,8 @@ export class EventApiService {
   public getLinkedTimelineEvents(): Observable<LinkedTimeline[]> {
 
     let myHeaders = new Headers();
-    myHeaders.append('TenantId', 'Team2');
-    myHeaders.append('AuthToken', 'b3872e1b-12e3-4852-aaf0-a3d87d597282');
+    myHeaders.append('TenantId', Tenant);
+    myHeaders.append('AuthToken', AToken);
     return this.http
       .get(API_URL + 'TimelineEvent/GetLinkedTimelineEvents', { headers: myHeaders })
       .map(response => {
@@ -104,8 +101,8 @@ export class EventApiService {
   public getTimelineEvent(): Observable<TimelineEvent[]> {
 
     let myHeaders = new Headers();
-    myHeaders.append('TenantId', 'Team2');
-    myHeaders.append('AuthToken', 'b3872e1b-12e3-4852-aaf0-a3d87d597282');
+    myHeaders.append('TenantId', Tenant);
+    myHeaders.append('AuthToken', AToken);
     return this.http
       .get(API_URL + 'TimelineEvent/GetTimelineEvent', { headers: myHeaders })
       .map(response => {
@@ -117,11 +114,11 @@ export class EventApiService {
       .catch(this.handleError);
   }
 
-  public getTimelineEvents(): Observable<TimelineEvents[]> {
+  public getAllEvents(): Observable<TimelineEvents[]> {
 
     let myHeaders = new Headers();
-    myHeaders.append('TenantId', 'Team2');
-    myHeaders.append('AuthToken', 'b3872e1b-12e3-4852-aaf0-a3d87d597282');
+    myHeaders.append('TenantId', Tenant);
+    myHeaders.append('AuthToken', AToken);
     return this.http
       .get(API_URL + 'TimelineEvent/GetAllEvents', { headers: myHeaders })
       .map(response => {

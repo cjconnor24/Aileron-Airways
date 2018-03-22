@@ -47,3 +47,23 @@ export class TimelineEvents {
     Object.assign(this, values);
   }
 }
+
+export class EventsAttachment {
+  id: number;
+  title: string = '';
+  complete: boolean = false;
+
+  constructor(values: Object = {}) {
+    Object.assign(this, values);
+  }
+}
+
+export class EventsAttachments {
+  id: number;
+  title: string = '';
+  complete: boolean = false;
+
+  constructor(values: Object = {}) {
+    Object.assign(this, values);
+  }
+}
