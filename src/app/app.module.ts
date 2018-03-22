@@ -35,10 +35,10 @@ import { RegisterComponent } from './register/register/register.component';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    DashboardComponent,
-    TimelineListComponent,
-    TimelineSearchComponent,
-    EventSearchComponent,
+    // DashboardComponent,
+    // TimelineListComponent,
+    // TimelineSearchComponent,
+    // EventSearchComponent,
     AppRoutingModule
   ],
 
