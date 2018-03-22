@@ -22,8 +22,9 @@ export class IdeagenService {
         'AuthToken':'b3872e1b-12e3-4852-aaf0-a3d87d597282'
       }
     );
-
-    return this.httpClient.get(this.API_URL + 'Timeline/GetTimelines', { headers: headers })
+// Timeline/GetAllTimelinesAndEvent
+// Timeline/GetTimelines
+    return this.httpClient.get(this.API_URL + 'Timeline/GetAllTimelinesAndEvent', { headers: headers })
       .map(
         (timelines) => {
           // const recipes: Recipe[] = response.json();
