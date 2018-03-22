@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Timelines, Timeline } from './data';
+import { Timelines, Timeline, AllTimelineEvents } from './data';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -29,6 +29,22 @@ export class TimelineApiService {
       .map(response => {
         const timeline = response.json();
         return timeline.map((timeline) => new Timeline(timeline));
+
+
+      })
+      .catch(this.handleError);
+  }
+
+  public getTimelineEvents(): Observable<AllTimelineEvents[]> {
+
+    let myHeaders = new Headers();
+    myHeaders.append('TenantId', Tenant);
+    myHeaders.append('AuthToken', AToken);
+    return this.http
+      .get(API_URL + 'Timeline/GetAllTimelinesAndEvent', { headers: myHeaders })
+      .map(response => {
+        const timelineEvents = response.json();
+        return timelineEvents.map((timelineEvents) => new AllTimelineEvents(timelineEvents));
 
 
       })

@@ -67,3 +67,13 @@ export class EventsAttachments {
     Object.assign(this, values);
   }
 }
+
+export class AllTimelineEvents {
+  id: number;
+  title: string = '';
+  complete: boolean = false;
+
+  constructor(values: Object = {}) {
+    Object.assign(this, values);
+  }
+}
