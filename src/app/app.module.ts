@@ -13,6 +13,8 @@ import { AppRoutingModule } from './/app-routing.module';
 import { TimelineListComponent } from './timeline-list/timeline-list.component';
 import { TimelineSearchComponent } from './timeline-search/timeline-search.component';
 import { EventSearchComponent } from './event-search/event-search.component';
+import { HeaderComponent } from './ui/header/header.component';
+import { FooterComponent } from './ui/footer/footer.component';
 
 
 
@@ -23,6 +25,8 @@ import { EventSearchComponent } from './event-search/event-search.component';
     TimelineListComponent,
     TimelineSearchComponent,
     EventSearchComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
