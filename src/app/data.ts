@@ -1,4 +1,44 @@
-export class Data {
+export class Timelines {
+  id: number;
+  title: string = '';
+  complete: boolean = false;
+
+  constructor(values: Object = {}) {
+    Object.assign(this, values);
+  }
+}
+
+export class Timeline {
+  id: number;
+  title: string = '';
+  complete: boolean = false;
+
+  constructor(values: Object = {}) {
+    Object.assign(this, values);
+  }
+}
+
+export class LinkedTimeline {
+  id: number;
+  title: string = '';
+  complete: boolean = false;
+
+  constructor(values: Object = {}) {
+    Object.assign(this, values);
+  }
+}
+
+export class TimelineEvent {
+  id: number;
+  title: string = '';
+  complete: boolean = false;
+
+  constructor(values: Object = {}) {
+    Object.assign(this, values);
+  }
+}
+
+export class TimelineEvents {
   id: number;
   title: string = '';
   complete: boolean = false;
