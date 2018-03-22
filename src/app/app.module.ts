@@ -15,6 +15,7 @@ import { TimelineSearchComponent } from './timeline-search/timeline-search.compo
 import { EventSearchComponent } from './event-search/event-search.component';
 import { HeaderComponent } from './ui/header/header.component';
 import { FooterComponent } from './ui/footer/footer.component';
+import { RegisterComponent } from './register/register/register.component';
 
 
 
@@ -27,6 +28,7 @@ import { FooterComponent } from './ui/footer/footer.component';
     EventSearchComponent,
     HeaderComponent,
     FooterComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
