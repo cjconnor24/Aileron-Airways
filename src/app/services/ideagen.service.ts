@@ -2,38 +2,45 @@ import { Injectable } from '@angular/core';
 // import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RegisterService } from './register.service';
 import { Timeline } from '../models/timeline.model';
-import {environment} from '../../environments/environment';
+import { environment } from '../../environments/environment';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import 'rxjs/add/operator/map';
+
 
 @Injectable()
 export class IdeagenService {
 
-  // constructor(private httpClient: HttpClient, private registerService: RegisterService) { }
+  constructor(private httpClient: HttpClient) { }
 
   API_URL = environment.apiUrl;
 
-  getTimelines(){
+  getTimelines() {
 
-    // let headerdata = new HttpHeaders();
-    // headerdata.append('TenantId', environment.tenantId);
-    // headerdata.append('AuthToken',environment.authToken);
+    console.log('ideagenservice.getTimelines()')
 
-    // return this.httpClient.get(this.API_URL + 'Timeline/GetTimelines',{headers: headerdata})
-    // .map(
-    //   (timelines) => {
-    //     // const recipes: Recipe[] = response.json();
-    //     // for(let timeline of timelines){
-    //     //   if(!recipe['ingredients']){
-    //     //     recipe['ingredients'] = [];
-    //     //   }
-    //     // }
-    //     return timelines;
-    //   }
-    // ).subscribe(
-    //   (timelines: Timeline[]) => {
-    //     console.log(timelines);
-    //     this.registerService.setTimelines(timelines);
-    //   }
-    // )
+    let headerdata = new HttpHeaders();
+    headerdata.append('TenantId', 'Team2');
+    headerdata.append('AuthToken', 'b3872e1b-12e3-4852-aaf0-a3d87d597282');
+
+    // console.log(this.httpClient.get(this.API_URL + 'Timeline/GetTimelines',{headers: headerdata}));
+
+    return this.httpClient.get(this.API_URL + 'Timeline/GetTimelines', { headers: headerdata })
+      .map(
+        (timelines) => {
+          // const recipes: Recipe[] = response.json();
+          // for(let timeline of timelines){
+          //   if(!recipe['ingredients']){
+          //     recipe['ingredients'] = [];
+          //   }
+          // }
+          return timelines;
+        }
+      ).subscribe(
+        (timelines: Timeline[]) => {
+          console.log(timelines);
+          this.registerService.setTimelines(timelines);
+        }
+      )
   }
 
 }

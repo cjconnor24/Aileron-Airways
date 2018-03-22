@@ -16,6 +16,8 @@ import { RegisterComponent } from './register/register/register.component';
 import { RegisterListComponent } from './register/register-list/register-list.component';
 import { RegisterTimelineComponent } from './register/register-timeline/register-timeline.component';
 import { RegisterService } from './services/register.service';
+import { IdeagenService } from './services/ideagen.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -36,11 +38,13 @@ import { RegisterService } from './services/register.service';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [
     // ApiService,
     // DataService,
+    IdeagenService,
     RegisterService],
   bootstrap: [
     AppComponent

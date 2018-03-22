@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IdeagenService } from '../../services/ideagen.service';
 
 @Component({
   selector: 'app-register',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
+  constructor(private ideagenService: IdeagenService){}
 
   ngOnInit() {
-    console.log('this logged');
+    // console.log('this logged');
     // this.ideagenService.getTimelines();
   }
 
