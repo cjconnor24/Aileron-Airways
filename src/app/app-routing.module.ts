@@ -6,7 +6,7 @@ import { TimelineListComponent } from './timeline-list/timeline-list.component';
 import { RegisterComponent } from './register/register/register.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: './dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: './register', pathMatch: 'full' },
   { path : './register', component: RegisterComponent},
   { path : './dashboard', component: DashboardComponent},
   { path : './timeline-list', component: TimelineListComponent}

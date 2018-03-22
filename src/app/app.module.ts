@@ -16,6 +16,8 @@ import { EventSearchComponent } from './event-search/event-search.component';
 import { HeaderComponent } from './ui/header/header.component';
 import { FooterComponent } from './ui/footer/footer.component';
 import { RegisterComponent } from './register/register/register.component';
+import { RegisterListComponent } from './register/register-list/register-list.component';
+import { RegisterTimelineComponent } from './register/register-timeline/register-timeline.component';
 
 
 
@@ -29,6 +31,8 @@ import { RegisterComponent } from './register/register/register.component';
     HeaderComponent,
     FooterComponent,
     RegisterComponent,
+    RegisterListComponent,
+    RegisterTimelineComponent,
   ],
   imports: [
     BrowserModule,
