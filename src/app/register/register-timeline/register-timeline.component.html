@@ -3,14 +3,14 @@
   <!-- Event Count -->
   <div class="events">
     <i class="fas fa-exclamation-triangle"></i>
-    <span>25</span>
+    <span>{{timeline.events.length}}</span>
   </div>
 
   <!--       Timeline Details -->
   <div class="details">
     <p class="details__name">{{timeline.title}}</p>
     <p class="details__time">
-      <i class="fas fa-calendar-alt"></i> Created 3 hours ago</p>
+      <i class="fas fa-calendar-alt"></i> {{timeline.dateCreated}} </p>
     <p>
       <a href="#" class="button button-primary green">View Event</a>
     </p>
