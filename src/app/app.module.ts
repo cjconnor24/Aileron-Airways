@@ -18,6 +18,7 @@ import { FooterComponent } from './ui/footer/footer.component';
 import { RegisterComponent } from './register/register/register.component';
 import { RegisterListComponent } from './register/register-list/register-list.component';
 import { RegisterTimelineComponent } from './register/register-timeline/register-timeline.component';
+import { RegisterService } from './services/register.service';
 
 
 
@@ -46,7 +47,7 @@ import { RegisterTimelineComponent } from './register/register-timeline/register
     AppRoutingModule
   ],
 
-  providers: [ApiService, DataService],
+  providers: [ApiService, DataService, RegisterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
