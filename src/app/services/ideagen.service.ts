@@ -16,15 +16,14 @@ export class IdeagenService {
 
   getTimelines() {
 
-    console.log('ideagenservice.getTimelines()')
+    const headers = new HttpHeaders(
+      {
+        'TenantId':'Team2',
+        'AuthToken':'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+      }
+    );
 
-    let headerdata = new HttpHeaders();
-    headerdata.append('TenantId', 'Team2');
-    headerdata.append('AuthToken', 'b3872e1b-12e3-4852-aaf0-a3d87d597282');
-
-    // console.log(this.httpClient.get(this.API_URL + 'Timeline/GetTimelines',{headers: headerdata}));
-
-    return this.httpClient.get(this.API_URL + 'Timeline/GetTimelines', { headers: headerdata })
+    return this.httpClient.get(this.API_URL + 'Timeline/GetTimelines', { headers: headers })
       .map(
         (timelines) => {
           // const recipes: Recipe[] = response.json();
@@ -40,7 +39,7 @@ export class IdeagenService {
           console.log(timelines);
           this.registerService.setTimelines(timelines);
         }
-      )
+      );
   }
 
 }
