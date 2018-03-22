@@ -16,7 +16,7 @@ export class RegisterListComponent implements OnInit {
 
   ngOnInit() {
     // this.register = this.registerService.getTimelines();
-    this.register =this.registerService.getTimelines();
+    // this.register =this.registerService.getTimelines();
   }
 
 }

@@ -6,8 +6,8 @@ import { Subject } from 'rxjs/Subject';
 export class RegisterService {
 
   constructor() { }
-  
-    register: Timeline[] = [
+
+  register: Timeline[] = [
       new Timeline('Flight 101'),
       new Timeline('Flight 202'),
       new Timeline('Flight 907'),
