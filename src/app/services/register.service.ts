@@ -6,7 +6,15 @@ export class RegisterService {
 
   constructor() { }
   
-  timelines: Timeline[];
+    register: Timeline[] = [
+      new Timeline('Flight 101'),
+      new Timeline('Flight 202'),
+      new Timeline('Flight 907'),
+    ]
+
+  getTimelines(){
+    return this.register.slice();
+  }
 
   addTimeline(timeline: Timeline){
     // TODO: ADD TIMELINE
