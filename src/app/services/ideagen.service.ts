@@ -37,7 +37,7 @@ export class IdeagenService {
       ).subscribe(
         (timelines: Timeline[]) => {
           console.log(timelines);
-          this.registerService.setTimelines(timelines);
+          // this.registerService.setTimelines(timelines);
         }
       );
   }
