@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Timeline } from '../../models/timeline.model';
+import { RegisterService } from '../../services/register.service';
 
 @Component({
   selector: 'app-register-list',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterListComponent implements OnInit {
 
-  constructor() { }
+  register: Timeline[];
+  
+
+  constructor(private registerService: RegisterService) { }
 
   ngOnInit() {
+    // this.register = this.registerService.getTimelines();
+    this.register =this.registerService.getTimelines();
   }
 
 }

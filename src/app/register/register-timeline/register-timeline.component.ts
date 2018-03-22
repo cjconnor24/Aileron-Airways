@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Timeline } from '../../models/timeline.model';
 
 @Component({
   selector: 'app-register-timeline',
@@ -8,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class RegisterTimelineComponent implements OnInit {
 
   constructor() { }
+
+  @Input() timeline: Timeline;
 
   ngOnInit() {
   }
