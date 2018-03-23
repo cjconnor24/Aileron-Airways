@@ -8,31 +8,33 @@ export class RegisterService {
   constructor() { }
 
   register: Timeline[] = [
-      new Timeline('Flight 101'),
-      new Timeline('Flight 202'),
-      new Timeline('Flight 907'),
-    ]
+    new Timeline('Flight 101'),
+    new Timeline('Flight 202'),
+    new Timeline('Flight 907'),
+  ]
 
-    registerChanged = new Subject<Timeline[]>();
+  registerChanged = new Subject<Timeline[]>();
 
-  getTimelines(){
+  getTimelines() {
     return this.register.slice();
   }
 
-  setTimelines(timelines: Timeline[]){
+  setTimelines(timelines: Timeline[]) {
     this.register = timelines;
     this.registerChanged.next(this.register.slice());
   }
 
-  addTimeline(timeline: Timeline){
-    // TODO: ADD TIMELINE
+  addTimeline(timeline: Timeline) {
+
+    this.register.push(timeline);
+    this.registerChanged.next(this.register.slice());
   }
 
-  updateTimeline(){
+  updateTimeline() {
     //TODO: UPDATE TIMELINE
   }
 
-  deleteTimeline(){
+  deleteTimeline() {
     //TODO: DELETE TIMELINE
   }
 
