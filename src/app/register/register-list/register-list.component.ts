@@ -16,10 +16,17 @@ export class RegisterListComponent implements OnInit {
   constructor(private registerService: RegisterService, private ideagenService: IdeagenService) { }
 
   ngOnInit() {
-    this.register = this.registerService.getTimelines();
-    // this.register =this.registerService.getTimelines();
 
-    this.ideagenService.getTimelines();
+// THIS WILL CURRENTLY GET THE STATIC TIMELINES FROM THE SERVICE
+    this.register = this.registerService.getTimelines();
+    
+
+    // THIS WILL PULL IN FROM THE API
+    // this.register = this.ideagenService.getTimelines().subscribe(
+    //   (timelines: Timeline[]) => {
+    //     return timelines;
+    //   }
+    // );
   }
 
 }

@@ -14,13 +14,6 @@ export class IdeagenService {
 
   API_URL = environment.apiUrl;
 
-
-  outputConsole(data: any){
-    console.log("FROM FUNCTIONS:");
-    console.log(data['Timelines']);
-    console.log("-- END --");
-  }
-
   getTimelines() {
 
     const headers = new HttpHeaders(
@@ -36,17 +29,24 @@ export class IdeagenService {
       }).map(
         data => {
           return data['Timelines'].map(timeline => {
-            return new Timeline(timeline.Title);
+            let tl = new Timeline(timeline.Title);
+            tl.timelineId = timeline.Id;
+            tl.dateCreated = timeline.CreationTimeStamp;
+
+            return tl;
           });
         }
-        // data['Timelines'] => {this.outputConsole(data)}
-      ).subscribe(
-        (data) => {
-          
-          console.log(data);
-          // this.registerService.setTimelines(data);
-        }
+
       );
+
+      // SUBSCRIBE ELSEWHERE
+      // .subscribe(
+      //   (timelines: Timeline[]) => {
+      //     this.registerService.setTimelines(timelines);
+      //   }
+      // )
+
   }
 
 }
+

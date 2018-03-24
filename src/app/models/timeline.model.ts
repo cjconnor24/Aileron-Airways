@@ -5,10 +5,14 @@ export class Timeline {
     events: Event[];
     dateCreated: Date = new Date();
 
-    constructor(title:string){
-        this.title = Math.floor((Math.random()*6)+1).toString();
+    constructor(title: string, events?: Event[]) {
+        this.title = Math.floor((Math.random() * 6) + 1).toString();
         this.title = title;
-        this.events = [];
+        // if (events.length > 0) {
+        //     this.events = events;
+        // } else {
+            this.events = [];
+        // }
     }
 
 }
