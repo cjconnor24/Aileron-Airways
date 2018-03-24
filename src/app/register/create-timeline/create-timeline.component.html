@@ -1,11 +1,11 @@
-<form>
+<form [formGroup]="createTimeline" (ngSubmit)="onCreateTimeline()">
   <div class="row">
     <div class="six columns">
-      <label for="exampleEmailInput">Timeline Name</label>
-      <input class="u-full-width" type="email" placeholder="test@mailbox.com" id="exampleEmailInput">
+      <label for="name">Timeline Name</label>
+      <input class="u-full-width" type="email" placeholder="Timeline name" id="name" formControlName="name">
     </div>
     
   </div>
 
-  <input class="button-primary" type="button" value="Submit">
+  <input class="button-primary" type="submit" value="Submit">
 </form>

@@ -26,7 +26,7 @@ export class RegisterListComponent implements OnInit, OnDestroy {
         this.register = timelines;
       }
     )
-    this.getEvents();
+    // this.getEvents();
 
   }
 
