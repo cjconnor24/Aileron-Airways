@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment';
+import { environment } from '../environments/environment';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Data } from './Data';
+import { Timeline } from './Data';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -19,7 +19,7 @@ export class ApiService {
 
 
 
-  public getTimelines(): Observable<Data[]> {
+  public getTimelines(): Observable<Timeline[]> {
 
     let myHeaders = new Headers();
     myHeaders.append('TenantId', 'Team2');
@@ -28,14 +28,14 @@ export class ApiService {
       .get(API_URL + 'Timeline/GetTimelines', { headers: myHeaders })
       .map(response => {
         const data = response.json();
-        return data.map((data) => new Data(data));
+        return data.map((data) => new Timeline(data));
 
 
       })
       .catch(this.handleError);
   }
 
-  public editTitle(): Observable<Data[]> {
+  public editTitle(): Observable<Timeline[]> {
 
     let myHeaders = new Headers();
     myHeaders.append('TenantId', 'Team2');
@@ -44,7 +44,7 @@ export class ApiService {
       .get(API_URL + 'Timeline/EditTitle', { headers: myHeaders })
       .map(response => {
         const todos = response.json();
-        return todos.map((todo) => new Data(todo));
+        return todos.map((todo) => new Timeline(todo));
       })
       .catch(this.handleError);
   }
