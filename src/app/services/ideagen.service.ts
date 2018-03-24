@@ -10,35 +10,41 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class IdeagenService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private registerService: RegisterService) { }
 
   API_URL = environment.apiUrl;
+
+
+  outputConsole(data: any){
+    console.log("FROM FUNCTIONS:");
+    console.log(data['Timelines']);
+    console.log("-- END --");
+  }
 
   getTimelines() {
 
     const headers = new HttpHeaders(
       {
-        'TenantId':'Team2',
-        'AuthToken':'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+        'TenantId': 'Team2',
+        'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
       }
     );
-// Timeline/GetAllTimelinesAndEvent
-// Timeline/GetTimelines
-    return this.httpClient.get(this.API_URL + 'Timeline/GetAllTimelinesAndEvent', { headers: headers })
-      .map(
-        (timelines) => {
-          // const recipes: Recipe[] = response.json();
-          // for(let timeline of timelines){
-          //   if(!recipe['ingredients']){
-          //     recipe['ingredients'] = [];
-          //   }
-          // }
-          return timelines;
+
+    return this.httpClient.get(this.API_URL + 'Timeline/GetAllTimelinesAndEvent',
+      {
+        headers: headers
+      }).map(
+        data => {
+          return data['Timelines'].map(timeline => {
+            return new Timeline(timeline.Title);
+          });
         }
+        // data['Timelines'] => {this.outputConsole(data)}
       ).subscribe(
-        (timelines: Timeline[]) => {
-          console.log(timelines);
-          // this.registerService.setTimelines(timelines);
+        (data) => {
+          
+          console.log(data);
+          // this.registerService.setTimelines(data);
         }
       );
   }
