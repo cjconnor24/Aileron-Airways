@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import {Routes, RouterModule} from '@angular/router';
-import { TimelineListComponent } from './timeline-list/timeline-list.component';
-import { RegisterComponent } from './register/register/register.component';
+import { RegisterComponent } from '../register/register/register.component';
+import { DashboardComponent } from '../dashboard/dashboard.component';
+import { TimelineListComponent } from '../timeline-list/timeline-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full' },

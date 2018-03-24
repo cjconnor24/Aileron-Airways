@@ -11,7 +11,7 @@ export class RegisterService {
     new Timeline('Flight 101'),
     new Timeline('Flight 202'),
     new Timeline('Flight 907'),
-  ]
+  ] 
 
   registerChanged = new Subject<Timeline[]>();
 
@@ -25,13 +25,15 @@ export class RegisterService {
   }
 
   addTimeline(timeline: Timeline) {
-
     this.register.push(timeline);
     this.registerChanged.next(this.register.slice());
   }
 
-  updateTimeline() {
+  updateTimeline(index:number, timeline: Timeline) {
+    
     //TODO: UPDATE TIMELINE
+
+
   }
 
   deleteTimeline() {
