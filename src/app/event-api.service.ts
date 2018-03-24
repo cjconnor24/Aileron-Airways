@@ -9,8 +9,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 const API_URL = environment.apiUrl;
-const AToken = environment.AToken;
-const Tenant = environment.Tenant;
+const AToken = environment.authToken;
+const Tenant = environment.tenantId;
 
 @Injectable()
 export class EventApiService {

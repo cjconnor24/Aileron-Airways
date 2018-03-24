@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-
+import { Timeline } from './data';
 import { TimelineApiService } from './Timelineapi.service';
 import { Observable } from 'rxjs/Observable';
 
