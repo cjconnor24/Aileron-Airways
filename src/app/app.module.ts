@@ -19,6 +19,7 @@ import { RegisterService } from './services/register.service';
 import { IdeagenService } from './services/ideagen.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './routing-module/app-routing.module';
+import { CreateTimelineComponent } from './register/create-timeline/create-timeline.component';
 
 
 
@@ -34,6 +35,7 @@ import { AppRoutingModule } from './routing-module/app-routing.module';
     RegisterComponent,
     RegisterListComponent,
     RegisterTimelineComponent,
+    CreateTimelineComponent,
   ],
   imports: [
     BrowserModule,
