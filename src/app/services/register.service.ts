@@ -8,10 +8,9 @@ export class RegisterService {
   constructor() { }
 
   register: Timeline[] = [
-    new Timeline('Flight 101'),
-    new Timeline('Flight 202'),
-    new Timeline('Flight 907'),
-  ] 
+    new Timeline('Chris Event'),
+    new Timeline('Hardcoded Event')
+  ];
 
   registerChanged = new Subject<Timeline[]>();
 

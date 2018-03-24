@@ -31,13 +31,21 @@ export class IdeagenService {
           return data['Timelines'].map(timeline => {
             let tl = new Timeline(timeline.Title);
             tl.timelineId = timeline.Id;
-            tl.dateCreated = timeline.CreationTimeStamp;
+            tl.dateCreated = new Date((timeline.CreationTimeStamp-621355968000000000)/10000);
+            
+            // tl.events = timeline.TimelineEvents;
 
             return tl;
           });
         }
-
-      );
+      )      
+      .subscribe(
+          (timelines: Timeline[]) => {
+            console.log(timelines);
+            this.registerService.setTimelines(timelines);
+            console.log(timelines);
+          }
+        );
 
       // SUBSCRIBE ELSEWHERE
       // .subscribe(

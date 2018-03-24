@@ -3,7 +3,7 @@ export class Timeline {
     timelineId: string;
     title: string;
     events: Event[];
-    dateCreated: Date = new Date();
+    dateCreated: Date;
 
     constructor(title: string, events?: Event[]) {
         this.title = Math.floor((Math.random() * 6) + 1).toString();
