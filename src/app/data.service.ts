@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 export class DataService {
 
 
-  lastId: number = 0;
+  lastId: 0;
 
   timeline: Timeline[] = [];
   timelines: Timelines[] = [];
@@ -30,7 +30,7 @@ export class DataService {
 
 export class Timelines {
   id: number;
-  title: string = '';
+  title: String = '';
   complete: boolean = false;
 
   constructor(values: Object = {}) {
@@ -39,9 +39,8 @@ export class Timelines {
 }
   export class Timeline {
     id: number;
-    title: string = '';
+    title: String = '';
     complete: boolean = false;
-  
     constructor(values: Object = {}) {
       Object.assign(this, values);
     }
