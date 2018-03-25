@@ -14,6 +14,31 @@ export class IdeagenService {
 
   API_URL = environment.apiUrl;
 
+  createTimeline(timeline: Timeline){
+
+    const headers = new HttpHeaders(
+      {
+        'TenantId': 'Team2',
+        'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+      }
+    );
+
+    const body = {
+      TimelineId: timeline.timelineId,
+      Title: timeline.title
+    }
+
+    return this.httpClient.put(this.API_URL + 'Timeline/GetAllTimelinesAndEvent', body,
+      {
+        headers: headers
+      }).subscribe(
+          (data: any) => {
+            console.log(data); 
+          }
+        );
+
+  }
+
   getTimelines() {
 
     const headers = new HttpHeaders(
@@ -46,13 +71,6 @@ export class IdeagenService {
             console.log(timelines);
           }
         );
-
-      // SUBSCRIBE ELSEWHERE
-      // .subscribe(
-      //   (timelines: Timeline[]) => {
-      //     this.registerService.setTimelines(timelines);
-      //   }
-      // )
 
   }
 
