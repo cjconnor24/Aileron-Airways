@@ -2,8 +2,45 @@
 
 <a routerLink="new" class="button">New Timeline</a>
 <div class="register">
-  <!-- <app-register-timeline></app-register-timeline> -->
   
-  <app-register-timeline *ngFor="let timeline of register; let i = index" [timeline]="timeline"></app-register-timeline>
+  <!-- <app-register-timeline *ngFor="let timeline of register; let i = index" [timeline]="timeline"></app-register-timeline> -->
+
+  <div class="tline" *ngFor="let timeline of register">
+
+    <!-- Event Count -->
+    <div class="events">
+      <i class="fas fa-exclamation-triangle"></i>
+      <span>{{timeline.events.length}}</span>
+    </div>
+  
+    <!--       Timeline Details -->
+    <div class="details">
+      <p class="details__name">{{timeline.title}}</p>
+      <p class="details__time">
+        <i class="fas fa-calendar-alt"></i> {{timeline.dateCreated | date }} </p>
+      <p>
+        <a routerLink="{{timeline.timelineId}}/edit" class="button button-primary green">View Event</a>
+      </p>
+    </div>
+  
+    <!--       Timeline Buttons -->
+    <div class="buttons">
+      <ul>
+        <li>
+          <a href="#">
+            <i class="fas fa-trash-alt"></i>
+            <span>Delete Event</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-pencil-alt"></i>
+            <span>Edit Event</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  
+  </div>
   
 </div>
