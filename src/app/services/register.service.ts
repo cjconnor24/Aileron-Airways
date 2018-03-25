@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Timeline } from '../models/timeline.model';
 import { Subject } from 'rxjs/Subject';
+import { IdeagenService } from './ideagen.service';
 
 @Injectable()
 export class RegisterService {
@@ -21,6 +22,10 @@ export class RegisterService {
   setTimelines(timelines: Timeline[]) {
     this.register = timelines;
     this.registerChanged.next(this.register.slice());
+  }
+
+  createTimeline(timeline: Timeline){
+    // this.ideagenService.createTimeline(timeline);  
   }
 
   addTimeline(timeline: Timeline) {

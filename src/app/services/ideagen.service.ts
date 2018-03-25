@@ -14,7 +14,7 @@ export class IdeagenService {
 
   API_URL = environment.apiUrl;
 
-  createTimeline(timeline: Timeline){
+  createTimeline(timeline: Timeline) {
 
     const headers = new HttpHeaders(
       {
@@ -23,19 +23,25 @@ export class IdeagenService {
       }
     );
 
+    console.log(timeline);
+
     const body = {
-      TimelineId: timeline.timelineId,
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
+      TimelineId: 'timelineid', // NEEDS AN ID
       Title: timeline.title
     }
 
-    return this.httpClient.put(this.API_URL + 'Timeline/GetAllTimelinesAndEvent', body,
+    console.log(body);
+
+    return this.httpClient.put(this.API_URL + 'Timeline/Create', body,
       {
         headers: headers
       }).subscribe(
-          (data: any) => {
-            console.log(data); 
-          }
-        );
+        (data: any) => {
+          console.log(data);
+        }
+      );
 
   }
 
@@ -56,21 +62,21 @@ export class IdeagenService {
           return data['Timelines'].map(timeline => {
             let tl = new Timeline(timeline.Title);
             tl.timelineId = timeline.Id;
-            tl.dateCreated = new Date((timeline.CreationTimeStamp-621355968000000000)/10000);
-            
+            tl.dateCreated = new Date((timeline.CreationTimeStamp - 621355968000000000) / 10000);
+
             // tl.events = timeline.TimelineEvents;
 
             return tl;
           });
         }
-      )      
+      )
       .subscribe(
-          (timelines: Timeline[]) => {
-            console.log(timelines);
-            this.registerService.setTimelines(timelines);
-            console.log(timelines);
-          }
-        );
+        (timelines: Timeline[]) => {
+          console.log(timelines);
+          this.registerService.setTimelines(timelines);
+          console.log(timelines);
+        }
+      );
 
   }
 
