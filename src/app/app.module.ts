@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -22,6 +23,7 @@ import { CreateTimelineComponent } from './register/create-timeline/create-timel
 import { FilterPipe } from './pipes/filter.pipe';
 
 
+import { CreateEventComponent } from './events/create-event/create-event.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     RegisterTimelineComponent,
     CreateTimelineComponent,
     FilterPipe,
+    CreateEventComponent,
   ],
   imports: [
     BrowserModule,

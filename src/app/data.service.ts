@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class DataService {
 
-
   lastId: number = 0;
 
   timeline: Timeline[] = [];
