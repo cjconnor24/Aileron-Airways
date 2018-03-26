@@ -19,8 +19,19 @@ export class RegisterListComponent implements OnInit, OnDestroy {
   searchText: string;
 
 
-  constructor(private registerService: RegisterService,private ideagenSerivce:IdeagenService) { }
+  constructor(private registerService: RegisterService,private ideagenService:IdeagenService) { }
 
+  
+  getEvents(){
+    this.ideagenService.getTimelines();
+    this.ideagenService.getAllEvents();
+  }
+  
+  fetchData(){
+    this.register = this.registerService.getTimelines();
+    this.registerEv = this.registerService.getAllEvent();
+  }
+  
   ngOnInit() {
 
     // THIS WILL CURRENTLY GET THE STATIC TIMELINES FROM THE SERVICE
@@ -37,17 +48,7 @@ export class RegisterListComponent implements OnInit, OnDestroy {
     this.getEvents();
   
   }
-
-  getEvents(){
-    this.ideagenSerivce.getTimelines();
-    this.ideagenSerivce.getAllEvent();
-  }
-
-  fetchData(){
-    this.register = this.registerService.getTimelines();
-    this.registerEv = this.registerService.getAllEvent();
-  }
-
+  
   ngOnDestroy(){
     this.subscriber.unsubscribe();
   }
