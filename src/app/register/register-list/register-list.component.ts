@@ -16,6 +16,7 @@ export class RegisterListComponent implements OnInit, OnDestroy {
   register: Timeline[];
   registerEv: Event[];
   subscriber: Subscription;
+  searchText: string;
 
 
   constructor(private registerService: RegisterService,private ideagenSerivce:IdeagenService) { }
