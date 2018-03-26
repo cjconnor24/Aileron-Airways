@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Timeline } from '../../models/timeline.model';
+import { Event } from '../../models/event.model';
 
 @Component({
   selector: 'app-register-timeline',
@@ -11,8 +12,10 @@ export class RegisterTimelineComponent implements OnInit {
   constructor() { }
 
   @Input() timeline: Timeline;
+  //@Input() event:Event;
 
   ngOnInit() {
+
   }
 
 }
