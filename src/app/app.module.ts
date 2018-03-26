@@ -21,6 +21,7 @@ import { IdeagenService } from './services/ideagen.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './routing-module/app-routing.module';
 import { CreateTimelineComponent } from './register/create-timeline/create-timeline.component';
+import { CreateEventComponent } from './events/create-event/create-event.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { CreateTimelineComponent } from './register/create-timeline/create-timel
     RegisterListComponent,
     RegisterTimelineComponent,
     CreateTimelineComponent,
+    CreateEventComponent,
   ],
   imports: [
     BrowserModule,
