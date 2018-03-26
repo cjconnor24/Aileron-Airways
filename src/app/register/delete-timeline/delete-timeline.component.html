@@ -1,3 +1,16 @@
 <h3>Delete Timeline</h3>
-<p>Are you sure you wish to delete this timeline?</p>
-<p><button class="button button-primary" routerLink="../../">CANCEL</button> <button class="button button-primary red" type="button">Yes, DELETE</button></p>
+
+
+  
+  <div class="dialogue-box warning">
+    <div class="heading">
+      <i class="fas fa-exclamation-triangle"></i> Delete {{timeline.title}}?</div>
+    <div class="content">
+      <p>Are you sure you want to delete the <strong>"{{timeline.title}}"</strong> timeline?</p>
+      <div class="row">
+        <button type="button" routerLink="../../">CANCEL</button>
+        <button class="button-primary" type="button">
+          <i class="fas fa-trash-alt"></i> Yes, DELETE</button>
+      </div>
+    </div>
+  </div>
