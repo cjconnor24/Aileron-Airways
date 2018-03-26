@@ -52,6 +52,36 @@ export class IdeagenService {
 
   }
 
+  deleteTimeline(timeline: Timeline) {
+
+    const headers = new HttpHeaders(
+      {
+        'TenantId': 'Team2',
+        'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+      }
+    );
+
+    console.log(timeline);
+
+    const body = {
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
+      TimelineId: timeline.timelineId
+    }
+
+    console.log(body);
+
+    return this.httpClient.put(this.API_URL + 'Timeline/Delete', body,
+      {
+        headers: headers
+      }).subscribe(
+        (data: any) => {
+          console.log(data);
+        }
+      );
+
+  }
+
   getTimelines() {
 
     const headers = new HttpHeaders(
@@ -87,7 +117,7 @@ export class IdeagenService {
 
   }
 
-  public getAllEvent() {
+  public getAllEvents() {
     const headers = new HttpHeaders(
       {
         'TenantId': 'Team2',
