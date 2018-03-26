@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { TimelineApiService } from './Timelineapi.service';
+import { TimelineApiService } from './services/Timelineapi.service';
 import { BaseRequestOptions, Http, XHRBackend } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { HttpHeaders } from '@angular/common/http';
