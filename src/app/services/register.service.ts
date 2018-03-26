@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Timeline } from '../models/timeline.model';
 import { Event } from '../models/event.model';
 import { Subject } from 'rxjs/Subject';
+import { IdeagenService } from './ideagen.service';
 
 @Injectable()
 export class RegisterService {
