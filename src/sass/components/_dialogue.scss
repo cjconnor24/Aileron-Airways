@@ -1,12 +1,13 @@
-@mixin large-text($color) {
+@mixin dialoguebox($color) {
 
 
     // border:1px solid $darkred;
     border-radius: 10px;
-    box-shadow:0 0 10px lighten($darkgray,10);
+    box-shadow:0 0 10px lighten($darkgray,5);
     position: relative;
-    margin:0 auto;
+    margin:0 auto 0 auto;
     width:60%;
+    background:#FFF;
 
 
     &::after {
@@ -47,9 +48,11 @@
 }
 
 .dialogue-box.warning {
-    @include large-text($darkred);
+    @include dialoguebox($darkred);
 }
 .dialogue-box.success {
-    @include large-text($darkgreen);
+    @include dialoguebox($darkgreen);
 }
-
+.dialogue-box.info {
+    @include dialoguebox($navyblue);
+}
