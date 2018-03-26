@@ -1,0 +1,28 @@
+// COLOURS
+
+// MAIN SITE COLOURS
+$navyblue: #0684C2;
+$darkgreen: #10AB96;
+$darkred: #AB1010;
+
+$lightblue: #E2EEF4;
+
+$darkgray: #3A4850;
+
+
+$highlightyellow: #FDFFD5;
+$event-bg: #eee;
+
+
+// FONTS
+$font-family: 'Lato', sans-serif;
+
+// UTILITY VARIABLES
+$gridwidth: 1280px;
+$transitionspeed: 0.25s;
+
+// MIXINS
+@mixin background-opacity($color, $opacity: 0.3) {
+    background: $color; /* The Fallback */
+    background: rgba($color, $opacity);
+}
