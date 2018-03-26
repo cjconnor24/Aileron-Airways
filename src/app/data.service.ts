@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
-import { Timeline } from './data';
+
 import { TimelineApiService } from './Timelineapi.service';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class DataService {
-
 
   lastId: number = 0;
 
@@ -17,14 +16,9 @@ export class DataService {
    ) {
    }
 
-
-
-
    getAllData(): Observable<Timelines[]> {
      return this.Timelineapi.getTimelines();
    }
-
-
 
 }
 
