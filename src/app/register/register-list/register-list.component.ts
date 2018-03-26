@@ -24,13 +24,13 @@ export class RegisterListComponent implements OnInit, OnDestroy {
   
   getEvents(){
     this.ideagenService.getTimelines();
-    this.ideagenService.getAllEvents();
+    // this.ideagenService.getAllEvents();
   }
   
-  fetchData(){
-    this.register = this.registerService.getTimelines();
-    this.registerEv = this.registerService.getAllEvent();
-  }
+  // fetchData(){
+  //   this.register = this.registerService.getTimelines();
+  //   // this.registerEv = this.registerService.getAllEvent();
+  // }
   
   ngOnInit() {
 
@@ -45,7 +45,7 @@ export class RegisterListComponent implements OnInit, OnDestroy {
     )
     //this.registerEv = this.registerService.getAllEvent();
     //this.subscriber = this.registerService.registerChangeEv.subscribe((events:Event[]) =>{this.registerEv=events;})
-    this.getEvents();
+    // this.getEvents();
   
   }
   
