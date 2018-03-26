@@ -35,6 +35,8 @@ export class CreateTimelineComponent implements OnInit {
       'name': new FormControl(null, Validators.required)
     });
 
+    console.log(this.createTimeline);
+
   }
 
 }

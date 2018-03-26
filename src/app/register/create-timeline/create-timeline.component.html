@@ -1,10 +1,11 @@
+<button class="button-primary green" routerLink="timelines">Back</button>
 <form [formGroup]="createTimeline" (ngSubmit)="onCreateTimeline()">
   <div class="row">
     <div class="six columns">
       <label for="name">Timeline Name</label>
       <input class="u-full-width" type="email" placeholder="Timeline name" id="name" formControlName="name">
     </div>
-    
+
   </div>
 
   <input class="button-primary" type="submit" value="Submit">
