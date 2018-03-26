@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 // import { ApiService } from './api.service';
 // import { DataService } from './data.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
-// import { AppRoutingModule } from './app-routing.module';
 import { TimelineListComponent } from './timeline-list/timeline-list.component';
 import { TimelineSearchComponent } from './timeline-search/timeline-search.component';
 import { EventSearchComponent } from './event-search/event-search.component';

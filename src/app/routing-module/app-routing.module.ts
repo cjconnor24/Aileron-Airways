@@ -11,10 +11,10 @@ const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
     path: 'timelines', component: RegisterComponent, children: [
-      { path: '', component: RegisterListComponent } ,   //NEEDS UPDATED
-      { path: 'new', component: CreateTimelineComponent }, //NEEDS UPDATED
-      { path: ':id', component: RegisterComponent }, //NEEDS UPDATED
-      { path: ':id/edit', component: RegisterComponent } //NEEDS UPDATED
+      { path: '', component: RegisterListComponent } ,   // NEEDS UPDATED
+      { path: 'new', component: CreateTimelineComponent }, // NEEDS UPDATED
+      { path: ':id', component: RegisterComponent }, // NEEDS UPDATED
+      { path: ':id/edit', component: RegisterComponent } // NEEDS UPDATED
     ]
   },
   { path : 'dashboard', component: DashboardComponent},
