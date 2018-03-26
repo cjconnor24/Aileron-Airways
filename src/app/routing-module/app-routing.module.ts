@@ -13,7 +13,7 @@ const routes: Routes = [
     path: 'timelines', component: RegisterComponent, children: [
       { path: '', component: RegisterListComponent } ,   //NEEDS UPDATED
       { path: 'new', component: CreateTimelineComponent }, //NEEDS UPDATED
-      { path: ':id', component: RegisterComponent }, //NEEDS UPDATED
+      { path: ':id', component: TimelineListComponent }, //NEEDS UPDATED
       { path: ':id/edit', component: RegisterComponent } //NEEDS UPDATED
     ]
   },
