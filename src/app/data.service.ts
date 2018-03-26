@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 export class DataService {
 
 
-  lastId: 0;
+  lastId: number = 0;
 
   timeline: Timeline[] = [];
   timelines: Timelines[] = [];
