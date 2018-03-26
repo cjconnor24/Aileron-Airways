@@ -31,10 +31,15 @@ export class RegisterListComponent implements OnInit, OnDestroy {
       }
 
     )
+<<<<<<< HEAD
+    // this.getEvents();
+
+=======
     //this.registerEv = this.registerService.getAllEvent();
     //this.subscriber = this.registerService.registerChangeEv.subscribe((events:Event[]) =>{this.registerEv=events;})
     this.getEvents();
   
+>>>>>>> c863fd4befdd6af2188a5260b80b800403169791
   }
 
   getEvents(){

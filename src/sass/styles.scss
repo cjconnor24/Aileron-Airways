@@ -1,3 +1,6 @@
+// $fa-font-path: "../../node_modules/font-awesome/fonts";
+
+
 @import "utilities/variables"; /* CSS VARIABLES - COLOURS etc. */
 @import "utilities/animations"; /* CSS ANIMATION KEYFRAMES */
 @import "base/normalize"; /* NORMALISE CSS */
@@ -8,4 +11,5 @@
 // @import "components/slider"; /*SLIDER CONTROL*/
 // @import "timeline"; /* STYLES FOR TIMELINE */
 // @import "register"; /* STYLES FOR TIMELINE REGISTERS */
-// @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
+// @import "../assets/font-awesome/scss/fontawesome.css";
