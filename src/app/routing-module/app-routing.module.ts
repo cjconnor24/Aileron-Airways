@@ -8,17 +8,14 @@ import { CreateTimelineComponent } from '../register/create-timeline/create-time
 import { RegisterListComponent } from '../register/register-list/register-list.component';
 
 const routes: Routes = [
-  // { path: '', redirectTo: 'timelines', pathMatch: 'full' },
   {
     path: 'timelines', component: RegisterComponent, children: [
-      { path: '', component: RegisterListComponent } ,   //NEEDS UPDATED
-      { path: 'new', component: CreateTimelineComponent }, //NEEDS UPDATED
-      { path: ':id', component: TimelineListComponent }, //NEEDS UPDATED
-      { path: ':id/edit', component: RegisterComponent } //NEEDS UPDATED
+      { path: '', component: RegisterListComponent } ,      //NEEDS UPDATED
+      { path: 'new', component: CreateTimelineComponent },  //NEEDS UPDATED
+      { path: ':id', component: TimelineListComponent },    //NEEDS UPDATED
+      { path: ':id/edit', component: RegisterComponent }    //NEEDS UPDATED
     ]
   },
-  // { path : './dashboard', component: DashboardComponent},
-  // { path : './timeline-list', component: TimelineListComponent}
 ];
 
 
