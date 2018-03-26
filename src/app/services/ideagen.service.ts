@@ -5,6 +5,13 @@ import { Timeline } from '../models/timeline.model';
 import { environment } from '../../environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/Observable/of';
+import 'rxjs/add/observable/of';
+
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+
 
 
 @Injectable()
@@ -54,7 +61,30 @@ export class IdeagenService {
       //   }
       // )
 
+
   }
+
+ // searchTimelines(term: string): Observable<Timeline[]>{
+ //       if(!term.trim()){
+ //         return of([]);
+   //     }
+     //   return this.httpClient.get<Timeline[]>(`this.API_URL/?title=${term}`).pipe(
+       //   catchError(this.handleError<Timeline[]>('searchTimelines', []))
+       // );
+      
+  // }
+
+ // private handleError<T> (operation = 'operation', result?: T) {
+   // return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+     // console.error(error); // log to console instead
+
+
+      // Let the app keep running by returning an empty result.
+    // return of(result as T);
+   // };
+ // }
 
 }
 

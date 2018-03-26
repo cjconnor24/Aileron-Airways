@@ -20,6 +20,7 @@ import { IdeagenService } from './services/ideagen.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './routing-module/app-routing.module';
 import { CreateTimelineComponent } from './register/create-timeline/create-timeline.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 
 
@@ -36,6 +37,7 @@ import { CreateTimelineComponent } from './register/create-timeline/create-timel
     RegisterListComponent,
     RegisterTimelineComponent,
     CreateTimelineComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,

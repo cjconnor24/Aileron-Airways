@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { Timeline } from '../../models/timeline.model';
 import { RegisterService } from '../../services/register.service';
 import { IdeagenService } from '../../services/ideagen.service';
 import { Subscription } from 'rxjs/Subscription';
+
 
 @Component({
   selector: 'app-register-list',
