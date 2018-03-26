@@ -14,5 +14,5 @@ export class Timeline {
             this.events = [];
         // }
     }
-
+    
 }

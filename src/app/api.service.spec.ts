@@ -1,8 +1,9 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { ApiService } from './api.service';
-import { aseRequestOptions, Http, XHRBackend } from '@angular/http';
+import { TimelineApiService } from './services/Timelineapi.service';
+import { BaseRequestOptions, Http, XHRBackend } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
+import { HttpHeaders } from '@angular/common/http';
 
 describe('ApiService', () => {
   beforeEach(() => {
@@ -16,12 +17,12 @@ describe('ApiService', () => {
         },
         MockBackend,
         BaseRequestOptions,
-        ApiService
+        TimelineApiService
       ]
     });
   });
 
-  it('should ...', inject([ApiService], (service: ApiService) => {
+  it('should ...', inject([TimelineApiService], (service: TimelineApiService) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -3,8 +3,10 @@
 
 
 <a routerLink="new" class="button">New Timeline</a>
+<input [(ngModel)]="searchText" placeholder="Search by name..." type="text">
 <div class="register">
   
+<<<<<<< HEAD
   <!-- <app-register-timeline *ngFor="let timeline of register; let i = index" [timeline]="timeline"></app-register-timeline> -->
 
   <div class="tline" *ngFor="let timeline of register" routerLink="{{timeline.timelineId}}/edit">
@@ -44,5 +46,13 @@
     </div>
   
   </div>
+=======
+  <app-register-timeline *ngFor="let timeline of register | filter: searchText; let i = index" [timeline]="timeline"></app-register-timeline>
+>>>>>>> c863fd4befdd6af2188a5260b80b800403169791
   
 </div>
+
+
+<li *ngFor="let data of data" >
+        <p>{{data}}</p>
+      </li>
