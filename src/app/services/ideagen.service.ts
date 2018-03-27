@@ -87,7 +87,7 @@ export class IdeagenService {
 
   }
 
-  public getAllEvent() {
+  public getAllEvents() {
     const headers = new HttpHeaders(
       {
         'TenantId': 'Team2',

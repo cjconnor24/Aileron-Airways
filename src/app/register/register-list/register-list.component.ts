@@ -32,15 +32,15 @@ export class RegisterListComponent implements OnInit, OnDestroy {
       }
 
     )
-    //this.registerEv = this.registerService.getAllEvent();
-    //this.subscriber = this.registerService.registerChangeEv.subscribe((events:Event[]) =>{this.registerEv=events;})
+    this.registerEv = this.registerService.getAllEvent();
+    this.subscriber = this.registerService.registerChangeEv.subscribe((events:Event[]) =>{this.registerEv=events;})
     this.getEvents();
   
   }
 
   getEvents(){
     this.ideagenSerivce.getTimelines();
-    this.ideagenSerivce.getAllEvent();
+    this.ideagenSerivce.getAllEvents();
   }
 
   fetchData(){
