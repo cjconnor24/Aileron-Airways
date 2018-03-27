@@ -40,6 +40,20 @@ export class RegisterService {
     return this.register.find(timeline => timeline.timelineId === id);
   }
 
+  editTimelineTitle(timeline: Timeline) {
+    this.ideagenService.editTimelineTitle(timeline)
+    .subscribe(
+      (tline: Timeline) => {
+        this.register[this.register.indexOf(tline)] = tline;
+        this.registerChanged.next(this.register.slice());
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+  }
+
 
   /**
    * Subscribes to the API call in IdeaGen service waiting on the API response call to delete.

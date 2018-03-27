@@ -54,6 +54,43 @@ export class IdeagenService {
 
   }
 
+  editTimelineTitle(timeline: Timeline): Observable<Timeline> {
+
+    const headers = new HttpHeaders(
+      {
+        'TenantId': 'Team2',
+        'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+      }
+    );
+
+    console.log(timeline);
+
+    const body = {
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
+      TimelineId: timeline.timelineId, // NEEDS AN ID
+      Title: timeline.title
+    };
+
+    return this.httpClient.put(this.API_URL + 'Timeline/EditTitle', body,
+      {
+        headers: headers
+      }).map(
+        (data: {
+          Title: string,
+          CreationTimeStamp: string,
+          IsDeleted: boolean,
+          Id: string,
+          TenantId: string
+      }) => {
+        const tline: Timeline =  new Timeline(data.Title);
+        tline.dateCreated = new Date(); //TODO: CONVERT TO PROPER TIME STAMP
+        return tline;
+        // return data;
+      });
+
+  }
+
   deleteTimeline(timeline: Timeline): Observable<any> {
 
     const headers = new HttpHeaders(

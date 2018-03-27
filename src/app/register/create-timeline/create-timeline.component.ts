@@ -22,48 +22,50 @@ export class CreateTimelineComponent implements OnInit {
   createTimeline: FormGroup;
   timeline: Timeline;
   editMode = false;
-  id:string;
+  id: string;
 
   onSubmit() {
 
+    console.log(this.createTimeline);
+
     if (!this.editMode) {
+      console.log('TIMELINE ADDED');
       this.registerService.addTimeline(new Timeline(this.createTimeline.controls.name.value));
-      this.router.navigate(['../'], { relativeTo: this.route });
-
     } else {
-
+      console.log('TIMELINE EDITED');
+      this.timeline.title = this.createTimeline.controls.name.value;
+      this.registerService.editTimelineTitle(this.timeline);
     }
 
   }
 
-  initForm() {
+  private initForm() {
 
+    let timelineTitle = '';
+
+    // IF EDITING, PULL THROUGH THE NAME
+    if (this.editMode) {
+      this.timeline = this.registerService.getTimeline(this.id);
+      timelineTitle = this.timeline.title;
+    }
+
+    this.createTimeline = new FormGroup({
+      'name': new FormControl(timelineTitle, Validators.required)
+    });
   }
 
   ngOnInit() {
 
-    let timelineName = '';
-
-    // SUBSCRIBE TO GET THE RECIPE
+    // GET THE ID FROM THE URL AND SET THE UPDATE MODE TO TRUE IF PARAMS EXIST
     this.route.params.subscribe(
       (params: Params) => {
-        this.id = +params['id'];
+        this.id = params['id'];
         this.editMode = params['id'] != null;
-        console.log(this.editMode);
-        // this.initForm();
-      }
-
-          
-      if(this.editMode){
         this.timeline = this.registerService.getTimeline(this.id);
-        timelineName = this.timeline.title;
+        console.log(this.editMode);
+        this.initForm();
       }
-
-    this.createTimeline = new FormGroup({
-        'name': new FormControl(timelineName, Validators.required)
-      });
-
-    console.log(this.createTimeline);
+    );
 
   }
 

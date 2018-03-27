@@ -3,10 +3,10 @@
   <div class="row">
     <div class="six columns">
       <label for="name">Timeline Name</label>
-      <input class="u-full-width" type="email" placeholder="Timeline name" id="name" formControlName="name">
+      <input class="u-full-width" type="email" type="text" placeholder="Timeline name" id="name" formControlName="name">
     </div>
 
   </div>
 
-  <input class="button-primary" type="submit" [disabled]="editMode" value="Submit">
+  <input type="submit" [disabled]="createTimeline.invalid" value="Submit">
 </form>
