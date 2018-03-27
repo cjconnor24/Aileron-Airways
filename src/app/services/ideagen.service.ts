@@ -12,6 +12,7 @@ import 'rxjs/add/observable/of';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { log } from 'util';
+import { Subscription } from 'rxjs/Subscription';
 
 
 
@@ -78,11 +79,16 @@ export class IdeagenService {
       }).subscribe(
         (data: any) => {
           console.log(data);
+
+          this.registerService.deleteTimeline(timeline);
+
+
         }
       );
 
   }
 
+  
   getTimelines() {
 
     const headers = new HttpHeaders(
