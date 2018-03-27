@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Timeline } from '../../models/timeline.model';
 import { RegisterService } from '../../services/register.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { IdeagenService } from '../../services/ideagen.service';
 
 @Component({
   selector: 'app-delete-timeline',
@@ -11,14 +12,27 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class DeleteTimelineComponent implements OnInit {
 
   timeline: Timeline;
-  id: number;
-  constructor(private registerService: RegisterService, private router: Router, private route: ActivatedRoute) { }
+  id: string;
 
-  // TODO: FILTER THE LIST TO GET THE ID
+  constructor(private registerService: RegisterService, private router: Router, private route: ActivatedRoute, private ideagenService: IdeagenService) { }
 
+  /**
+   * Delete timeline and redirect to timelines main
+   */
+  onConfirmDelete(){
+  console.log('This will be deleted');
+  this.ideagenService.deleteTimeline(this.timeline);
+  this.router.navigate(['timelines']);
+    
+  }
+
+  /**
+   * Initialise the component and retrieve the Timeline to be deleted
+   */
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
-    this.timeline = this.registerService.getTimelines().pop();
+    console.log("The id is"+ this.id);
+    this.timeline = this.registerService.getTimeline(this.id);
   }
 
 }

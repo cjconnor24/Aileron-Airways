@@ -35,7 +35,7 @@ export class RegisterListComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     // THIS WILL CURRENTLY GET THE STATIC TIMELINES FROM THE SERVICE
-   
+    
     this.register = this.registerService.getTimelines();
     this.subscriber = this.registerService.registerChanged.subscribe(
       (timelines: Timeline[]) => {
