@@ -12,21 +12,18 @@ import { IdeagenService } from '../../services/ideagen.service';
 })
 export class CreateTimelineComponent implements OnInit {
 
-  constructor(private registerService: RegisterService, private router:Router, private route:ActivatedRoute, private ideagenService: IdeagenService) { }
-
-  timelines = [
-    { 1234: new Timeline('Timeline Name') },
-    { 5678: new Timeline('Timeline Name') },
-    { 9012: new Timeline('Timeline Name') }
-  ];
+  constructor(
+    private registerService: RegisterService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private ideagenService: IdeagenService
+  ) { }
 
   createTimeline: FormGroup;
 
   onCreateTimeline() {
-    console.log(this.createTimeline.controls.name.value);
-    this.ideagenService.createTimeline(new Timeline(this.createTimeline.controls.name.value));
     this.registerService.addTimeline(new Timeline(this.createTimeline.controls.name.value));
-    this.router.navigate(['../'],{relativeTo: this.route});
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   ngOnInit() {

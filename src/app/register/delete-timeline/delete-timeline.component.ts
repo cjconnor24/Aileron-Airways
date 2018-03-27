@@ -14,16 +14,20 @@ export class DeleteTimelineComponent implements OnInit {
   timeline: Timeline;
   id: string;
 
-  constructor(private registerService: RegisterService, private router: Router, private route: ActivatedRoute, private ideagenService: IdeagenService) { }
+
+  constructor(
+    private registerService: RegisterService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private ideagenService: IdeagenService
+  ) { }
 
   /**
    * Delete timeline and redirect to timelines main
    */
-  onConfirmDelete(){
-  console.log('This will be deleted');
-  this.ideagenService.deleteTimeline(this.timeline);
-  this.router.navigate(['timelines']);
-    
+  onConfirmDelete() {
+    this.registerService.deleteTimeline(this.timeline);
+    this.router.navigate(['timelines']);
   }
 
   /**
@@ -31,7 +35,7 @@ export class DeleteTimelineComponent implements OnInit {
    */
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
-    console.log("The id is"+ this.id);
+    console.log("The id is" + this.id);
     this.timeline = this.registerService.getTimeline(this.id);
   }
 

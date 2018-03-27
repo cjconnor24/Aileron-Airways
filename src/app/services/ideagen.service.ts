@@ -54,7 +54,7 @@ export class IdeagenService {
 
   }
 
-  deleteTimeline(timeline: Timeline) {
+  deleteTimeline(timeline: Timeline): Observable<any> {
 
     const headers = new HttpHeaders(
       {
@@ -108,33 +108,6 @@ export class IdeagenService {
 
   }
 }
-// COMMENTED THE BELOW OUT AS WE SHOULDNT NEED IT, NOW THAT WE'RE MAPPING EVENTS DIRECTLY IN GETALLTIMELINEEVENTS
-//   public getAllEvents() {
-//     const headers = new HttpHeaders(
-//       {
-//         'TenantId': 'Team2',
-//         'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
-//       });
-
-//     return this.httpClient
-//       .get(this.API_URL + 'TimelineEvent/GetAllEvents', { headers: headers })
-//       .map(EvData => {
-//         console.log(EvData);
-//         return EvData.map(data => {
-
-//           let event = new Event(data.Id, data.Title, data.Description, data.EventDateTime, data.Location);
-
-//           return event;
-
-//         });
-//       })
-//       .subscribe(
-//         (events: Event[]) => {
-//           this.registerService.setEvent(events);
-//           console.log(events);
-//         })
-//   }
-// }
 
 
 
