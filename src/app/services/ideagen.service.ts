@@ -88,7 +88,7 @@ export class IdeagenService {
 
   }
 
-  
+
   getTimelines() {
 
     const headers = new HttpHeaders(
@@ -104,16 +104,15 @@ export class IdeagenService {
       }).map(
         data => {
           return data['Timelines'].map(timeline => {
-            let tl = new Timeline(timeline.Title);
+            const tl = new Timeline(timeline.Title);
             tl.timelineId = timeline.Id;
             tl.dateCreated = new Date((timeline.CreationTimeStamp - 621355968000000000) / 10000);
 
             // GET THE EVENTS AND MAP TO EVENT OBJECTS
-            tl.events = timeline["TimelineEvents"].map(event =>{
-              const e: Event = new Event(event.Id,event.Title,event.Description,event.EventDateTime,event.Location);
+            tl.events = timeline["TimelineEvents"].map(event => {
+              const e: Event = new Event(event.Id, event.Title, event.Description, event.EventDateTime, event.Location);
               return e;
-            })
-            
+            });
 
             return tl;
           });
@@ -121,18 +120,18 @@ export class IdeagenService {
       )
       .subscribe(
         (timelines: Timeline[]) => {
-          
+
           console.log('Pulling data getTimelines() Ideagen Service:');
           console.log(timelines);
-          
-          
+
+
           this.registerService.setTimelines(timelines);
-          
+
         }
       );
 
   }
-
+}
 // COMMENTED THE BELOW OUT AS WE SHOULDNT NEED IT, NOW THAT WE'RE MAPPING EVENTS DIRECTLY IN GETALLTIMELINEEVENTS
 //   public getAllEvents() {
 //     const headers = new HttpHeaders(
