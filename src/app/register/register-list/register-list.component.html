@@ -1,19 +1,14 @@
-<button class="button button-primary" (click)="getEvents()"><i class="fas fa-sync fa-spin"></i> Refresh Events from API</button>
-
 <h4>Search Timelines</h4>
 <div class="search-box">
+
   <div class="input-group">
     <i class="fas fa-search"></i>
     <input [(ngModel)]="searchText" placeholder="Search by name..." type="text">
   </div>
-  <div class="input-group">
-    <i class="far fa-calendar"></i>
-    <input placeholder="Select Date..." type="text">
-  </div>
-  <button type="button" class="button button-primary"><i class="fas fa-search"></i> Search</button>
+
 </div>
 
-<a routerLink="new" class="button">New Timeline</a>
+<p class="button-row"><button class="button button-primary" (click)="getEvents()"><i class="fas fa-sync fa-spin"></i> Refresh from API</button> <a routerLink="new" class="button button-primary green"><i class="fas fa-plus"></i> Create New Timeline</a></p>
 
 <div class="register">
 
