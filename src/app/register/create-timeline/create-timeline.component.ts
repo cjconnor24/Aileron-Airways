@@ -4,6 +4,7 @@ import { Timeline } from '../../models/timeline.model';
 import { RegisterService } from '../../services/register.service';
 import { Route, Router, ActivatedRoute, Params } from '@angular/router';
 import { IdeagenService } from '../../services/ideagen.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-create-timeline',
@@ -22,7 +23,10 @@ export class CreateTimelineComponent implements OnInit {
   createTimeline: FormGroup;
   timeline: Timeline;
   editMode = false;
+  updated = false;
   id: string;
+
+  subscription: Subscription;
 
   onSubmit() {
 
@@ -64,6 +68,12 @@ export class CreateTimelineComponent implements OnInit {
         this.timeline = this.registerService.getTimeline(this.id);
         console.log(this.editMode);
         this.initForm();
+      }
+    );
+
+    this.subscription = this.registerService.registerChanged.subscribe(
+      (timeline: Timeline[]) => {
+        this.updated = true;
       }
     );
 
