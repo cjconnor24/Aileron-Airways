@@ -10,7 +10,7 @@
 
 <p class="button-row"><button class="button button-primary" (click)="getEvents()"><i class="fas fa-sync fa-spin"></i> Refresh from API</button> <a routerLink="new" class="button button-primary green"><i class="fas fa-plus"></i> Create New Timeline</a></p>
 
-<div class="register">
+<div class="register" *ngIf="loaded">
 
   <div class="tline" *ngFor="let timeline of register | filter: searchText" routerLink="{{timeline.timelineId}}/edit">
     <!-- <div class="tline" *ngFor="let timeline of register" routerLink="{{timeline.timelineId}}/edit"> -->
@@ -51,4 +51,9 @@
 
   </div>
 
+</div>
+
+<div *ngIf="!loaded" style="text-align:center;">
+  <h1>Loading Timelines...</h1>
+  <i class="fas fa-sync fa-spin" style="font-size:150px;"></i>
 </div>
