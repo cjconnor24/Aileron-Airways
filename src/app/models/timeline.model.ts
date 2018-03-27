@@ -6,7 +6,7 @@ export class Timeline {
     dateCreated: Date;
 
     constructor(title: string, events?: Event[]) {
-        this.title = Math.floor((Math.random() * 6) + 1).toString();
+        this.timelineId = Math.floor((Math.random() * 6) + 1).toString();
         this.title = title;
         // if (events.length > 0) {
         //     this.events = events;
