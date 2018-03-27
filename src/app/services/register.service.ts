@@ -23,14 +23,14 @@ export class RegisterService {
     return this.register.slice();
   }
 
-  getTimeline(id: string):Timeline  {
+  getTimeline(id: string): Timeline  {
     return this.register.find(timeline => timeline.timelineId === id);
   }
 
-  deleteTimeline(timeline:Timeline) {
-    //TODO: DELETE TIMELINE
+  deleteTimeline(timeline: Timeline) {
+    // TODO: DELETE TIMELINE
     // this.register;
-    this.register.splice(this.register.indexOf(timeline),1);
+    this.register.splice(this.register.indexOf(timeline), 1);
     this.registerChanged.next(this.register.slice());
 
 
@@ -60,9 +60,9 @@ export class RegisterService {
     this.registerChanged.next(this.register.slice());
   }
 
-  updateTimeline(index:number, timeline: Timeline) {
+  updateTimeline(index: number, timeline: Timeline) {
     
-    //TODO: UPDATE TIMELINE
+    // TODO: UPDATE TIMELINE
 
 
   }

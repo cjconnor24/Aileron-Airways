@@ -109,7 +109,7 @@ export class IdeagenService {
             tl.dateCreated = new Date((timeline.CreationTimeStamp - 621355968000000000) / 10000);
 
             // GET THE EVENTS AND MAP TO EVENT OBJECTS
-            tl.events = timeline["TimelineEvents"].map(event => {
+            tl.events = timeline['TimelineEvents'].map(event => {
               const e: Event = new Event(event.Id, event.Title, event.Description, event.EventDateTime, event.Location);
               return e;
             });
