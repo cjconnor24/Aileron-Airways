@@ -1,4 +1,4 @@
-<button class="button-primary green" routerLink="/timelines">Back</button>
+
 <form [formGroup]="createTimeline" (ngSubmit)="onSubmit()">
   <div class="row">
     <div class="six columns">
@@ -7,7 +7,11 @@
     </div>
 
   </div>
+<button *ngIf="!updated" type="button" routerLink="/timelines">Cancel</button>
+  <input *ngIf="!updated" type="submit" [disabled]="createTimeline.invalid" value="{{editMode ? 'Update Timeline' : 'Create Timeline'}}">
+  <div *ngIf="updated">
+      <button class="button" routerLink="/timelines">Return to Timelines</button>
 
-  <input type="submit" [disabled]="createTimeline.invalid" value="Submit">
-  <p *ngIf="updated">API CALL COMPELTE</p>
+    <p> <i class="fas fa-check"></i> API CALL COMPELTE</p>
+  </div>
 </form>
