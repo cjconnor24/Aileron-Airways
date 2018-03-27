@@ -24,8 +24,8 @@ export class CreateTimelineComponent implements OnInit {
 
   onCreateTimeline() {
     console.log(this.createTimeline.controls.name.value);
+    this.ideagenService.createTimeline(new Timeline(this.createTimeline.controls.name.value));
     this.registerService.addTimeline(new Timeline(this.createTimeline.controls.name.value));
-    this.ideagenService.createTimeline(new Timeline(this.createTimeline.controls.name.value));  
     this.router.navigate(['../'],{relativeTo: this.route});
   }
 
