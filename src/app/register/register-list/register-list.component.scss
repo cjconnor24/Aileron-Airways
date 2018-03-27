@@ -1,0 +1,30 @@
+.search-box {
+    padding:1em;
+    box-shadow:0 0 10px #CCC;
+    // border:1px solid #C00;
+    border-radius: 10px;
+    margin:0 0 1em 0;
+
+    .input-group {
+        margin:0;padding:0;
+        position:relative;
+        display:inline-block;
+
+        i {
+            position:absolute;
+            left:0;
+            top:0;
+            font-size:15px;
+            width:38px;
+            height:38px;
+            line-height:38px;
+            text-align:center;
+            color:#CCC;
+        }
+        input {
+            margin:0 0;padding:0 38px;
+        }
+
+    }
+    
+}
