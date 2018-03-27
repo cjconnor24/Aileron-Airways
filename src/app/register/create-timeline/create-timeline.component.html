@@ -1,5 +1,5 @@
 <button class="button-primary green" routerLink="/timelines">Back</button>
-<form [formGroup]="createTimeline" (ngSubmit)="onCreateTimeline()">
+<form [formGroup]="createTimeline" (ngSubmit)="onSubmit()">
   <div class="row">
     <div class="six columns">
       <label for="name">Timeline Name</label>
@@ -8,5 +8,5 @@
 
   </div>
 
-  <input class="button-primary" type="submit" [disabled]="" value="Submit">
+  <input class="button-primary" type="submit" [disabled]="editMode" value="Submit">
 </form>

@@ -14,7 +14,7 @@ const routes: Routes = [
       { path: '', component: RegisterListComponent },      //NEEDS UPDATED
       { path: 'new', component: CreateTimelineComponent },  //NEEDS UPDATED
       { path: ':id', component: TimelineListComponent },    //NEEDS UPDATED
-      { path: ':id/edit', component: RegisterComponent },  //NEEDS UPDATED
+      { path: ':id/edit', component: CreateTimelineComponent },  //NEEDS UPDATED
       { path: ':id/delete', component: DeleteTimelineComponent }    //NEEDS UPDATED
     ]
   },
