@@ -53,8 +53,6 @@ import { MomentPipe } from './pipes/moment.pipe';
     HttpClientModule
   ],
   providers: [
-    // ApiService,
-    // DataService,
     IdeagenService,
     RegisterService],
   bootstrap: [
