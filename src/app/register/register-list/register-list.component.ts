@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class RegisterListComponent implements OnInit, OnDestroy {
 
   register: Timeline[];
-  // registerEv: Event[];
+  // // registerEv: Event[];
   subscriber: Subscription;
   searchText: string;
   loaded = false;

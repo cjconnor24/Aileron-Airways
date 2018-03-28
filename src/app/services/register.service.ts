@@ -38,6 +38,7 @@ export class RegisterService {
 
   getTimeline(id: string): Timeline {
     // this.loadTimelines();
+    // this.ideagenService.getTimeline()
     return this.register.find(timeline => timeline.timelineId === id);
   }
 
