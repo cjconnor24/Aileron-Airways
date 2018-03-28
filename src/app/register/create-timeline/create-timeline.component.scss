@@ -1,4 +1,7 @@
 
-// .ng-touched.ng-invalid input[type=text] {
-//     border:1px solid #F00;
-// }
+@import '../../../sass/utilities/variables';
+.timeline-info {
+    p i {
+        color:$darkgreen;
+    }
+}

@@ -2,6 +2,12 @@
 <form [formGroup]="createTimeline" (ngSubmit)="onSubmit()">
   <div class="row">
     <div class="six columns">
+      
+      <div class="timeline-info" *ngIf="editMode">
+        <h1>{{ timeline.title}}</h1>
+        <p><i class="fas fa-clock"></i> <strong>Created On</strong> {{ timeline.dateCreated | date: 'medium' }}</p>
+      </div>
+
       <label for="name">Timeline Name</label>
       <input class="u-full-width" type="email" type="text" placeholder="Timeline name" id="name" formControlName="name">
     </div>
