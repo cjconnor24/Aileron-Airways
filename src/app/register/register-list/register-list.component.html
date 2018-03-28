@@ -31,7 +31,7 @@
     <div class="details">
       <p class="details__name">{{timeline.title}}</p>
       <p class="details__time">
-        <i class="fas fa-calendar-alt"></i> {{timeline.dateCreated | date:'full' }} </p>
+        <i class="fas fa-calendar-alt"></i> {{timeline.dateCreated | moment }} </p>
       <p>
         <a routerLink="{{timeline.timelineId}}/edit" class="button button-success">View Event</a>
       </p>

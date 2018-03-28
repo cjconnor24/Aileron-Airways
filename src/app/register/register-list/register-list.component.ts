@@ -6,6 +6,7 @@ import { IdeagenService } from '../../services/ideagen.service';
 import { Subscription } from 'rxjs/Subscription';
 
 
+
 @Component({
   selector: 'app-register-list',
   templateUrl: './register-list.component.html',
@@ -33,7 +34,6 @@ export class RegisterListComponent implements OnInit, OnDestroy {
         this.loaded = true;
       }
     );
-
 
   }
 

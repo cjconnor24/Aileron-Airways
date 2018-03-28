@@ -25,6 +25,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 
 import { CreateEventComponent } from './events/create-event/create-event.component';
 import { DeleteTimelineComponent } from './register/delete-timeline/delete-timeline.component';
+import { MomentPipe } from './pipes/moment.pipe';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { DeleteTimelineComponent } from './register/delete-timeline/delete-timel
     FilterPipe,
     CreateEventComponent,
     DeleteTimelineComponent,
+    MomentPipe,
   ],
   imports: [
     BrowserModule,
