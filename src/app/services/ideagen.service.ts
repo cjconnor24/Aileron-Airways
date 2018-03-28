@@ -64,7 +64,7 @@ export class IdeagenService {
       }
     );
 
-    console.log(timeline);
+    // console.log(timeline);
 
     const body = {
       'TenantId': 'Team2',
@@ -149,7 +149,6 @@ export class IdeagenService {
 
             const tl = new Timeline(timeline.Title);
             tl.timelineId = timeline.Id;
-            console.log(+timeline.CreationTimeStamp);
             tl.dateCreated = this.ticksToTime(+timeline.CreationTimeStamp);
 
             // GET THE EVENTS AND MAP TO EVENT OBJECTS

@@ -6,13 +6,8 @@ import { IdeagenService } from '../../services/ideagen.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
-  constructor(private ideagenService: IdeagenService){}
 
-  ngOnInit() {
-    // console.log('this logged');
-    // this.ideagenService.getTimelines();
-  }
 
 }
