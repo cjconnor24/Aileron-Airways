@@ -4,8 +4,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-// import { ApiService } from './api.service';
-// import { DataService } from './data.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TimelineListComponent } from './timeline-list/timeline-list.component';
 import { TimelineSearchComponent } from './timeline-search/timeline-search.component';
