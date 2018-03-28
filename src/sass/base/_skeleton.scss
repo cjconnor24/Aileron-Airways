@@ -187,7 +187,7 @@ input[type="button"] {
   border: 1px solid #bbb;
   cursor: pointer;
   box-sizing: border-box;
-  transition:0.3s;
+  // transition:0.3s;
   transition: all $transitionspeed;
 
   // HOVER STATE
@@ -328,6 +328,19 @@ input[type="password"].ng-touched.ng-invalid,
 textarea.ng-touched.ng-invalid,
 select.ng-touched.ng-invalid {
   border:2px solid $darkred;
+}
+
+  // ADDING ANGULAR VALUD ON BOXES
+  input[type="email"].ng-touched.ng-valid,
+input[type="number"].ng-touched.ng-valid,
+input[type="search"].ng-touched.ng-valid,
+input[type="text"].ng-touched.ng-valid,
+input[type="tel"].ng-touched.ng-valid,
+input[type="url"].ng-touched.ng-valid,
+input[type="password"].ng-touched.ng-valid,
+textarea.ng-touched.ng-valid,
+select.ng-touched.ng-valid {
+  border:2px solid $darkgreen;
 }
 
 
