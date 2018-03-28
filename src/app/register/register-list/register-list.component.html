@@ -1,4 +1,5 @@
 <h4>Search Timelines</h4>
+
 <div class="search-box">
 
   <div class="input-group">
@@ -8,7 +9,12 @@
 
 </div>
 
-<p class="button-row"><button class="button button-primary" (click)="getEvents()"><i class="fas fa-sync fa-spin"></i> Refresh from API</button> <a routerLink="new" class="button button-primary green"><i class="fas fa-plus"></i> Create New Timeline</a></p>
+<p class="button-row">
+  <button class="button button-primary" (click)="getEvents()">
+    <i class="fas fa-sync fa-spin"></i> Refresh from API</button>
+  <a routerLink="new" class="button button-success">
+    <i class="fas fa-plus"></i> Create New Timeline</a>
+</p>
 
 <div class="register" *ngIf="loaded">
 
@@ -27,7 +33,7 @@
       <p class="details__time">
         <i class="fas fa-calendar-alt"></i> {{timeline.dateCreated | date }} </p>
       <p>
-        <a routerLink="{{timeline.timelineId}}/edit" class="button button-primary green">View Event</a>
+        <a routerLink="{{timeline.timelineId}}/edit" class="button button-success">View Event</a>
       </p>
     </div>
 
