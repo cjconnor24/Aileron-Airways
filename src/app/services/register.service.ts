@@ -10,7 +10,7 @@ export class RegisterService {
 
   constructor(private ideagenService: IdeagenService) { }
 
-  register: Timeline[] = [new Timeline('Chris Event')];
+  register: Timeline[] = [];
   registerChanged = new Subject<Timeline[]>();
 
 
@@ -37,6 +37,7 @@ export class RegisterService {
   }
 
   getTimeline(id: string): Timeline {
+    // this.loadTimelines();
     return this.register.find(timeline => timeline.timelineId === id);
   }
 
