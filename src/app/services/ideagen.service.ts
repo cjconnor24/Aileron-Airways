@@ -13,6 +13,7 @@ import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { log } from 'util';
 import { Subscription } from 'rxjs/Subscription';
+import { Title } from '@angular/platform-browser';
 
 
 
@@ -45,12 +46,12 @@ export class IdeagenService {
       {
         headers: headers
       }).map(
-        (data: {Title: string, CreationTimeStamp: string, IsDeleted: boolean, Id: string, TenantId: string}) => {
-        const tline: Timeline =  new Timeline(data.Title);
-        tline.dateCreated = new Date(); //TODO: CONVERT TO PROPER TIME STAMP
-        return tline;
-        // return data;
-      });
+        (data: { Title: string, CreationTimeStamp: string, IsDeleted: boolean, Id: string, TenantId: string }) => {
+          const tline: Timeline = new Timeline(data.Title);
+          tline.dateCreated = this.ticksToTime(data.CreationTimeStamp);
+          return tline;
+          // return data;
+        });
 
   }
 
@@ -82,12 +83,12 @@ export class IdeagenService {
           IsDeleted: boolean,
           Id: string,
           TenantId: string
-      }) => {
-        const tline: Timeline =  new Timeline(data.Title);
-        tline.dateCreated = new Date(); //TODO: CONVERT TO PROPER TIME STAMP
-        return tline;
-        // return data;
-      });
+        }) => {
+          const tline: Timeline = new Timeline(data.Title);
+          tline.dateCreated = this.ticksToTime(data.CreationTimeStamp); // TODO: CONVERT TO PROPER TIME STAMP
+          return tline;
+          // return data;
+        });
 
   }
 
@@ -113,6 +114,24 @@ export class IdeagenService {
 
   }
 
+  getTimeline(timeline: Timeline): Observable<Timeline> {
+
+    const headers = new HttpHeaders({
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+    });
+
+    return this.httpClient.get(this.API_URL + 'Timeline/GetTimeline',
+      {
+        headers: headers
+      }).map((data: { Title: string, CreationTimeStamp: string, IsDeleted: string, Id: string, TenantId: string }) => {
+        const tl: Timeline = new Timeline(data.Title);
+        tl.dateCreated = this.ticksToTime(data.CreationTimeStamp); // TODO: CONVERT DATE
+        return tl;
+      });
+
+  }
+
 
   getTimelines(): Observable<Timeline[]> {
 
@@ -130,7 +149,8 @@ export class IdeagenService {
 
             const tl = new Timeline(timeline.Title);
             tl.timelineId = timeline.Id;
-            tl.dateCreated = new Date((timeline.CreationTimeStamp - 621355968000000000) / 10000);
+            console.log(+timeline.CreationTimeStamp);
+            tl.dateCreated = this.ticksToTime(+timeline.CreationTimeStamp);
 
             // GET THE EVENTS AND MAP TO EVENT OBJECTS
             tl.events = timeline['TimelineEvents'].map(event => {
@@ -144,6 +164,20 @@ export class IdeagenService {
       );
 
   }
+
+  /**
+   * Convert the IdeaGen Time Format to javascript Date Object
+   * @param time time to conver
+   */
+  private ticksToTime(time) {
+
+    const epochTicks = 621355968000000000;
+    const ticksPerMilisecond = 10000;
+
+    return new Date((time - epochTicks) / ticksPerMilisecond);
+
+  }
+
 }
 
 
