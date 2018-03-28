@@ -10,7 +10,7 @@
 </div>
 
 <p class="button-row">
-  <button class="button button-primary" (click)="getEvents()">
+  <button class="button button-primary">
     <i class="fas fa-sync fa-spin"></i> Refresh from API</button>
   <a routerLink="new" class="button button-success">
     <i class="fas fa-plus"></i> Create New Timeline</a>
@@ -31,7 +31,7 @@
     <div class="details">
       <p class="details__name">{{timeline.title}}</p>
       <p class="details__time">
-        <i class="fas fa-calendar-alt"></i> {{timeline.dateCreated | date }} </p>
+        <i class="fas fa-calendar-alt"></i> {{timeline.dateCreated | date:'full' }} </p>
       <p>
         <a routerLink="{{timeline.timelineId}}/edit" class="button button-success">View Event</a>
       </p>
