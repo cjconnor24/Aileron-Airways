@@ -8,7 +8,7 @@
 
   </div>
 <button *ngIf="!updated" type="button" routerLink="/timelines">Cancel</button>
-  <input *ngIf="!updated" type="submit" [disabled]="createTimeline.invalid" value="{{editMode ? 'Update Timeline' : 'Create Timeline'}}">
+  <input *ngIf="!updated" type="submit" [disabled]="createTimeline.invalid" [ngClass]="{'button-success':!createTimeline.invalid}" value="{{editMode ? 'Update Timeline' : 'Create Timeline'}}">
   <div *ngIf="updated">
       <button class="button" routerLink="/timelines">Return to Timelines</button>
 
