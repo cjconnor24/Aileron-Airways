@@ -23,6 +23,19 @@ export class RegisterService {
     return this.register.slice();
   }
 
+  getTimeline(id: string):Timeline  {
+    return this.register.find(timeline => timeline.timelineId === id);
+  }
+
+  deleteTimeline(timeline:Timeline) {
+    //TODO: DELETE TIMELINE
+    // this.register;
+    this.register.splice(this.register.indexOf(timeline),1);
+    this.registerChanged.next(this.register.slice());
+
+
+  }
+
   getAllEvent(){
     return this.registerEv.slice();
   }
@@ -54,8 +67,6 @@ export class RegisterService {
 
   }
 
-  deleteTimeline() {
-    //TODO: DELETE TIMELINE
-  }
+
 
 }

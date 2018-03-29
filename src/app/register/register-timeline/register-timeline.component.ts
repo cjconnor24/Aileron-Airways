@@ -12,7 +12,7 @@ export class RegisterTimelineComponent implements OnInit {
   constructor() { }
 
   @Input() timeline: Timeline;
-  //@Input() event:Event;
+  // @Input() event:Event;
 
   ngOnInit() {
 

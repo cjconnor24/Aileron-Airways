@@ -11,6 +11,8 @@ import 'rxjs/add/observable/of';
 
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
+import { log } from 'util';
+import { Subscription } from 'rxjs/Subscription';
 
 
 
@@ -48,6 +50,41 @@ export class IdeagenService {
 
   }
 
+  deleteTimeline(timeline: Timeline) {
+
+    const headers = new HttpHeaders(
+      {
+        'TenantId': 'Team2',
+        'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+      }
+    );
+
+    console.log(timeline);
+
+    const body = {
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
+      TimelineId: timeline.timelineId
+    }
+
+    console.log(body);
+
+    return this.httpClient.put(this.API_URL + 'Timeline/Delete', body,
+      {
+        headers: headers
+      }).subscribe(
+        (data: any) => {
+          console.log(data);
+
+          this.registerService.deleteTimeline(timeline);
+
+
+        }
+      );
+
+  }
+
+
   getTimelines() {
 
     const headers = new HttpHeaders(
@@ -63,11 +100,15 @@ export class IdeagenService {
       }).map(
         data => {
           return data['Timelines'].map(timeline => {
-            let tl = new Timeline(timeline.Title);
+            const tl = new Timeline(timeline.Title);
             tl.timelineId = timeline.Id;
             tl.dateCreated = new Date((timeline.CreationTimeStamp - 621355968000000000) / 10000);
 
-            // tl.events = timeline.TimelineEvents;
+            // GET THE EVENTS AND MAP TO EVENT OBJECTS
+            tl.events = timeline["TimelineEvents"].map(event => {
+              const e: Event = new Event(event.Id, event.Title, event.Description, event.EventDateTime, event.Location);
+              return e;
+            });
 
             return tl;
           });
@@ -75,12 +116,8 @@ export class IdeagenService {
       )
       .subscribe(
         (timelines: Timeline[]) => {
-          console.log(timelines);
-          this.registerService.setTimelines(timelines);
-          console.log(timelines);
-        }
-      );
 
+<<<<<<< HEAD
   }
 
   public getAllEvents() {
@@ -89,26 +126,46 @@ export class IdeagenService {
         'TenantId': 'Team2',
         'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
       });
+=======
+          console.log('Pulling data getTimelines() Ideagen Service:');
+          console.log(timelines);
+>>>>>>> 47ca758b7827dcf6be47da47b1348a8ab61ea1e8
 
-    return this.httpClient
-      .get(this.API_URL + 'TimelineEvent/GetAllEvents', { headers: headers })
-      .map(EvData => {
-        console.log(EvData);
-        return EvData.map(data => {
 
-          let event = new Event(data.Id, data.Title, data.Description, data.EventDateTime, data.Location);
+          this.registerService.setTimelines(timelines);
 
-          return event;
+        }
+      );
 
-        });
-      })
-      .subscribe(
-        (events: Event[]) => {
-          this.registerService.setEvent(events);
-          console.log(events);
-        })
   }
 }
+// COMMENTED THE BELOW OUT AS WE SHOULDNT NEED IT, NOW THAT WE'RE MAPPING EVENTS DIRECTLY IN GETALLTIMELINEEVENTS
+//   public getAllEvents() {
+//     const headers = new HttpHeaders(
+//       {
+//         'TenantId': 'Team2',
+//         'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+//       });
+
+//     return this.httpClient
+//       .get(this.API_URL + 'TimelineEvent/GetAllEvents', { headers: headers })
+//       .map(EvData => {
+//         console.log(EvData);
+//         return EvData.map(data => {
+
+//           let event = new Event(data.Id, data.Title, data.Description, data.EventDateTime, data.Location);
+
+//           return event;
+
+//         });
+//       })
+//       .subscribe(
+//         (events: Event[]) => {
+//           this.registerService.setEvent(events);
+//           console.log(events);
+//         })
+//   }
+// }
 
 
 
