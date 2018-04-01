@@ -8,13 +8,15 @@
 .timeline-overview {
     text-align: center;
     width: 100%;
+    position: relative;
 
     &::before {
         content: '';
         display:block;
         width:20px;
         background: lighten($navyblue,30);
-        height:100%;
+        
+        top:0;bottom:0;
         position: absolute;
         left:calc(50% - 10px);
         border-radius: 10px;
@@ -22,38 +24,21 @@
 
     // LINKED EVENTS
     .linked {
-        background: rgba(255,0,255,0.5);
-        
+        display: inline-block;
+        position: relative;
+
         // RED BAR FOR LINKED EVENTS
         &::before {
             content: '';
             width:20px;
-            height: 100%;
             background: $darkred;
             position: absolute;
+            top:0;bottom:0;
             left:calc(50% - 10px);
             border-radius:10px;
             z-index: 0;
             transition:all 0.25s;
         }
-
-        // CURVED RED LINE
-        // &::after {
-        //     content: '';
-        //     box-sizing: border-box;
-        //     padding:1em;
-        //     width:calc(calc(100% / 5) / 2);
-        //     height:50px;
-        
-        //     border-top:20px solid $darkred;
-        //     border-right:20px solid $darkred;
-        //     position: absolute;
-        //     top:-50px;
-    //     border-top-right-radius: 25px;
-            
-
-        // }
-
 
         // MOVE TO LEFT AND RIGHT POSITION
         // &.left {right:calc(100% / 5);}
@@ -71,7 +56,7 @@
         background: lighten(#CCC,10);
         padding: 1em;
         border-radius: 5px;
-        margin:0 auto 2em auto;
+        margin:0 auto 1em auto;
         transition:all 0.25s;
         box-shadow: 0 0 15px #999;
         position:relative;
@@ -92,11 +77,14 @@
         
 
     }
+    .overview-event:first-child {
+        margin-top:0;
+    }
     // .left.linked .overview-event {    
-    //     right:calc(100% / 5);
+    //     margin-right:200px;
     // }
     // .right.linked .overview-event {    
-    //     left:calc(100% / 5);
+    //     margin-left:200px;
     // }
     
 
