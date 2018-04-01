@@ -1,6 +1,18 @@
 
 @import "../../../sass/utilities/variables"; // COLOUR VARIABLES
 
+@keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
+
 // MAIN CONTAINER
 .timeline-overview * {
     box-sizing: border-box;
@@ -14,8 +26,9 @@
         content: '';
         display:block;
         width:20px;
+        animation: Gradient 1s;
         background: lighten($navyblue,30);
-        
+        background: linear-gradient(lighten($navyblue,30),$navyblue);
         top:0;bottom:0;
         position: absolute;
         left:calc(50% - 10px);
@@ -28,16 +41,23 @@
         position: relative;
 
         // RED BAR FOR LINKED EVENTS
-        &::before {
+        &:before {
             content: '';
             width:20px;
             background: $darkred;
+            background:linear-gradient($darkred,darken($darkred,25));
             position: absolute;
             top:0;bottom:0;
             left:calc(50% - 10px);
             border-radius:10px;
             z-index: 0;
             transition:all 0.25s;
+            cursor: pointer;
+
+            &:hover {
+                background: $highlightyellow;
+                // cursor: pointer;
+            }
         }
 
         // MOVE TO LEFT AND RIGHT POSITION
@@ -61,6 +81,7 @@
         box-shadow: 0 0 15px #999;
         position:relative;
         z-index: 0.2;
+        cursor: pointer;
 
         p, h5 {padding:0;margin:0;}
 
@@ -73,7 +94,7 @@
 
         // HIGHLIGHT THE WHOLE BRANCH YELLOW
         &:hover + .linked .overview-event {background: $highlightyellow;}
-        &:hover + .linked::before {background: lighten($darkred,10);}
+        // &:hover + .linked::before {background: lighten($darkred,10);}
         
 
     }
