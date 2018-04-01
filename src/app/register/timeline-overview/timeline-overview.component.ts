@@ -9,6 +9,8 @@ export class TimelineOverviewComponent implements OnInit {
 
   constructor() { }
 
+  loop = 5;
+
   ngOnInit() {
   }
 

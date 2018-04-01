@@ -1,0 +1,103 @@
+
+@import "../../../sass/utilities/variables"; // COLOUR VARIABLES
+
+// MAIN CONTAINER
+.timeline-overview * {
+    box-sizing: border-box;
+}
+.timeline-overview {
+    text-align: center;
+    width: 100%;
+
+    &::before {
+        content: '';
+        display:block;
+        width:20px;
+        background: lighten($navyblue,30);
+        height:100%;
+        position: absolute;
+        left:calc(50% - 10px);
+        border-radius: 10px;
+    }
+
+    // LINKED EVENTS
+    .linked {
+        background: rgba(255,0,255,0.5);
+        
+        // RED BAR FOR LINKED EVENTS
+        &::before {
+            content: '';
+            width:20px;
+            height: 100%;
+            background: $darkred;
+            position: absolute;
+            left:calc(50% - 10px);
+            border-radius:10px;
+            z-index: 0;
+            transition:all 0.25s;
+        }
+
+        // CURVED RED LINE
+        // &::after {
+        //     content: '';
+        //     box-sizing: border-box;
+        //     padding:1em;
+        //     width:calc(calc(100% / 5) / 2);
+        //     height:50px;
+        
+        //     border-top:20px solid $darkred;
+        //     border-right:20px solid $darkred;
+        //     position: absolute;
+        //     top:-50px;
+    //     border-top-right-radius: 25px;
+            
+
+        // }
+
+
+        // MOVE TO LEFT AND RIGHT POSITION
+        // &.left {right:calc(100% / 5);}
+        // &.right {left:calc(100% / 5);}
+        &.left {right:200px;}
+        &.right {left:200px;}
+
+    }
+    
+
+    // SINGLE EVENT BOX
+    .overview-event {
+        // width:calc(100% / 5);
+        width: 200px;
+        background: lighten(#CCC,10);
+        padding: 1em;
+        border-radius: 5px;
+        margin:0 auto 2em auto;
+        transition:all 0.25s;
+        box-shadow: 0 0 15px #999;
+        position:relative;
+        z-index: 0.2;
+
+        p, h5 {padding:0;margin:0;}
+
+        // EVENT BOX HOVER
+        &:hover {
+            background: $highlightyellow;
+            // transform: scale(1.2);
+            z-index: 1;
+        }
+
+        // HIGHLIGHT THE WHOLE BRANCH YELLOW
+        &:hover + .linked .overview-event {background: $highlightyellow;}
+        &:hover + .linked::before {background: lighten($darkred,10);}
+        
+
+    }
+    // .left.linked .overview-event {    
+    //     right:calc(100% / 5);
+    // }
+    // .right.linked .overview-event {    
+    //     left:calc(100% / 5);
+    // }
+    
+
+}

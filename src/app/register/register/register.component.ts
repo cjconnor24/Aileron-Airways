@@ -19,14 +19,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
   constructor(private registerService: RegisterService) { }
 
   ngOnInit() {
+ 
     // GET THE STATIC TIMELINES FROM THE SERVICE THEN LISTEN TO THE SUBJECT
-    this.register = this.registerService.getTimelines();
-    this.subscriber = this.registerService.registerChanged.subscribe(
-      (timelines: Timeline[]) => {
-        this.register = timelines;
-        // this.loaded = true;
-      }
-    );
+    // COMMENTED OUT WHILE I"M WORKING ON BUILDING THE OTHER TIMELINE OVERVIEW
+    // TODO: RE-COMMENT BACK IN
+    // this.register = this.registerService.getTimelines();
+    // this.subscriber = this.registerService.registerChanged.subscribe(
+    //   (timelines: Timeline[]) => {
+    //     this.register = timelines;
+    //     // this.loaded = true;
+    //   }
+    // );
   }
 
   ngOnDestroy() {
