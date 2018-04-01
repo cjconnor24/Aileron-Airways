@@ -12,7 +12,7 @@ import { HeaderComponent } from './ui/header/header.component';
 import { FooterComponent } from './ui/footer/footer.component';
 import { RegisterComponent } from './register/register/register.component';
 import { RegisterListComponent } from './register/register-list/register-list.component';
-import { RegisterTimelineComponent } from './register/register-timeline/register-timeline.component';
+// import { RegisterTimelineComponent } from './register/register-timeline/register-timeline.component';
 import { RegisterService } from './services/register.service';
 import { IdeagenService } from './services/ideagen.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -36,7 +36,7 @@ import { MomentPipe } from './pipes/moment.pipe';
     FooterComponent,
     RegisterComponent,
     RegisterListComponent,
-    RegisterTimelineComponent,
+    // RegisterTimelineComponent,
     CreateTimelineComponent,
     FilterPipe,
     CreateEventComponent,
