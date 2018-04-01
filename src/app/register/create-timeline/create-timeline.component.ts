@@ -61,11 +61,13 @@ export class CreateTimelineComponent implements OnInit {
   ngOnInit() {
 
     // GET THE ID FROM THE URL AND SET THE UPDATE MODE TO TRUE IF PARAMS EXIST
+    
     this.route.params.subscribe(
       (params: Params) => {
         this.id = params['id'];
         this.editMode = params['id'] != null;
         this.timeline = this.registerService.getTimeline(this.id);
+        console.log(this.timeline);
         console.log(this.editMode);
         this.initForm();
       }
