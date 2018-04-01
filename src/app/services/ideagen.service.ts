@@ -8,7 +8,6 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/Observable/of';
 import 'rxjs/add/observable/of';
-
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { log } from 'util';
@@ -117,19 +116,8 @@ export class IdeagenService {
       .subscribe(
         (timelines: Timeline[]) => {
 
-<<<<<<< HEAD
-  }
-
-  public getAllEvents() {
-    const headers = new HttpHeaders(
-      {
-        'TenantId': 'Team2',
-        'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
-      });
-=======
           console.log('Pulling data getTimelines() Ideagen Service:');
           console.log(timelines);
->>>>>>> 47ca758b7827dcf6be47da47b1348a8ab61ea1e8
 
 
           this.registerService.setTimelines(timelines);
@@ -139,33 +127,5 @@ export class IdeagenService {
 
   }
 }
-// COMMENTED THE BELOW OUT AS WE SHOULDNT NEED IT, NOW THAT WE'RE MAPPING EVENTS DIRECTLY IN GETALLTIMELINEEVENTS
-//   public getAllEvents() {
-//     const headers = new HttpHeaders(
-//       {
-//         'TenantId': 'Team2',
-//         'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
-//       });
-
-//     return this.httpClient
-//       .get(this.API_URL + 'TimelineEvent/GetAllEvents', { headers: headers })
-//       .map(EvData => {
-//         console.log(EvData);
-//         return EvData.map(data => {
-
-//           let event = new Event(data.Id, data.Title, data.Description, data.EventDateTime, data.Location);
-
-//           return event;
-
-//         });
-//       })
-//       .subscribe(
-//         (events: Event[]) => {
-//           this.registerService.setEvent(events);
-//           console.log(events);
-//         })
-//   }
-// }
-
 
 

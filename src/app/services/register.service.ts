@@ -36,6 +36,11 @@ export class RegisterService {
 
   }
 
+  deleteEvent(event:Event){
+    this.registerEv.splice(this.registerEv.indexOf(event),1);
+    this.registerChangeEv.next(this.registerEv.slice());
+  }
+
   getAllEvent(){
     return this.registerEv.slice();
   }
