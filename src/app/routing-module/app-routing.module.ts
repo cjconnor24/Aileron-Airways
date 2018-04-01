@@ -7,6 +7,7 @@ import { TimelineListComponent } from '../timeline-list/timeline-list.component'
 import { CreateTimelineComponent } from '../register/create-timeline/create-timeline.component';
 import { RegisterListComponent } from '../register/register-list/register-list.component';
 import { DeleteTimelineComponent } from '../register/delete-timeline/delete-timeline.component';
+import { TimelineOverviewComponent } from '../register/timeline-overview/timeline-overview.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path: 'new', component: CreateTimelineComponent },
       { path: ':id', component: TimelineListComponent },    //NEEDS UPDATED
       { path: ':id/edit', component: CreateTimelineComponent },
+      { path: ':id/overview', component: TimelineOverviewComponent },
       { path: ':id/delete', component: DeleteTimelineComponent }
     ]
   },
