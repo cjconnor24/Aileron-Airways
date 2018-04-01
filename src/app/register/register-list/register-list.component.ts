@@ -1,9 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Timeline } from '../../models/timeline.model';
-import { Event } from '../../models/event.model';
 import { RegisterService } from '../../services/register.service';
+import { Timeline } from '../../models/timeline.model';
 import { IdeagenService } from '../../services/ideagen.service';
 import { Subscription } from 'rxjs/Subscription';
+// import { Event } from '../../models/event.model';
+// import { RegisterService } from '../../services/register.service';
+// import { IdeagenService } from '../../services/ideagen.service';
+// import { Subscription } from 'rxjs/Subscription';
 
 
 
@@ -15,7 +18,6 @@ import { Subscription } from 'rxjs/Subscription';
 export class RegisterListComponent implements OnInit, OnDestroy {
 
   register: Timeline[];
-  // // registerEv: Event[];
   subscriber: Subscription;
   searchText: string;
   loaded = false;
@@ -26,7 +28,7 @@ export class RegisterListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    // GET THE STATIC TIMELINES FROM THE SERVICE THEN LISTEN TO THE SUBJECT
+    // // GET THE STATIC TIMELINES FROM THE SERVICE THEN LISTEN TO THE SUBJECT
     this.register = this.registerService.getTimelines();
     this.subscriber = this.registerService.registerChanged.subscribe(
       (timelines: Timeline[]) => {
@@ -39,7 +41,7 @@ export class RegisterListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriber.unsubscribe();
-    console.log('Register List Subscription Destroyed');
+    // console.log('Register List Subscription Destroyed');
   }
 
 }
