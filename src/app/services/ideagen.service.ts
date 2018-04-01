@@ -8,7 +8,6 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/Observable/of';
 import 'rxjs/add/observable/of';
-
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { log } from 'util';
@@ -32,16 +31,14 @@ export class IdeagenService {
         'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
       }
     );
-
     console.log(timeline);
-
     const body = {
       'TenantId': 'Team2',
       'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
       TimelineId: timeline.timelineId, // NEEDS AN ID
       Title: timeline.title
-    };
-
+    }
+    console.log(body);
     return this.httpClient.put(this.API_URL + 'Timeline/Create', body,
       {
         headers: headers
@@ -178,6 +175,5 @@ export class IdeagenService {
   }
 
 }
-
 
 
