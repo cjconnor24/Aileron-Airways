@@ -3,46 +3,78 @@ import { Timeline } from '../models/timeline.model';
 import { Event } from '../models/event.model';
 import { Subject } from 'rxjs/Subject';
 import { IdeagenService } from './ideagen.service';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class RegisterService {
 
-  constructor() { }
+  constructor(private ideagenService: IdeagenService) { }
 
-  register: Timeline[] = [
-    new Timeline('Chris Event'),
-    new Timeline('Hardcoded Event')
-  ];
-
-  registerEv: Event[];
-
+  register: Timeline[] = [];
   registerChanged = new Subject<Timeline[]>();
-  registerChangeEv = new Subject<Event[]>();
 
-  getTimelines() {
+
+  private loadTimelines() {
+
+    this.ideagenService.getTimelines()
+      .subscribe(
+        (timelines: Timeline[]) => {
+          this.register = timelines;
+          this.registerChanged.next(this.register.slice());
+
+          console.log('LOADING TIMELINES FROM API:');
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+
+  }
+
+  getTimelines(): Timeline[] {
+    this.loadTimelines();
     return this.register.slice();
   }
 
-  getTimeline(id: string):Timeline  {
+  getTimeline(id: string): Timeline {
+    // this.loadTimelines();
+    // this.ideagenService.getTimeline()
     return this.register.find(timeline => timeline.timelineId === id);
   }
 
-  deleteTimeline(timeline:Timeline) {
-    //TODO: DELETE TIMELINE
-    // this.register;
-    this.register.splice(this.register.indexOf(timeline),1);
-    this.registerChanged.next(this.register.slice());
-
+  editTimelineTitle(timeline: Timeline) {
+    this.ideagenService.editTimelineTitle(timeline)
+    .subscribe(
+      (tline: Timeline) => {
+        this.register[this.register.indexOf(tline)] = tline;
+        this.registerChanged.next(this.register.slice());
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
 
   }
 
-  deleteEvent(event:Event){
-    this.registerEv.splice(this.registerEv.indexOf(event),1);
-    this.registerChangeEv.next(this.registerEv.slice());
-  }
 
-  getAllEvent(){
-    return this.registerEv.slice();
+  /**
+   * Subscribes to the API call in IdeaGen service waiting on the API response call to delete.
+   * Returns the reponse text from API.
+   * @param timeline Timeline to delete
+   */
+  deleteTimeline(timeline: Timeline) {
+
+    this.ideagenService.deleteTimeline(timeline).subscribe(
+      (data: any) => {
+        console.log(data);
+        console.log(this.register.splice(this.register.indexOf(timeline), 1));
+        this.registerChanged.next(this.register.slice());
+      },
+      (error) => {
+        console.log('There was an error with delete timeline:' + error);
+      }
+    );
+
   }
 
   setTimelines(timelines: Timeline[]) {
@@ -50,26 +82,26 @@ export class RegisterService {
     this.registerChanged.next(this.register.slice());
   }
 
-  setEvent(events: Event[]) {
-    this.registerEv = events;
-    this.registerChangeEv.next(this.registerEv.slice());
-  }
-
-  addEvent(event: Event){
-    this.registerEv.push(event);
-    this.registerChangeEv.next(this.registerEv.slice());
-  }
-
+  /**
+   * Subscribes to API call in IdeaGen service waiting on the API response call to add.
+   * @param timeline Timeline to be added
+   */
   addTimeline(timeline: Timeline) {
-    this.register.push(timeline);
-    this.registerChanged.next(this.register.slice());
-  }
 
-  updateTimeline(index:number, timeline: Timeline) {
-    
-    //TODO: UPDATE TIMELINE
+    // SUBSCRIBE AND WAIT FOR RESPONSE
+    this.ideagenService.createTimeline(timeline).subscribe(
+      (tline: Timeline) => {
+        // PUSH TO THE REGISTER A FORCE OUT TO SUBJECT
+        this.register.push(tline);
+        this.registerChanged.next(this.register.slice());
+      },
+      (error) => {
+        console.log('There was an error creating timeline: ' + error);
+      }
+    );
 
-
+    // this.register.push(timeline);
+    // this.registerChanged.next(this.register.slice());
   }
 
 
