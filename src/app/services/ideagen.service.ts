@@ -150,7 +150,7 @@ export class IdeagenService {
 
             // GET THE EVENTS AND MAP TO EVENT OBJECTS
             tl.events = timeline['TimelineEvents'].map(event => {
-              const e: Event = new Event(event.Id, event.Title, event.Description, event.EventDateTime, event.Location);
+              const e: Event = new Event(event.Id, event.Title, event.Description, this.ticksToTime(event.EventDateTime), event.Location);
               return e;
             });
 
