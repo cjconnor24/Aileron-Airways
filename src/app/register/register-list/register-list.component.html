@@ -36,7 +36,7 @@
       <p class="details__time">
         <i class="fas fa-clock"></i> {{timeline.dateCreated | moment | lowercase }} </p>
       <p>
-        <a routerLink="{{timeline.timelineId}}/edit" class="button button-success">View Event</a>
+        <a routerLink="{{timeline.timelineId}}/edit" class="button button-success"><i class="fas fa-eye"></i> View Timeline</a>
       </p>
     </div>
 
@@ -52,13 +52,13 @@
         <li>
           <a routerLink="{{timeline.timelineId}}/delete">
             <i class="fas fa-trash-alt"></i>
-            <span>Delete Event</span>
+            <span>Delete Timeline</span>
           </a>
         </li>
         <li>
           <a routerLink="{{timeline.timelineId}}/edit">
             <i class="fas fa-pencil-alt"></i>
-            <span>Edit Event</span>
+            <span>Edit Timeline</span>
           </a>
         </li>
       </ul>
