@@ -1,18 +1,6 @@
 
 @import "../../../sass/utilities/variables"; // COLOUR VARIABLES
 
-@keyframes Gradient {
-	0% {
-		background-position: 0% 50%
-	}
-	50% {
-		background-position: 100% 50%
-	}
-	100% {
-		background-position: 0% 50%
-	}
-}
-
 // MAIN CONTAINER
 .timeline-overview * {
     box-sizing: border-box;
@@ -26,14 +14,16 @@
         content: '';
         display:block;
         width:20px;
-        animation: Gradient 1s;
         background: lighten($navyblue,30);
         background: linear-gradient(lighten($navyblue,30),$navyblue);
+        
         top:0;bottom:0;
         position: absolute;
         left:calc(50% - 10px);
         border-radius: 10px;
     }
+
+
 
     // LINKED EVENTS
     .linked {
