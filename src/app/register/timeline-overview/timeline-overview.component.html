@@ -1,27 +1,35 @@
-
-
-
-
 <div class="modal">
 
   <div class="modal-content">
 
-      <h1>{{timeline.title}} Overview</h1>
+    <h1>{{timeline.title}} Overview</h1>
 
-      <a routerLink="/timelines" class="button button-success">Back</a>
-      <p>Below is an overview of the timelines</p>
-
-    <div class="timeline-overview">
+    <a routerLink="/timelines" class="button button-success">Back</a>
 
 
+    <!-- CHECK TO SEE IF THERE ARE EVENTS -->
+    <div *ngIf="timeline.events.length > 0; then hasEvents; else noEvents"></div>
 
-      <div *ngFor="let event of timeline.events" class="overview-event">
-        <h5>{{ event.title }}</h5>
-        <p>{{ event.dateTime | moment }}</p>
+    <!-- DISPLAY TREE -->
+    <ng-template #hasEvents>
+      <div class="timeline-overview">
+
+        <div *ngFor="let event of timeline.events" class="overview-event">
+          <h5>{{ event.title }}</h5>
+          <p>{{ event.dateTime | moment }}</p>
+        </div>
+
       </div>
+    </ng-template>
 
-
-    </div>
+    <!-- THERE ARE NO EVENTS, GIVE USER OPTION TO CREATE -->
+    <ng-template #noEvents>
+      <p>There are currently no events on this timeline.</p>
+      <p>
+        <a href="" class="button button-success">
+          <i class="fas fa-plus"></i> Create Event</a>
+      </p>
+    </ng-template>
 
   </div>
 </div>
