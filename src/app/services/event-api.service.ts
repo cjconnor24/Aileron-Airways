@@ -48,40 +48,40 @@ export class EventApiService {
     }
 
 
-      deleteEvent(event: Event) {
+  //     deleteEvent(event: Event) {
 
-        const headers = new HttpHeaders(
-          {
-            'TenantId': 'Team2',
-            'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
-          }
-        );
+  //       const headers = new HttpHeaders(
+  //         {
+  //           'TenantId': 'Team2',
+  //           'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+  //         }
+  //       );
     
-        console.log(event);
+  //       console.log(event);
     
-        const body = {
-          'TenantId': 'Team2',
-          'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
-          EventId: event.eventId
-        }
+  //       const body = {
+  //         'TenantId': 'Team2',
+  //         'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
+  //         EventId: event.eventId
+  //       }
     
-        console.log(body);
+  //       console.log(body);
     
-        return this.httpClient.put(API_URL + 'TimelineEvent/Delete', body,
-          {
-            headers: headers
-          }).subscribe(
-            (data: any) => {
-              console.log(data);
+  //       return this.httpClient.put(API_URL + 'TimelineEvent/Delete', body,
+  //         {
+  //           headers: headers
+  //         }).subscribe(
+  //           (data: any) => {
+  //             console.log(data);
     
-              this.registerService.deleteEvent(event);
+  //             this.registerService.deleteEvent(event);
     
     
-            }
-          );
+  //           }
+  //         );
     
 
-  }
+  // }
 
   // public editTitle() {
   //   console.log("edit Title PUT TimelineEventId + Title Req");
