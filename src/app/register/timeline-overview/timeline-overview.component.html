@@ -6,128 +6,20 @@
 
   <div class="modal-content">
 
-      <h1>Timeline Overview</h1>
+      <h1>{{timeline.title}} Overview</h1>
 
       <a routerLink="/timelines" class="button button-success">Back</a>
       <p>Below is an overview of the timelines</p>
 
     <div class="timeline-overview">
 
-      <div class="overview-event">
-        <h5>Event Name</h5>
-        <p>Created on July 1st</p>
+
+
+      <div *ngFor="let event of timeline.events" class="overview-event">
+        <h5>{{ event.title }}</h5>
+        <p>{{ event.dateTime | moment }}</p>
       </div>
 
-      <div class="overview-event">
-        <h5>Event Name</h5>
-        <p>Created on July 1st</p>
-      </div>
-
-      <div class="linked left">
-
-        <div class="overview-event">
-          <h5>Event Name</h5>
-          <p>Created on July 1st</p>
-        </div>
-
-        <div class="overview-event">
-          <h5>Event Name</h5>
-          <p>Created on July 1st</p>
-        </div>
-
-        <div class="linked left">
-
-          <div class="overview-event">
-            <h5>Event Name</h5>
-            <p>Created on July 1st</p>
-          </div>
-
-          <div class="overview-event">
-            <h5>Event Name</h5>
-            <p>Created on July 1st</p>
-          </div>
-
-          <div class="overview-event">
-            <h5>Event Name</h5>
-            <p>Created on July 1st</p>
-          </div>
-
-        </div>
-
-        <div class="overview-event">
-          <h5>Event Name</h5>
-          <p>Created on July 1st</p>
-        </div>
-
-      </div>
-
-      <div class="overview-event">
-        <h5>Event Name</h5>
-        <p>Created on July 1st</p>
-      </div>
-
-      <div class="overview-event">
-        <h5>Event Name</h5>
-        <p>Created on July 1st</p>
-      </div>
-
-      <div class="overview-event">
-        <h5>Event Name</h5>
-        <p>Created on July 1st</p>
-      </div>
-
-      <div class="linked right">
-
-        <div class="overview-event">
-          <h5>Event Name</h5>
-          <p>Created on July 1st</p>
-        </div>
-
-        <div class="overview-event">
-          <h5>Event Name</h5>
-          <p>Created on July 1st</p>
-        </div>
-
-        <div class="overview-event">
-          <h5>Event Name</h5>
-          <p>Created on July 1st</p>
-        </div>
-
-        <div class="linked right">
-
-          <div class="overview-event">
-            <h5>Event Name</h5>
-            <p>Created on July 1st</p>
-          </div>
-
-          <div class="overview-event">
-            <h5>Event Name</h5>
-            <p>Created on July 1st</p>
-          </div>
-
-          <div class="overview-event">
-            <h5>Event Name</h5>
-            <p>Created on July 1st</p>
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="overview-event">
-        <h5>Event Name</h5>
-        <p>Created on July 1st</p>
-      </div>
-
-      <div class="overview-event">
-        <h5>Event Name</h5>
-        <p>Created on July 1st</p>
-      </div>
-
-      <div class="overview-event">
-        <h5>Event Name</h5>
-        <p>Created on July 1st</p>
-      </div>
 
     </div>
 

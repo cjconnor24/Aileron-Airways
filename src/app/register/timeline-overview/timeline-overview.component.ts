@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RegisterService } from '../../services/register.service';
+import { Timeline } from '../../models/timeline.model';
 
 @Component({
   selector: 'app-timeline-overview',
@@ -7,11 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TimelineOverviewComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private registerService: RegisterService
+  ) { }
 
-  loop = 5;
+  id: string;
+  timeline: Timeline;
 
   ngOnInit() {
+    this.id = this.route.snapshot.params['id'];
+    console.log('The id is' + this.id);
+    this.timeline = this.registerService.getTimeline(this.id);
+    console.log(this.timeline);
   }
 
 }
