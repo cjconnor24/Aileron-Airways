@@ -1,4 +1,8 @@
+<h1>Timeline Register</h1>
+<p>Below is a list of all the current timelines</p>
+
 <h4>Search Timelines</h4>
+
 <div class="search-box">
 
   <div class="input-group">
@@ -8,9 +12,14 @@
 
 </div>
 
-<p class="button-row"><button class="button button-primary" (click)="getEvents()"><i class="fas fa-sync fa-spin"></i> Refresh from API</button> <a routerLink="new" class="button button-primary green"><i class="fas fa-plus"></i> Create New Timeline</a></p>
+<p class="button-row">
+  <button class="button button-primary">
+    <i class="fas fa-sync fa-spin"></i> Refresh from API</button>
+  <a routerLink="new" class="button button-success">
+    <i class="fas fa-plus"></i> Create New Timeline</a>
+</p>
 
-<div class="register">
+<div class="register" *ngIf="loaded">
 
   <div class="tline" *ngFor="let timeline of register | filter: searchText" routerLink="{{timeline.timelineId}}/edit">
     <!-- <div class="tline" *ngFor="let timeline of register" routerLink="{{timeline.timelineId}}/edit"> -->
@@ -25,15 +34,21 @@
     <div class="details">
       <p class="details__name">{{timeline.title}}</p>
       <p class="details__time">
-        <i class="fas fa-calendar-alt"></i> {{timeline.dateCreated | date }} </p>
+        <i class="fas fa-clock"></i> {{timeline.dateCreated | moment | lowercase }} </p>
       <p>
-        <a routerLink="{{timeline.timelineId}}/edit" class="button button-primary green">View Event</a>
+        <a routerLink="{{timeline.timelineId}}/edit" class="button button-success">View Event</a>
       </p>
     </div>
 
     <!--       Timeline Buttons -->
     <div class="buttons">
       <ul>
+          <li>
+              <a routerLink="{{timeline.timelineId}}/edit">
+                <i class="fas fa-sitemap"></i>
+                <span>Edit Event</span>
+              </a>
+            </li>
         <li>
           <a routerLink="{{timeline.timelineId}}/delete">
             <i class="fas fa-trash-alt"></i>
@@ -51,4 +66,9 @@
 
   </div>
 
+</div>
+
+<div *ngIf="!loaded" style="text-align:center;">
+  <h1>Loading Timelines...</h1>
+  <i class="fas fa-sync fa-spin" style="font-size:150px;"></i>
 </div>

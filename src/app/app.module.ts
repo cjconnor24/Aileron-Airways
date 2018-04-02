@@ -4,8 +4,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-// import { ApiService } from './api.service';
-// import { DataService } from './data.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TimelineListComponent } from './timeline-list/timeline-list.component';
 import { TimelineSearchComponent } from './timeline-search/timeline-search.component';
@@ -14,7 +12,7 @@ import { HeaderComponent } from './ui/header/header.component';
 import { FooterComponent } from './ui/footer/footer.component';
 import { RegisterComponent } from './register/register/register.component';
 import { RegisterListComponent } from './register/register-list/register-list.component';
-import { RegisterTimelineComponent } from './register/register-timeline/register-timeline.component';
+// import { RegisterTimelineComponent } from './register/register-timeline/register-timeline.component';
 import { RegisterService } from './services/register.service';
 import { IdeagenService } from './services/ideagen.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -25,6 +23,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 
 import { CreateEventComponent } from './events/create-event/create-event.component';
 import { DeleteTimelineComponent } from './register/delete-timeline/delete-timeline.component';
+import { MomentPipe } from './pipes/moment.pipe';
 
 @NgModule({
   declarations: [
@@ -37,11 +36,12 @@ import { DeleteTimelineComponent } from './register/delete-timeline/delete-timel
     FooterComponent,
     RegisterComponent,
     RegisterListComponent,
-    RegisterTimelineComponent,
+    // RegisterTimelineComponent,
     CreateTimelineComponent,
     FilterPipe,
     CreateEventComponent,
     DeleteTimelineComponent,
+    MomentPipe,
   ],
   imports: [
     BrowserModule,
@@ -51,8 +51,6 @@ import { DeleteTimelineComponent } from './register/delete-timeline/delete-timel
     HttpClientModule
   ],
   providers: [
-    // ApiService,
-    // DataService,
     IdeagenService,
     RegisterService],
   bootstrap: [
