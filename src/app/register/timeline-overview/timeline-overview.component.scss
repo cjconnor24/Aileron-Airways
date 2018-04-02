@@ -1,6 +1,13 @@
 
 @import "../../../sass/utilities/variables"; // COLOUR VARIABLES
 
+
+@keyframes TimelinePulse { 
+    0%{background-position:50% 100%}
+    50%{background-position:50% 0%}
+    100%{background-position:50% 100%}
+}
+
 // MAIN CONTAINER
 .timeline-overview * {
     box-sizing: border-box;
@@ -15,7 +22,9 @@
         display:block;
         width:20px;
         background: lighten($navyblue,30);
-        background: linear-gradient(lighten($navyblue,50),$navyblue);
+        background: linear-gradient($navyblue, lighten($navyblue,50), $navyblue);
+        background-size: 200% 200%;
+        animation: TimelinePulse 5s ease infinite;
         
         top:0;bottom:0;
         position: absolute;
@@ -35,7 +44,7 @@
             content: '';
             width:20px;
             background: $darkred;
-            background:linear-gradient($darkred,darken($darkred,25));
+            background:linear-gradient(darken($darkred,25),$darkred,darken($darkred,25));
             position: absolute;
             top:0;bottom:0;
             left:calc(50% - 10px);
@@ -61,6 +70,7 @@
             box-sizing: border-box;
             border-width: 20px;
             border-color:$darkred;
+            border-image: lineargradient(#F00,#000);
             // border-style: solid;
 
             
@@ -74,6 +84,9 @@
             border-top-left-radius: 50px;
             border-top:20px solid $darkred;
             border-left:20px solid $darkred;
+            // border-style:solid;
+            
+            
         }
         // LEFT CURVE
         &.right:after {
