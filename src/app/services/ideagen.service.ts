@@ -8,11 +8,8 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/Observable/of';
 import 'rxjs/add/observable/of';
-
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
-
-
 
 @Injectable()
 export class IdeagenService {
@@ -88,30 +85,30 @@ export class IdeagenService {
   }
 
   public getAllEvent() {
-    const headers = new HttpHeaders(
-      {
-        'TenantId': 'Team2',
-        'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
-      });
+   const headers = new HttpHeaders(
+     {
+       'TenantId': 'Team2',
+     'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+     });
 
-    return this.httpClient
-      .get(this.API_URL + 'TimelineEvent/GetAllEvents', { headers: headers })
-      .map(EvData => {
-        console.log(EvData);
-        return EvData.map(data => {
+   return this.httpClient
+     .get(this.API_URL + 'TimelineEvent/GetAllEvents', { headers: headers })
+   .map(EvData => {
+       console.log(EvData);
+       return EvData.map(data => {
 
-          let event = new Event(data.Id, data.Title, data.Description, data.EventDateTime, data.Location);
+         let event = new Event(data.Id, data.Title, data.Description, data.EventDateTime, data.Location);
 
-          return event;
+         return event;
 
-        });
-      })
-      .subscribe(
-        (events: Event[]) => {
-          this.registerService.setEvent(events);
-          console.log(events);
-        })
-  }
+       });
+     })
+     .subscribe(
+       (events: Event[]) => {
+         this.registerService.setEvent(events);
+         console.log(events);
+       })
+ }
 }
 
 

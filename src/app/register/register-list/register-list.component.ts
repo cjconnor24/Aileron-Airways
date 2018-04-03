@@ -40,7 +40,7 @@ export class RegisterListComponent implements OnInit, OnDestroy {
 
   getEvents(){
     this.ideagenSerivce.getTimelines();
-    this.ideagenSerivce.getAllEvent();
+   // this.ideagenSerivce.getAllEvent();
   }
 
   fetchData(){
