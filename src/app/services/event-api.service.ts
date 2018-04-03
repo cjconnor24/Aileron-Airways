@@ -74,7 +74,7 @@ export class EventApiService {
             (data: any) => {
               console.log(data);
     
-              this.registerService.deleteEvent(event);
+              //this.registerService.deleteEvent(event);
     
     
             }
