@@ -187,50 +187,71 @@ input[type="button"] {
   border: 1px solid #bbb;
   cursor: pointer;
   box-sizing: border-box;
-}
-.button:hover,
-button:hover,
-input[type="submit"]:hover,
-input[type="reset"]:hover,
-input[type="button"]:hover,
-.button:focus,
-button:focus,
-input[type="submit"]:focus,
-input[type="reset"]:focus,
-input[type="button"]:focus {
-  color: #333;
-  border-color: #888;
-  outline: 0;
-transition: all $transitionspeed;
- }
-
-/* PRIMARY BUTTON */
-.button.button-primary,
-button.button-primary,
-input[type="submit"].button-primary,
-input[type="reset"].button-primary,
-input[type="button"].button-primary {
-  color: #FFF;
-  background-color: $navyblue;
-  border-color: $navyblue;
+  // transition:0.3s;
   transition: all $transitionspeed;
- }
 
-.button.button-primary:hover,
-button.button-primary:hover,
-input[type="submit"].button-primary:hover,
-input[type="reset"].button-primary:hover,
-input[type="button"].button-primary:hover,
-.button.button-primary:focus,
-button.button-primary:focus,
-input[type="submit"].button-primary:focus,
-input[type="reset"].button-primary:focus,
-input[type="button"].button-primary:focus {
-  color: #FFF;
-  background-color: lighten($navyblue,20);
-  border-color: #1EAEDB; }
+  // HOVER STATE
+  &:hover {
+    color: #333;
+    border-color: #888;
+    background: lighten(#CCC,10);
+    outline: 0;
+  // transition: all $transitionspeed;
+  }
 
+  // DISABLED
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 
+  // PRIMARY BUTTONS
+  &.button-primary {
+    color: #FFF;
+    background-color: $navyblue;
+    border-color: $navyblue;
+    // transition: all $transitionspeed;
+
+    &:hover {
+      color: #FFF;
+      background-color: lighten($navyblue,10);
+      border-color: #1EAEDB; 
+    }
+
+  }
+
+    // SUCCESS BUTTONS
+    &.button-success {
+      background: $darkgreen;
+      color:#FFF;
+      border-color: $darkgreen;
+  
+      &:hover {
+        background:lighten($darkgreen,5);
+      }
+  
+    }
+
+  // DANGER BUTTONS
+  &.button-danger {
+    background: $darkred;
+    color:#FFF;
+    border-color: $darkred;
+
+    &:hover {
+      background:lighten($darkred,5);
+    }
+
+  }
+
+    // LARGE ICON
+    &.large {
+      font-size:1em;
+      height:50px;
+      line-height:50px;
+    }
+
+}
 
 /* Forms
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -249,7 +270,10 @@ select {
   border: 1px solid #D1D1D1;
   border-radius: 4px;
   box-shadow: none;
-  box-sizing: border-box; }
+  box-sizing: border-box; 
+  transition:border 0.3s;
+}
+  
 /* Removes awkward default styles on some inputs for iOS */
 input[type="email"],
 input[type="number"],
@@ -292,6 +316,32 @@ label > .label-body {
   display: inline-block;
   margin-left: .5rem;
   font-weight: normal; }
+
+  // ADDING ANGULAR ERRORS ON BOXES
+  input[type="email"].ng-touched.ng-invalid,
+input[type="number"].ng-touched.ng-invalid,
+input[type="search"].ng-touched.ng-invalid,
+input[type="text"].ng-touched.ng-invalid,
+input[type="tel"].ng-touched.ng-invalid,
+input[type="url"].ng-touched.ng-invalid,
+input[type="password"].ng-touched.ng-invalid,
+textarea.ng-touched.ng-invalid,
+select.ng-touched.ng-invalid {
+  border:2px solid $darkred;
+}
+
+  // ADDING ANGULAR VALUD ON BOXES
+  input[type="email"].ng-touched.ng-valid,
+input[type="number"].ng-touched.ng-valid,
+input[type="search"].ng-touched.ng-valid,
+input[type="text"].ng-touched.ng-valid,
+input[type="tel"].ng-touched.ng-valid,
+input[type="url"].ng-touched.ng-valid,
+input[type="password"].ng-touched.ng-valid,
+textarea.ng-touched.ng-valid,
+select.ng-touched.ng-valid {
+  border:2px solid $darkgreen;
+}
 
 
 /* Lists

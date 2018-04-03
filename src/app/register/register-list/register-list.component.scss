@@ -1,0 +1,36 @@
+p.button-row {text-align: right;}
+.search-box {
+    padding:1em;
+    box-shadow:0 0 10px #CCC;
+    // display:flex;
+    // border:1px solid #C00;
+    border-radius: 10px;
+    margin:0 0 1em 0;
+
+    .input-group {
+        margin:0;padding:0;
+        position:relative;
+        // display:flex;
+        // flex-grow:1;
+
+        i {
+            position:absolute;
+            left:0;
+            top:0;
+            font-size:15px;
+            width:38px;
+            height:38px;
+            line-height:38px;
+            text-align:center;
+            color:#CCC;
+        }
+        input[type=text] {
+            margin:0 0;padding:0 38px;
+            display:block;
+            // display:flex;
+            flex-grow: 1;
+        }
+
+    }
+    
+}

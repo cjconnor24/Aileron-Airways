@@ -1,29 +1,30 @@
-import {Component, OnInit} from '@angular/core';
-// import {DataService} from './data.service';
-// import { Data } from './data';
+import { Component, OnInit } from '@angular/core';
+import { RegisterService } from './services/register.service';
+import { Timeline } from './models/timeline.model';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
-  // providers: [DataService]
 })
 export class AppComponent implements OnInit {
   title = 'Aileron Airways';
 
-// data: Data[] = [];
+  // register: Timeline[];
+  // subscriber: Subscription;
+  // loaded = false;
 
-// constructor(
-//   private DataService:DataService){
+  constructor() { }
 
-// }
+  public ngOnInit() {
 
-public ngOnInit(){
-  // this.DataService
-  //   .getAllData()
-  //   .subscribe(
-  //     (data) => {
-  //       this.data = data;
-  // });
-}
+  //   this.register = this.registerService.getTimelines();
+  //   this.subscriber = this.registerService.registerChanged.subscribe(
+  //     (timelines: Timeline[]) => {
+  //       this.register = timelines;
+  //       this.loaded = true;
+  //     }
+  //   );
+  }
 }

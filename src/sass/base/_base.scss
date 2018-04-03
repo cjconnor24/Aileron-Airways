@@ -141,16 +141,16 @@ footer .disclaimer {
 
 /* COLOUR STYLES FOR BUTTONS */
 
-.green {
-  background: $darkgreen !important;
-  border: $darkgreen !important;
+// .green {
+//   background: $darkgreen !important;
+//   border: $darkgreen !important;
 
-  &:hover {
-    background: lighten($darkgreen,5)!important;
-    border: $darkgreen !important;
-  }
+//   &:hover {
+//     background: lighten($darkgreen,5)!important;
+//     border: $darkgreen !important;
+//   }
 
-}
+// }
 
 .red {
   background: $darkred !important;

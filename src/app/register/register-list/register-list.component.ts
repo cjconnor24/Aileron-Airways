@@ -1,9 +1,13 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
-import { Timeline } from '../../models/timeline.model';
-import { Event } from '../../models/event.model';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RegisterService } from '../../services/register.service';
+import { Timeline } from '../../models/timeline.model';
 import { IdeagenService } from '../../services/ideagen.service';
 import { Subscription } from 'rxjs/Subscription';
+// import { Event } from '../../models/event.model';
+// import { RegisterService } from '../../services/register.service';
+// import { IdeagenService } from '../../services/ideagen.service';
+// import { Subscription } from 'rxjs/Subscription';
+
 
 
 @Component({
@@ -14,23 +18,26 @@ import { Subscription } from 'rxjs/Subscription';
 export class RegisterListComponent implements OnInit, OnDestroy {
 
   register: Timeline[];
-  registerEv: Event[];
   subscriber: Subscription;
   searchText: string;
+  loaded = false;
 
 
-  constructor(private registerService: RegisterService,private ideagenSerivce:IdeagenService) { }
+  constructor(private registerService: RegisterService, private ideagenService: IdeagenService) { }
+
 
   ngOnInit() {
 
-    // THIS WILL CURRENTLY GET THE STATIC TIMELINES FROM THE SERVICE
-   
+    // // GET THE STATIC TIMELINES FROM THE SERVICE THEN LISTEN TO THE SUBJECT
     this.register = this.registerService.getTimelines();
     this.subscriber = this.registerService.registerChanged.subscribe(
       (timelines: Timeline[]) => {
         this.register = timelines;
+        this.loaded = true;
       }
+    );
 
+<<<<<<< HEAD
     )
     //this.registerEv = this.registerService.getAllEvent();
     //this.subscriber = this.registerService.registerChangeEv.subscribe((events:Event[]) =>{this.registerEv=events;})
@@ -46,10 +53,13 @@ export class RegisterListComponent implements OnInit, OnDestroy {
   fetchData(){
     this.register = this.registerService.getTimelines();
     this.registerEv = this.registerService.getAllEvent();
+=======
+>>>>>>> 21a8043d4a11c1f80ab6c02acd721346f9c91994
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.subscriber.unsubscribe();
+    // console.log('Register List Subscription Destroyed');
   }
 
 }

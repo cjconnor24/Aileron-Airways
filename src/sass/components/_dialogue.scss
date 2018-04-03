@@ -1,0 +1,58 @@
+@mixin dialoguebox($color) {
+
+
+    // border:1px solid $darkred;
+    border-radius: 10px;
+    box-shadow:0 0 10px lighten($darkgray,5);
+    position: relative;
+    margin:0 auto 0 auto;
+    width:60%;
+    background:#FFF;
+
+
+    &::after {
+        content:"\f071";
+        font-family:FontAwesome;
+        position:absolute;
+        bottom:0;left:30px;
+        opacity: 0.1;
+        color:$color;
+        font-size:80px;
+    }
+
+    .heading {
+        background:$color;
+        color:#FFF;
+        font-size:1.3em;
+        font-weight:strong;
+        padding:0.5em 1em;
+        border-radius:10px 10px 0 0px;
+    }
+
+    .content {
+        font-size:1.2em;
+        padding:1em 2em;
+        text-align: center;
+
+        p{
+            margin:0 0 1em 0;
+            padding:0;
+        }
+
+        button:first-child {border-color:$color;color:$color;}
+        .button-primary {
+            background: $color;
+            border:none;
+        }
+    }
+}
+
+.dialogue-box.warning {
+    @include dialoguebox($darkred);
+}
+.dialogue-box.success {
+    @include dialoguebox($darkgreen);
+}
+.dialogue-box.info {
+    @include dialoguebox($navyblue);
+}

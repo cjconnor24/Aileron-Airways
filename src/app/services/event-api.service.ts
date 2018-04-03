@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { Event } from '../models/event.model';
-import { Timelines, TimelineEvent, TimelineEvents, LinkedTimeline } from '../data';
+import { RegisterService } from './register.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -16,15 +16,72 @@ const Tenant = environment.tenantId;
 export class EventApiService {
 
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private registerService: RegisterService) { }
 
-  // public createEvent() {
-  //   console.log("create Event PUT TimelineEvent + title + desc + EventDT + Location Req");
-  //   let url = `${API_URL}TimelineEvent/Create`;
-  //   let search = new URLSearchParams();
-  //   //search.set();
-  //   this.http.put(url, { id: Tenant, AuthToken: AToken }, { search }).subscribe(res => console.log(res.json()));
-  // }
+  createEvent(event: Event) {
+
+    const headers = new HttpHeaders(
+      {
+        'TenantId': 'Team2',
+        'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+      }
+    );
+    console.log(event);
+    const body = {
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
+      EventId: 'eventid', // NEEDS AN ID
+      Title: event.title,
+      Description: event.description,
+      location: event.location,
+      dateTime: event.dateTime
+    }
+    console.log(body);
+    return this.httpClient.put(API_URL + 'TimelineEvent/Create', body,
+      {
+        headers: headers
+      }).subscribe(
+        (data: any) => {
+          console.log(data);
+        }
+      );
+    }
+
+
+      deleteEvent(event: Event) {
+
+        const headers = new HttpHeaders(
+          {
+            'TenantId': 'Team2',
+            'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+          }
+        );
+    
+        console.log(event);
+    
+        const body = {
+          'TenantId': 'Team2',
+          'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
+          EventId: event.eventId
+        }
+    
+        console.log(body);
+    
+        return this.httpClient.put(API_URL + 'TimelineEvent/Delete', body,
+          {
+            headers: headers
+          }).subscribe(
+            (data: any) => {
+              console.log(data);
+    
+              this.registerService.deleteEvent(event);
+    
+    
+            }
+          );
+    
+
+  }
 
   // public editTitle() {
   //   console.log("edit Title PUT TimelineEventId + Title Req");
@@ -114,29 +171,6 @@ export class EventApiService {
   //     .catch(this.handleError);
   // }
 
-
- public getAllEvent() {
-
-   const headers = new HttpHeaders(
-     {
-       'TenantId': 'Team2',
-       'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
-     });
-
-   return this.httpClient
-     .get(API_URL + 'Timeline/GetAllEvents', { headers: headers })
-     .map(data => {
-       return data['Event'].map(event=>{
-         let eVent = new Event(event.id,event.title,event.description,event.location,event.dateTime);
-         eVent.title = eVent.eventId;
-         eVent.description = eVent.description;
-         eVent.location = eVent.location;
-         eVent.dateTime = eVent.dateTime;
-         console.log(eVent);
-         console.log(Event);
-         return eVent;
-       });
+  
+}
  
-
-     })}
-    }
