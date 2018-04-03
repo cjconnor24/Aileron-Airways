@@ -10,7 +10,10 @@
     <input [(ngModel)]="searchText" placeholder="Search by name..." type="text">
   </div>
 
-</div>
+ </div>
+
+
+
 
 <p class="button-row">
   <button class="button button-primary">
@@ -71,4 +74,10 @@
 <div *ngIf="!loaded" style="text-align:center;">
   <h1>Loading Timelines...</h1>
   <i class="fas fa-sync fa-spin" style="font-size:150px;"></i>
+</div>
+
+<input [(ngModel)]="searchDate" placeholder="Filter by date..." type="date">
+
+<div *ngFor="let timeline of register | dateFilter: searchDate">
+  <span>{{timeline.dateCreated}}</span>
 </div>
