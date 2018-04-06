@@ -19,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './routing-module/app-routing.module';
 import { CreateTimelineComponent } from './register/create-timeline/create-timeline.component';
 import { FilterPipe } from './pipes/filter.pipe';
-
+import {DatePipe} from '@angular/common';
 
 import { CreateEventComponent } from './events/create-event/create-event.component';
 import { DeleteTimelineComponent } from './register/delete-timeline/delete-timeline.component';
@@ -54,7 +54,9 @@ import { DateFilterPipe } from './pipes/date-filter.pipe';
   ],
   providers: [
     IdeagenService,
-    RegisterService],
+    RegisterService,
+    DatePipe
+  ],
   bootstrap: [
     AppComponent
   ]

@@ -6,16 +6,18 @@ import { DatePipe } from '@angular/common';
 })
 export class DateFilterPipe implements PipeTransform {
 
+  constructor(public datepipe: DatePipe){}
+
   transform(items: any[], dateSearch: Date): any[] {
-    var dateString = "";
-    
+
     if(!items) return[];
     if(!dateSearch) return items;
-
-    dateString = dateSearch.toDateString();
+    //fix the date format, remove the comma
+    let dateSearch2 = this.datepipe.transform(dateSearch, 'EE-MMM-dd-YYYY');
+    
 
     return items.filter( item => {
-      return item.dateCreated.toDateString().includes(dateString);
+      return item.dateCreated.toDateString().includes(dateSearch2);
     }
   )
 }
