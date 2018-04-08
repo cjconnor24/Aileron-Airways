@@ -19,6 +19,8 @@
     <i class="fas fa-plus"></i> Create New Timeline</a>
 </p>
 
+<p>Test box <input type="datetime-local"></p>
+
 <div class="register" *ngIf="loaded">
 
   <div class="tline" *ngFor="let timeline of register | filter: searchText" routerLink="{{timeline.timelineId}}/edit">
