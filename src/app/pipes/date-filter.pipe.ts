@@ -12,8 +12,10 @@ export class DateFilterPipe implements PipeTransform {
 
     if(!items) return[];
     if(!dateSearch) return items;
-    //fix the date format, remove the comma
-    let dateSearch2 = this.datepipe.transform(dateSearch, 'EE-MMM-dd-YYYY');
+    //fix the date format
+    let dateSearch2 = this.datepipe.transform(dateSearch, 'EE MMM dd yyyy');
+
+    console.log(dateSearch2);
     
 
     return items.filter( item => {

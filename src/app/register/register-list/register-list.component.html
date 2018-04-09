@@ -8,9 +8,12 @@
   <div class="input-group">
     <i class="fas fa-search"></i>
     <input [(ngModel)]="searchText" placeholder="Search by name..." type="text">
+    <input [(ngModel)]="searchDate" placeholder="Filter by date..." type="date">
+
   </div>
 
  </div>
+
 
 
 
@@ -24,7 +27,7 @@
 
 <div class="register" *ngIf="loaded">
 
-  <div class="tline" *ngFor="let timeline of register | filter: searchText" routerLink="{{timeline.timelineId}}/edit">
+  <div class="tline" *ngFor="let timeline of register | filter: searchText | dateFilter: searchDate " routerLink="{{timeline.timelineId}}/edit">
     <!-- <div class="tline" *ngFor="let timeline of register" routerLink="{{timeline.timelineId}}/edit"> -->
 
     <!-- Event Count -->
@@ -74,10 +77,4 @@
 <div *ngIf="!loaded" style="text-align:center;">
   <h1>Loading Timelines...</h1>
   <i class="fas fa-sync fa-spin" style="font-size:150px;"></i>
-</div>
-
-<input [(ngModel)]="searchDate" placeholder="Filter by date..." type="date">
-
-<div *ngFor="let timeline of register | dateFilter: searchDate">
-  <span>{{timeline.dateCreated}}</span>
 </div>
