@@ -177,6 +177,34 @@ export class IdeagenService {
           });
         }
       );
+  }
+
+    /**
+   * Get timeline based on passed timeline
+   * @param timeline Timeline get get from API
+   */
+  getEvent(eventId: string): Observable<Event> {
+
+    const headers = new HttpHeaders({
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+    });
+
+    return this.httpClient.get(this.API_URL + 'TimelineEvent/GetTimelineEvent',
+      {
+        headers: headers
+      }).map((data: {
+        Title: string,
+        EventDateTime: string,
+        Description: string,
+        IsDeleted: boolean,
+        Location: string,
+        Id: string,
+        TenantId: string
+      }) => {
+        const event: Event = new Event(data.Id, data.Title, data.Description, this.ticksToTime(data.EventDateTime), data.Location);
+        return event;
+      });
 
   }
 
