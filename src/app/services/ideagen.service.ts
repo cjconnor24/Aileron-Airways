@@ -23,6 +23,10 @@ export class IdeagenService {
 
   API_URL = environment.apiUrl;
 
+  /**
+   * Create timeline and save it in API
+   * @param timeline Timeline to create in API
+   */
   createTimeline(timeline: Timeline): Observable<Timeline> {
 
     const headers = new HttpHeaders(
@@ -37,7 +41,7 @@ export class IdeagenService {
       'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
       TimelineId: timeline.timelineId, // NEEDS AN ID
       Title: timeline.title
-    }
+    };
     console.log(body);
     return this.httpClient.put(this.API_URL + 'Timeline/Create', body,
       {
@@ -52,6 +56,10 @@ export class IdeagenService {
 
   }
 
+  /**
+   * Update the timeline used on the passed timeline
+   * @param timeline The timeline to be updated
+   */
   editTimelineTitle(timeline: Timeline): Observable<Timeline> {
 
     const headers = new HttpHeaders(
@@ -82,13 +90,17 @@ export class IdeagenService {
           TenantId: string
         }) => {
           const tline: Timeline = new Timeline(data.Title);
-          tline.dateCreated = this.ticksToTime(data.CreationTimeStamp); // TODO: CONVERT TO PROPER TIME STAMP
+          tline.dateCreated = this.ticksToTime(data.CreationTimeStamp);
           return tline;
           // return data;
         });
 
   }
 
+  /**
+   * Remove timeline from API
+   * @param timeline Timeline to remove
+   */
   deleteTimeline(timeline: Timeline): Observable<any> {
 
     const headers = new HttpHeaders(
@@ -111,6 +123,10 @@ export class IdeagenService {
 
   }
 
+  /**
+   * Get timeline based on passed timeline
+   * @param timeline Timeline get get from API
+   */
   getTimeline(timeline: Timeline): Observable<Timeline> {
 
     const headers = new HttpHeaders({
@@ -130,6 +146,9 @@ export class IdeagenService {
   }
 
 
+  /**
+   * Get all timelines and events
+   */
   getTimelines(): Observable<Timeline[]> {
 
     const headers = new HttpHeaders({
