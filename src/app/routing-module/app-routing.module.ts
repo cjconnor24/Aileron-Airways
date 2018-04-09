@@ -9,6 +9,8 @@ import { RegisterListComponent } from '../register/register-list/register-list.c
 import { DeleteTimelineComponent } from '../register/delete-timeline/delete-timeline.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardComponent},
   {
     path: 'timelines', component: RegisterComponent, children: [
       { path: '', component: RegisterListComponent },

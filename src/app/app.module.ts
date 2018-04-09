@@ -44,8 +44,7 @@ import { Chart } from 'chart.js';
     CreateEventComponent,
     DeleteTimelineComponent,
     MomentPipe,
-    DateFilterPipe,
-    Chart
+    DateFilterPipe
   ],
   imports: [
     BrowserModule,
