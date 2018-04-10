@@ -367,26 +367,6 @@ export class IdeagenService {
 
   }
 
-  // DELETE - ONLY FOR REFERNCES
-  getBooksWithAuthor(): Observable<any[]> {
-    return this.httpClient.get('/api/books/')
-      .flatMap((books: any[]) => {
-        if (books.length > 0) {
-          return Observable.forkJoin(
-            books.map((book: any) => {
-              return this.httpClient.get('/api/authors/' + book.author_id)
-                .map((res: any) => {
-                  let author: any = res;
-                  book.author = author;
-                  return book;
-                });
-            })
-          );
-        }
-        return Observable.of([]);
-      });
-  }
-
   /**
    * Convert the IdeaGen Time Format to javascript Date Object
    * @param time time to conver
