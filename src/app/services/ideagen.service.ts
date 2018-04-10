@@ -161,6 +161,36 @@ export class IdeagenService {
   }
 
 
+  getTimelineById(timelineId: string): Observable<Timeline> {
+
+    const headers = new HttpHeaders({
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
+      'TimelineId': timelineId
+    });
+
+    return this.httpClient.get(this.API_URL + 'Timeline/GetTimeline',
+      {
+        headers: headers
+      }
+    )
+      .map(
+        (data: {
+          Title: string,
+          CreationTimeStamp: string,
+          IsDeleted: string,
+          Id: string,
+          TenantId: string
+        }
+        ) => {
+          const tl: Timeline = new Timeline(data.Title);
+          tl.dateCreated = this.ticksToTime(data.CreationTimeStamp); // TODO: CONVERT DATE
+          return tl;
+        });
+
+  }
+
+
   /**
    * Get all timelines and events
    */
@@ -306,30 +336,23 @@ export class IdeagenService {
     const headers = new HttpHeaders(this.API_AUTH);
 
     return Observable.forkJoin([
-      this.httpClient.get(this.API_URL + 'Timeline/GetTimeline', { headers: headers.append('TimelineId', timelineId) }),
+      this.getTimelineById(timelineId),
       this.httpClient.get(this.API_URL + 'Timeline/GetEvents', { headers: headers.append('TimelineId', timelineId) })
         .flatMap((events: any) => {
 
           // LOOP THROUGH THE EVENTS AND GET INDIVIDUALLY
           return Observable.forkJoin(
             events.map((event: any) => {
-              return this.httpClient.get(this.API_URL + 'TimelineEvent/GetTimelineEvent', { headers: headers.append('TimelineEventId', event.TimelineEventId) })
-                .map((res: any) => {
-                  let e = res;
-                  // event.event = e;
-                  // timeline.Events = event;
-                  return e;
-                  // return timeline;
-                })
+              return this.getEvent(event.TimelineEventId);
             })
           )
 
         })
     ]
     ).map((data: any) => {
-      let timeline: any = data[0];
-      let events: any = data[1];
-      timeline.Events = events;
+      let timeline: Timeline = data[0];
+      let events: Event[] = data[1];
+      timeline.events = events;
       return timeline;
     });
 
@@ -337,6 +360,44 @@ export class IdeagenService {
 
 
   }
+
+
+  // getTimelineAndEventsDeeper(timelineId: string): Observable<any> {
+
+  //   const headers = new HttpHeaders(this.API_AUTH);
+
+  //   return Observable.forkJoin([
+  //     this.httpClient.get(this.API_URL + 'Timeline/GetTimeline', { headers: headers.append('TimelineId', timelineId) }),
+  //     this.httpClient.get(this.API_URL + 'Timeline/GetEvents', { headers: headers.append('TimelineId', timelineId) })
+  //       .flatMap((events: any) => {
+
+  //         // LOOP THROUGH THE EVENTS AND GET INDIVIDUALLY
+  //         return Observable.forkJoin(
+  //           events.map((event: any) => {
+  //             return this.getEvent(event.TimelineEventId)
+  //               // .map((res: Event) => {
+  //               //   let e = res;
+  //               //   // event.event = e;
+  //               //   // timeline.Events = event;
+  //               //   return e;
+  //               //   // return timeline;
+  //               // })
+  //           })
+  //         )
+
+  //       })
+  //   ]
+  //   ).map((data: any) => {
+  //     let timeline: any = data[0];
+  //     let events: any = data[1];
+  //     timeline.Events = events;
+  //     return timeline;
+  //   });
+
+  //   // GET     
+
+
+  // }
 
   /**
    * Convert the IdeaGen Time Format to javascript Date Object

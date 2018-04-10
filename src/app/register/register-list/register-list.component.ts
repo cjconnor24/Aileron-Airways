@@ -30,27 +30,27 @@ export class RegisterListComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     // // GET THE STATIC TIMELINES FROM THE SERVICE THEN LISTEN TO THE SUBJECT
-    this.register = this.registerService.getTimelines();
-    this.subscriber = this.registerService.registerChanged.subscribe(
-      (timelines: Timeline[]) => {
-        this.register = timelines;
-        this.loaded = true;
-      }
-    );
+    // this.register = this.registerService.getTimelines();
+    // this.subscriber = this.registerService.registerChanged.subscribe(
+    //   (timelines: Timeline[]) => {
+    //     this.register = timelines;
+    //     this.loaded = true;
+    //   }
+    // );
 
 
-  //   this.ideagenService.getTimelineAndEventsDeeper('105578').subscribe((data) => {
-  //     // console.log('THIS IS INSIDE');
+    this.ideagenService.getTimelineAndEventsDeeper('105578').subscribe((data) => {
+      // console.log('THIS IS INSIDE');
       
-  //     console.log(data);
-  //   },
-  //   (error) => {
-  //     console.log('There was an error');
-  //   },
-  //   () => {
-  //     console.log("Done");
-  //   }
-  // )
+      console.log(data);
+    },
+    (error) => {
+      console.log('There was an error');
+    },
+    () => {
+      console.log("Done");
+    }
+  )
 
   }
 
