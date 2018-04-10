@@ -4,10 +4,14 @@ import { Timeline } from '../models/timeline.model';
 import { environment } from '../../environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Event } from '../models/event.model';
-import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/Observable/of';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/forkJoin';
+// import 'rxjs/add/observable/flatMap';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
+
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { log } from 'util';
@@ -137,11 +141,21 @@ export class IdeagenService {
     return this.httpClient.get(this.API_URL + 'Timeline/GetTimeline',
       {
         headers: headers
-      }).map((data: { Title: string, CreationTimeStamp: string, IsDeleted: string, Id: string, TenantId: string }) => {
-        const tl: Timeline = new Timeline(data.Title);
-        tl.dateCreated = this.ticksToTime(data.CreationTimeStamp); // TODO: CONVERT DATE
-        return tl;
-      });
+      }
+    )
+      .map(
+        (data: {
+          Title: string,
+          CreationTimeStamp: string,
+          IsDeleted: string,
+          Id: string,
+          TenantId: string
+        }
+        ) => {
+          const tl: Timeline = new Timeline(data.Title);
+          tl.dateCreated = this.ticksToTime(data.CreationTimeStamp); // TODO: CONVERT DATE
+          return tl;
+        });
 
   }
 
@@ -172,35 +186,37 @@ export class IdeagenService {
 
               const e: Event = new Event(event.Id, event.Title, event.Description, this.ticksToTime(event.EventDateTime), event.Location);
 
+              console.log(e);
+
               // GET ANY LINKED EVENT IDS...THEN TRY AND SUBSCRIBE TO THEM
               // if (e.linkedEvents !== null || e.linkedEvents.length !== 0) {
 
-                // e.linkedEvents.push(event.LinkedTimelineEventIds.map(eventId => {
+              // e.linkedEvents.push(event.LinkedTimelineEventIds.map(eventId => {
 
 
-                  // return new Event(eventId, '', '', new Date(), '');
+              // return new Event(eventId, '', '', new Date(), '');
 
-                  // THIS IS THE SUBSCRIBER...BUT NOT SURE HOW TO GET THAT BACK
-                  // this.getEvent(eventId).subscribe(
-                  //   (linkedEvent: Event) => {
+              // THIS IS THE SUBSCRIBER...BUT NOT SURE HOW TO GET THAT BACK
+              // this.getEvent(eventId).subscribe(
+              //   (linkedEvent: Event) => {
 
-                  //     // TODO: GET THE ACTUAL LINKED EVENT AND RETURN IT.
-                  //     console.log(linkedEvent);
+              //     // TODO: GET THE ACTUAL LINKED EVENT AND RETURN IT.
+              //     console.log(linkedEvent);
 
-                  //     // return linkedEvent;
+              //     // return linkedEvent;
 
-                  //   },
-                  //   (error) => {
-                  //     console.log(error);
-                  //   },
-                  //   () => {
-                  //     console.log('This completed');
-                  //   }
-                  // );
+              //   },
+              //   (error) => {
+              //     console.log(error);
+              //   },
+              //   () => {
+              //     console.log('This completed');
+              //   }
+              // );
 
-                // }));
+              // }));
               // } else {
-                // console.log("It didnt find any linked id");
+              // console.log("It didnt find any linked id");
               // }
 
               return e;
@@ -240,6 +256,106 @@ export class IdeagenService {
         return event;
       });
 
+  }
+
+  tempGetEvent(eventId: string): Observable<any> {
+
+    const headers = new HttpHeaders({
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
+      'TimelineEventId': eventId
+    });
+
+    return this.httpClient.get(this.API_URL + 'TimelineEvent/GetTimelineEvent',{headers: headers});
+
+  }
+
+  /**
+   * Get timeline and event ID's 
+   * @param timelineId 
+   */
+  getTimelineAndEventsParallel(timelineId: string): Observable<any> {
+
+    const headers = new HttpHeaders({
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+    });
+
+    // RUN BOTH QUERIES IN PARALELL [0] GET TIMELINE [1] GET EVENTS
+    return Observable.forkJoin([
+      this.httpClient.get(this.API_URL + 'Timeline/GetTimeline',{headers: headers.append('TimelineId', timelineId)}),
+      this.httpClient.get(this.API_URL + 'Timeline/GetEvents',{headers: headers.append('TimelineId', timelineId)})
+    ])
+    .map((data: any[]) =>{
+      let timeline: any = data[0]; // TIMELINE
+      let events: any = data[1]; // THE EVENTS
+
+      timeline.Events = events; // ADD THEM TO THAT OBJECT
+      return timeline;
+
+    })
+
+  }
+
+  getTimelineAndEventsSeries(timelineId: string): Observable<any> {
+
+    const headers = new HttpHeaders({
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+    });
+
+    // RUN BOTH QUERIES IN PARALELL [0] GET TIMELINE [1] GET EVENTS
+    
+    return this.httpClient.get(this.API_URL + 'Timeline/GetTimeline',{headers: headers.append('TimelineId', timelineId)})
+    .flatMap((timeline: any) => {
+      // GET EVENTS
+      return this.httpClient.get(this.API_URL + 'Timeline/GetEvents',{headers: headers.append('TimelineId', timeline.Id)})
+      .flatMap((events: any) => {
+        // LOOP THROUGH THE EVENTS AND GET INDIVIDUALLY
+        return Observable.forkJoin(
+          events.map((event: any) =>{
+            return this.httpClient.get(this.API_URL + 'TimelineEvent/GetTimelineEvent',{headers: headers.append('TimelineEventId', event.TimelineEventId)})
+            .map((res:any) => {
+              let e = res;
+              event.event = e;
+              return event;
+            })
+          })
+        )
+      });
+      // LOOP GROUP AND GET EVENT DETAILS
+    });
+      
+    
+    // .map((data: any[]) =>{
+    //   let timeline: any = data[0]; // TIMELINE
+    //   let events: any = data[1]; // THE EVENTS
+
+    //   timeline.Events = events; // ADD THEM TO THAT OBJECT
+    //   return timeline;
+
+    // })
+
+  }
+
+  // DELETE - ONLY FOR REFERNCES
+  getBooksWithAuthor(): Observable<any[]> {
+    return this.httpClient.get('/api/books/')
+      .flatMap((books: any[]) => {
+        if (books.length > 0) {
+          return Observable.forkJoin(
+            books.map((book: any) => {
+              return this.httpClient.get('/api/authors/' + book.author_id)
+                .map((res: any) => {
+                  let author: any = res;
+                  book.author = author;
+                  return book;
+                });
+            })
+          );
+        }
+        return Observable.of([]);
+      });
   }
 
   /**
