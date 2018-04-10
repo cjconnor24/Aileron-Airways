@@ -41,7 +41,7 @@ export class RegisterListComponent implements OnInit, OnDestroy {
 
     this.ideagenService.getTimelineAndEventsDeeper('105578').subscribe((data) => {
       // console.log('THIS IS INSIDE');
-      
+
       console.log(data);
     },
     (error) => {

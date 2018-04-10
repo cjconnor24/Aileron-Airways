@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RegisterService } from './register.service';
 import { Timeline } from '../models/timeline.model';
-import { Event as TEvent } from '../models/event.model';
+import { Event } from '../models/event.model';
 import { environment } from '../../environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 
@@ -207,7 +207,7 @@ export class IdeagenService {
             // GET THE EVENTS AND MAP TO EVENT OBJECTS
             tl.events = timeline['TimelineEvents'].map(event => {
 
-              const e: TEvent = new TEvent(event.Id, event.Title, event.Description, this.ticksToTime(event.EventDateTime), event.Location);
+              const e: Event = new Event(event.Id, event.Title, event.Description, this.ticksToTime(event.EventDateTime), event.Location);
 
               console.log(e);
 
@@ -224,7 +224,7 @@ export class IdeagenService {
  * Get timeline based on passed timeline
  * @param timeline Timeline get get from API
  */
-  getEvent(eventId: string): Observable<TEvent> {
+  getEvent(eventId: string): Observable<Event> {
 
     const headers = new HttpHeaders({
       'TenantId': 'Team2',
@@ -244,23 +244,11 @@ export class IdeagenService {
         Id: string,
         TenantId: string
       }) => {
-        const event: TEvent = new TEvent(data.Id, data.Title, data.Description, this.ticksToTime(data.EventDateTime), data.Location);
+        const event: Event = new Event(data.Id, data.Title, data.Description, this.ticksToTime(data.EventDateTime), data.Location);
         return event;
       });
 
   }
-
-  // tempGetEvent(eventId: string): Observable<any> {
-
-  //   const headers = new HttpHeaders({
-  //     'TenantId': 'Team2',
-  //     'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
-  //     'TimelineEventId': eventId
-  //   });
-
-  //   return this.httpClient.get(this.API_URL + 'TimelineEvent/GetTimelineEvent', { headers: headers });
-
-  // }
 
 
   /**
@@ -281,7 +269,7 @@ export class IdeagenService {
 
   /**
    * Get timeline and event ID's using paralell HttpClient
-   * @param timelineId 
+   * @param timelineId
    */
   getTimelineAndEventsParallel(timelineId: string): Observable<any> {
 
@@ -308,7 +296,7 @@ export class IdeagenService {
 
   /**
    * Get timelines and events in series
-   * @param timelineId 
+   * @param timelineId
    */
   getTimelineAndEventsSeries(timelineId: string): Observable<any> {
 
@@ -317,7 +305,7 @@ export class IdeagenService {
       'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
     });
 
-    // GET     
+    // GET
     return this.httpClient.get(this.API_URL + 'Timeline/GetTimeline', { headers: headers.append('TimelineId', timelineId) })
       .flatMap((timeline: any) => {
         // GET EVENTS
@@ -359,18 +347,21 @@ export class IdeagenService {
         })
     ]
     ).map((data: any) => {
-      
-      let timeline: Timeline = data[0];
-      let events: TEvent[] = data[1];
 
-      console.log(events);
-      timeline.events = events;
-      
+      const timeline: Timeline = data[0];
+      const ev: Event[] = data[1];
+
+      // console.log(data);
+
+
+      console.log(ev);
+      // timeline.events = ev;
+
       // timeline.events = events;
       return timeline;
     });
 
-    // GET     
+    // GET
 
 
   }
@@ -408,7 +399,7 @@ export class IdeagenService {
   //     return timeline;
   //   });
 
-  //   // GET     
+  //   // GET
 
 
   // }
