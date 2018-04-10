@@ -3,6 +3,7 @@ import { RegisterService } from '../../services/register.service';
 import { Timeline } from '../../models/timeline.model';
 import { IdeagenService } from '../../services/ideagen.service';
 import { Subscription } from 'rxjs/Subscription';
+import { log } from 'util';
 // import { Event } from '../../models/event.model';
 // import { RegisterService } from '../../services/register.service';
 // import { IdeagenService } from '../../services/ideagen.service';
@@ -36,6 +37,20 @@ export class RegisterListComponent implements OnInit, OnDestroy {
         this.loaded = true;
       }
     );
+
+
+  //   this.ideagenService.getTimelineAndEventsDeeper('105578').subscribe((data) => {
+  //     // console.log('THIS IS INSIDE');
+      
+  //     console.log(data);
+  //   },
+  //   (error) => {
+  //     console.log('There was an error');
+  //   },
+  //   () => {
+  //     console.log("Done");
+  //   }
+  // )
 
   }
 
