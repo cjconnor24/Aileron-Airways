@@ -188,37 +188,6 @@ export class IdeagenService {
 
               console.log(e);
 
-              // GET ANY LINKED EVENT IDS...THEN TRY AND SUBSCRIBE TO THEM
-              // if (e.linkedEvents !== null || e.linkedEvents.length !== 0) {
-
-              // e.linkedEvents.push(event.LinkedTimelineEventIds.map(eventId => {
-
-
-              // return new Event(eventId, '', '', new Date(), '');
-
-              // THIS IS THE SUBSCRIBER...BUT NOT SURE HOW TO GET THAT BACK
-              // this.getEvent(eventId).subscribe(
-              //   (linkedEvent: Event) => {
-
-              //     // TODO: GET THE ACTUAL LINKED EVENT AND RETURN IT.
-              //     console.log(linkedEvent);
-
-              //     // return linkedEvent;
-
-              //   },
-              //   (error) => {
-              //     console.log(error);
-              //   },
-              //   () => {
-              //     console.log('This completed');
-              //   }
-              // );
-
-              // }));
-              // } else {
-              // console.log("It didnt find any linked id");
-              // }
-
               return e;
             });
 
