@@ -3,7 +3,7 @@ import { RegisterService } from '../../services/register.service';
 import { Timeline } from '../../models/timeline.model';
 import { IdeagenService } from '../../services/ideagen.service';
 import { Subscription } from 'rxjs/Subscription';
-import { log } from 'util';
+// import { log } from 'util';
 // import { Event } from '../../models/event.model';
 // import { RegisterService } from '../../services/register.service';
 // import { IdeagenService } from '../../services/ideagen.service';
