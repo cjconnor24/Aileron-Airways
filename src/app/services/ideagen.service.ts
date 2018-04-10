@@ -304,8 +304,7 @@ export class IdeagenService {
       'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
     });
 
-    // RUN BOTH QUERIES IN PARALELL [0] GET TIMELINE [1] GET EVENTS
-    
+    // GET     
     return this.httpClient.get(this.API_URL + 'Timeline/GetTimeline',{headers: headers.append('TimelineId', timelineId)})
     .flatMap((timeline: any) => {
       // GET EVENTS
@@ -318,7 +317,9 @@ export class IdeagenService {
             .map((res:any) => {
               let e = res;
               event.event = e;
+              // timeline.Events = event;
               return event;
+              // return timeline;
             })
           })
         )
