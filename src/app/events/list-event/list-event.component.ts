@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { RegisterService } from '../../services/register.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { IdeagenService } from '../../services/ideagen.service';
 
 @Component({
   selector: 'app-list-event',
@@ -7,9 +10,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListEventComponent implements OnInit {
 
-  constructor() { }
+  id: string; 
+  constructor(
+    private registerService: RegisterService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private ideagenService: IdeagenService
+  ) { }
 
   ngOnInit() {
+
+    console.log('LIST EVENT COMPONENT');
+
+    this.route.params.subscribe(
+      (params: Params) => {
+        this.id = params['id'];
+
+        console.log('EVENT IS');
+        
+        console.log(this.id);
+        // this.editMode = params['id'] != null;
+        // this.timeline = this.registerService.getTimeline(this.id);
+        // console.log(this.timeline);
+        // console.log(this.editMode);
+        // this.initForm();
+      }
+    );
+
   }
 
 }
