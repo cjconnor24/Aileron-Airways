@@ -26,6 +26,10 @@ export class IdeagenService {
   constructor(private httpClient: HttpClient) { }
 
   API_URL = environment.apiUrl;
+  API_AUTH = {
+    'TenantId': 'Team2',
+    'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+  }
 
   /**
    * Create timeline and save it in API
@@ -34,10 +38,7 @@ export class IdeagenService {
   createTimeline(timeline: Timeline): Observable<Timeline> {
 
     const headers = new HttpHeaders(
-      {
-        'TenantId': 'Team2',
-        'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
-      }
+      this.API_AUTH
     );
     console.log(timeline);
     const body = {
@@ -240,7 +241,7 @@ export class IdeagenService {
   }
 
   /**
-   * Get timeline and event ID's 
+   * Get timeline and event ID's using paralell HttpClient
    * @param timelineId 
    */
   getTimelineAndEventsParallel(timelineId: string): Observable<any> {
@@ -266,6 +267,10 @@ export class IdeagenService {
 
   }
 
+  /**
+   * Get timelines and events in series
+   * @param timelineId 
+   */
   getTimelineAndEventsSeries(timelineId: string): Observable<any> {
 
     const headers = new HttpHeaders({
@@ -298,10 +303,7 @@ export class IdeagenService {
 
   getTimelineAndEventsDeeper(timelineId: string): Observable<any> {
 
-    const headers = new HttpHeaders({
-      'TenantId': 'Team2',
-      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
-    });
+    const headers = new HttpHeaders(this.API_AUTH);
 
     return Observable.forkJoin([
       this.httpClient.get(this.API_URL + 'Timeline/GetTimeline', { headers: headers.append('TimelineId', timelineId) }),
@@ -314,9 +316,9 @@ export class IdeagenService {
               return this.httpClient.get(this.API_URL + 'TimelineEvent/GetTimelineEvent', { headers: headers.append('TimelineEventId', event.TimelineEventId) })
                 .map((res: any) => {
                   let e = res;
-                  event.event = e;
+                  // event.event = e;
                   // timeline.Events = event;
-                  return event;
+                  return e;
                   // return timeline;
                 })
             })
