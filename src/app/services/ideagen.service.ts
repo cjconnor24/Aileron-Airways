@@ -266,7 +266,7 @@ export class IdeagenService {
       'TimelineEventId': eventId
     });
 
-    return this.httpClient.get(this.API_URL + 'TimelineEvent/GetTimelineEvent',{headers: headers});
+    return this.httpClient.get(this.API_URL + 'TimelineEvent/GetTimelineEvent', { headers: headers });
 
   }
 
@@ -283,17 +283,17 @@ export class IdeagenService {
 
     // RUN BOTH QUERIES IN PARALELL [0] GET TIMELINE [1] GET EVENTS
     return Observable.forkJoin([
-      this.httpClient.get(this.API_URL + 'Timeline/GetTimeline',{headers: headers.append('TimelineId', timelineId)}),
-      this.httpClient.get(this.API_URL + 'Timeline/GetEvents',{headers: headers.append('TimelineId', timelineId)})
+      this.httpClient.get(this.API_URL + 'Timeline/GetTimeline', { headers: headers.append('TimelineId', timelineId) }),
+      this.httpClient.get(this.API_URL + 'Timeline/GetEvents', { headers: headers.append('TimelineId', timelineId) })
     ])
-    .map((data: any[]) =>{
-      let timeline: any = data[0]; // TIMELINE
-      let events: any = data[1]; // THE EVENTS
+      .map((data: any[]) => {
+        let timeline: any = data[0]; // TIMELINE
+        let events: any = data[1]; // THE EVENTS
 
-      timeline.Events = events; // ADD THEM TO THAT OBJECT
-      return timeline;
+        timeline.Events = events; // ADD THEM TO THAT OBJECT
+        return timeline;
 
-    })
+      })
 
   }
 
@@ -305,37 +305,65 @@ export class IdeagenService {
     });
 
     // GET     
-    return this.httpClient.get(this.API_URL + 'Timeline/GetTimeline',{headers: headers.append('TimelineId', timelineId)})
-    .flatMap((timeline: any) => {
-      // GET EVENTS
-      return this.httpClient.get(this.API_URL + 'Timeline/GetEvents',{headers: headers.append('TimelineId', timeline.Id)})
-      .flatMap((events: any) => {
-        // LOOP THROUGH THE EVENTS AND GET INDIVIDUALLY
-        return Observable.forkJoin(
-          events.map((event: any) =>{
-            return this.httpClient.get(this.API_URL + 'TimelineEvent/GetTimelineEvent',{headers: headers.append('TimelineEventId', event.TimelineEventId)})
-            .map((res:any) => {
-              let e = res;
-              event.event = e;
-              // timeline.Events = event;
-              return event;
-              // return timeline;
-            })
-          })
-        )
+    return this.httpClient.get(this.API_URL + 'Timeline/GetTimeline', { headers: headers.append('TimelineId', timelineId) })
+      .flatMap((timeline: any) => {
+        // GET EVENTS
+        return this.httpClient.get(this.API_URL + 'Timeline/GetEvents', { headers: headers.append('TimelineId', timeline.Id) })
+          .flatMap((events: any) => {
+            // LOOP THROUGH THE EVENTS AND GET INDIVIDUALLY
+            return Observable.forkJoin(
+              events.map((event: any) => {
+                return this.httpClient.get(this.API_URL + 'TimelineEvent/GetTimelineEvent', { headers: headers.append('TimelineEventId', event.TimelineEventId) })
+                  .map((res: any) => {
+                    let e = res;
+                    event.event = e;
+                    // timeline.Events = event;
+                    return event;
+                    // return timeline;
+                  })
+              })
+            )
+          });
       });
-      // LOOP GROUP AND GET EVENT DETAILS
+  }
+
+  getTimelineAndEventsDeeper(timelineId: string): Observable<any> {
+
+    const headers = new HttpHeaders({
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
     });
-      
-    
-    // .map((data: any[]) =>{
-    //   let timeline: any = data[0]; // TIMELINE
-    //   let events: any = data[1]; // THE EVENTS
 
-    //   timeline.Events = events; // ADD THEM TO THAT OBJECT
-    //   return timeline;
+    return Observable.forkJoin([
+      this.httpClient.get(this.API_URL + 'Timeline/GetTimeline', { headers: headers.append('TimelineId', timelineId) }),
+      this.httpClient.get(this.API_URL + 'Timeline/GetEvents', { headers: headers.append('TimelineId', timelineId) })
+        .flatMap((events: any) => {
 
-    // })
+          // LOOP THROUGH THE EVENTS AND GET INDIVIDUALLY
+          return Observable.forkJoin(
+            events.map((event: any) => {
+              return this.httpClient.get(this.API_URL + 'TimelineEvent/GetTimelineEvent', { headers: headers.append('TimelineEventId', event.TimelineEventId) })
+                .map((res: any) => {
+                  let e = res;
+                  event.event = e;
+                  // timeline.Events = event;
+                  return event;
+                  // return timeline;
+                })
+            })
+          )
+
+        })
+    ]
+    ).map((data: any) => {
+      let timeline: any = data[0];
+      let events: any = data[1];
+      timeline.Events = events;
+      return timeline;
+    });
+
+    // GET     
+
 
   }
 
