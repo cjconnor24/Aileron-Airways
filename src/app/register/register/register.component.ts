@@ -11,8 +11,8 @@ import { Timeline } from '../../models/timeline.model';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
 
-  register: Timeline[];
-  subscriber: Subscription;
+  // register: Timeline[];
+  // subscriber: Subscription;
   // searchText: string;
   // loaded = false;
 
@@ -33,8 +33,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriber.unsubscribe();
-    console.log('Register List Subscription Destroyed');
+    // this.subscriber.unsubscribe();
+    // console.log('Register List Subscription Destroyed');
   }
 
 }
