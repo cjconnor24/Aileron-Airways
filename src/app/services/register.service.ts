@@ -21,8 +21,7 @@ export class RegisterService {
         (timelines: Timeline[]) => {
           this.register = timelines;
           this.registerChanged.next(this.register.slice());
-
-          console.log('LOADING TIMELINES FROM API:');
+          // console.log('LOADING TIMELINES FROM API:');
         },
         (error: any) => {
           console.log(error);

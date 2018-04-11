@@ -208,10 +208,9 @@ export class IdeagenService {
             tl.events = timeline['TimelineEvents'].map(event => {
 
               const e: Event = new Event(event.Id, event.Title, event.Description, this.ticksToTime(event.EventDateTime), event.Location);
-
-              console.log(e);
-
               return e;
+              // console.log(e);
+
             });
 
             return tl;
@@ -399,7 +398,7 @@ export class IdeagenService {
                         });
                       } else {
                         // OTHERWISE RETURN EMPTY OBSERVABLE
-                        console.log('THERE WERE NO LINKED EVENTS HERE');
+                        // console.log('THERE WERE NO LINKED EVENTS HERE');
                         return Observable.of(ev);
                       }
 
