@@ -1,53 +1,44 @@
+<app-spinner *ngIf="!loaded">
+</app-spinner>
 
-<app-spinner *ngIf="!loaded"></app-spinner>
-
+<div *ngIf="loaded">
 <h1>{{timeline?.title}}</h1>
 
 
-  <p>Below are the events related to this timeline.</p>
+<p>Below are the events related to this timeline.</p>
 
-  <p class="button-row">
-      <a routerLink="/timelines" class="button button-primary large">
-          <i class="fas fa-arrow-left"></i> Return to Register</a>
-      <a routerLink="new" class="button button-success large">
-        <i class="fas fa-plus"></i> Create New Event</a>
-    </p>
-  
-  <div *ngIf="timeline?.events.length > 0; then hasEvents; "></div>
-  
-  <!-- TIMELINE TEMPLATE -->
-  <ng-template #hasEvents>
-    <div class="timeline">
-  
-      <div *ngFor="let event of timeline?.events; let i = index">
-  
-        <app-list-event-item [event]="event" [i]="i"></app-list-event-item>
-  
-        <ul>
-          <!-- <li *ngFor="let levent of event.linkedEvents">{{levent.title}}</li> -->
-        </ul>
-  
-        <div class="linked">
+<p class="button-row">
+  <a routerLink="/timelines" class="button button-primary large">
+    <i class="fas fa-arrow-left"></i> Return to Register</a>
+  <a *ngIf="!this.hasEvents" routerLink="new" class="button button-success large">
+    <i class="fas fa-plus"></i> Create New Event</a>
+</p>
+
+<!-- DIRECTIVE TO CHECK FOR WHICH CONTENT TO DISPLAY -->
+<div *ngIf="timeline?.events.length > 0; then hasEvents; else noEvents; "></div>
+
+<!-- IF HAS EVENTS -->
+<ng-template #hasEvents>
+  <div class="timeline">
+
+    <div *ngFor="let event of timeline?.events; let i = index">
+
+      <app-list-event-item [event]="event" [i]="i"></app-list-event-item>
+
+      <div class="linked">
         <app-list-event-item *ngFor="let levent of event.linkedEvents" [event]="levent" [i]="i"></app-list-event-item>
       </div>
-  
-        <!-- <div *ngIf="event.linkedEvents.length > 0"> -->
-  
-          <!-- <div class="linked">
-            <app-list-event-item *ngFor="let levent of event.linkedEvents; let j = index" [event]="levent" [i]="2"></app-list-event-item>
-          </div> -->
-  
-        <!-- </div> -->
-  
-  
-      </div>
+
     </div>
-  </ng-template>
-  
-  
-  <ng-template #noEvents>
-    <p>There are currently no events on this timeline.
-      <a href="#" class="button button-success">
+  </div>
+</ng-template>
+
+<!-- THERE WERE NO EVENT -->
+<ng-template #noEvents>
+  <div class="no-events">
+    <p>There are currently no events on this timeline.</p>
+    <a href="#" class="button button-success large">
         <i class="fas fa-plus"></i> Create Event</a>
-    </p>
-  </ng-template>
+  </div>
+</ng-template>
+</div>
