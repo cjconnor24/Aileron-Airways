@@ -359,10 +359,14 @@ export class IdeagenService {
       this.getEventsByTimelineId(timelineId)
         .flatMap((eventIds: any) => {
 
+          console.log('There are '+eventIds.length);
+
+          if(eventIds.length > 0){
           // LOOP THROUGH THE EVENTS AND GET INDIVIDUALLY
           return Observable.forkJoin(
             eventIds.map((event: any) => {
 
+              // GET THE INDIVIDUAL EVENT
               return this.getEvent(event.TimelineEventId)
                 .flatMap((ev: any) => {
 
@@ -399,6 +403,9 @@ export class IdeagenService {
                 })
             })
           )
+        } else {
+          return Observable.of([]);
+        }
 
         })
     ]
@@ -409,6 +416,8 @@ export class IdeagenService {
       const timeline: Timeline = data[0];
       const ev: Event[] = data[1];
 
+      console.log(timeline);
+      
 
       // THIS IS CAUSE ISSUES
       timeline.events = ev;
