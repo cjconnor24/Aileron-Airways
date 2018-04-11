@@ -209,13 +209,14 @@ input[type="button"] {
   &.button-primary {
     color: #FFF;
     background-color: $navyblue;
-    border-color: $navyblue;
+    // border-color: $navyblue;
+    border: none;
     // transition: all $transitionspeed;
 
     &:hover {
       color: #FFF;
       background-color: lighten($navyblue,10);
-      border-color: #1EAEDB; 
+      // border-color: #1EAEDB; 
     }
 
   }
@@ -224,7 +225,8 @@ input[type="button"] {
     &.button-success {
       background: $darkgreen;
       color:#FFF;
-      border-color: $darkgreen;
+      border: none;
+      // border-color: $darkgreen;
   
       &:hover {
         background:lighten($darkgreen,5);
@@ -236,7 +238,7 @@ input[type="button"] {
   &.button-danger {
     background: $darkred;
     color:#FFF;
-    border-color: $darkred;
+    // border-color: $darkred;
 
     &:hover {
       background:lighten($darkred,5);
