@@ -363,7 +363,26 @@ export class IdeagenService {
           // LOOP THROUGH THE EVENTS AND GET INDIVIDUALLY
           return Observable.forkJoin(
             events.map((event: any) => {
-              return this.getEvent(event.TimelineEventId);
+              return this.getEvent(event.TimelineEventId)
+              .flatMap((ev: any) => {
+                
+                // GET LINKED EVENTS
+                return this.httpClient.get(this.API_URL + 'TimelineEvent/GetLinkedTimelineEvents',{headers: headers.append("TimelineEventId",ev.eventId)})
+                .flatMap((links: any) => {
+
+
+                  // console.log(links);
+                  
+                  return Observable.forkJoin(
+                    links.map((linkedEvent:any) =>{
+                      return this.getEvent(linkedEvent.LinkedToTimelineEventId);       
+                    })
+                  );
+
+                  // console.log(links);
+                  // return links;
+                });
+              });
             })
           )
 
