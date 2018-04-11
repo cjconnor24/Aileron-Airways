@@ -7,12 +7,15 @@
 
   <div class="input-group">
     <i class="fas fa-search"></i>
-    <input [(ngModel)]="searchText" placeholder="Search by name..." type="text"> 
-    <br>   
+    <input [(ngModel)]="searchText" placeholder="Search by name..." type="text">
+  </div>
+
+  <div class="input-group">
+    <i class="fas fa-calendar-alt"></i>
     <input [(ngModel)]="searchDate" placeholder="Filter by date..." type="date">
   </div>
 
- </div>
+</div>
 
 <p class="button-row">
   <button class="button button-primary">
@@ -38,19 +41,20 @@
       <p class="details__time">
         <i class="fas fa-clock"></i> {{timeline.dateCreated | moment | lowercase }} </p>
       <p>
-        <a routerLink="{{timeline.timelineId}}" class="button button-success"><i class="fas fa-eye"></i> View Timeline</a>
+        <a routerLink="{{timeline.timelineId}}" class="button button-success">
+          <i class="fas fa-eye"></i> View Timeline</a>
       </p>
     </div>
 
     <!--       Timeline Buttons -->
     <div class="buttons">
       <ul>
-          <li>
-              <a routerLink="{{timeline.timelineId}}/overview">
-                <i class="fas fa-sitemap"></i>
-                <span>Show Overview</span>
-              </a>
-            </li>
+        <li>
+          <a routerLink="{{timeline.timelineId}}/overview">
+            <i class="fas fa-sitemap"></i>
+            <span>Show Overview</span>
+          </a>
+        </li>
         <li>
           <a routerLink="{{timeline.timelineId}}/delete">
             <i class="fas fa-trash-alt"></i>
@@ -70,4 +74,4 @@
 
 </div>
 
-<app-spinner *ngIf="!loaded"></app-spinner> 
+<app-spinner *ngIf="!loaded"></app-spinner>
