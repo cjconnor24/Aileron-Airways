@@ -37,7 +37,7 @@
   
 <div class="register" *ngIf="loaded">
 
-  <div class="tline" *ngFor="let timeline of register | filter: searchText | dateFilter: searchDate " routerLink="{{timeline.timelineId}}/edit">
+  <div class="tline" *ngFor="let timeline of register | filter: searchText | dateFilter: searchDate " routerLink="{{timeline.timelineId}}">
     <!-- <div class="tline" *ngFor="let timeline of register" routerLink="{{timeline.timelineId}}/edit"> -->
 
     <!-- Event Count -->
