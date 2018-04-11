@@ -366,13 +366,9 @@ export class IdeagenService {
               return this.getEvent(event.TimelineEventId)
                 .flatMap((ev: any) => {
 
-                  console.log(ev);
-
                   // GET LINKED EVENTS
                   return this.httpClient.get(this.API_URL + 'TimelineEvent/GetLinkedTimelineEvents', { headers: headers.append("TimelineEventId", ev.eventId) })
                     .flatMap((links: any) => {
-
-                      
 
                       // GET THE ACTUAL EVENTS BACK
                       return Observable.forkJoin(
@@ -380,21 +376,15 @@ export class IdeagenService {
 
                           // THIS IS RETURNING AN EVENT OBSERVABLE
                           return this.getEvent(linkedEvent.LinkedToTimelineEventId)
-                          .map((res: Event) => {
-                            // console.log(event);
-                            // console.log(res);
-                            // linkedEvent.XXX = res;
-                            return res;
-                          });
+                            .map((res: Event) => {
+                              return res;
+                            });
+
                         })
                       ).map((result: any) => {
 
-                        // console.log('DAFUQ IS DIS');
                         ev.linkedEvents = result;
                         return ev;
-                        
-                        // console.log(result);
-                        // return result;
 
                       });
 
@@ -410,13 +400,8 @@ export class IdeagenService {
       const timeline: Timeline = data[0];
       const ev: Event[] = data[1];
 
-      // console.log(data);
-
-
-      // console.log(data);
       timeline.events = ev;
 
-      // timeline.events = events;
       return timeline;
     });
 
