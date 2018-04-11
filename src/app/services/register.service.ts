@@ -8,16 +8,21 @@ import { EventApiService } from './event-api.service';
 import { EventAttachmentApiService } from './event-attachment-api.service';
 
 
+
 @Injectable()
 export class RegisterService {
 
-  constructor(private ideagenService: IdeagenService, private EventApiService: EventApiService) { }
+  constructor(private ideagenService: IdeagenService) { }
 
   register: Timeline[] = [];
   registerChanged = new Subject<Timeline[]>();
   
   registerChangedEv = new Subject<Event[]>();
   registerEv: Event;
+
+
+
+
 
   private loadTimelines() {
 
@@ -44,6 +49,7 @@ export class RegisterService {
   }
 
   getTimeline(id: string): Timeline {
+
     return this.register.find(timeline => timeline.timelineId === id);
   }
 
