@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { EventApiService } from './services/event-api.service';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TimelineListComponent } from './timeline-list/timeline-list.component';
@@ -12,20 +11,20 @@ import { HeaderComponent } from './ui/header/header.component';
 import { FooterComponent } from './ui/footer/footer.component';
 import { RegisterComponent } from './register/register/register.component';
 import { RegisterListComponent } from './register/register-list/register-list.component';
-// import { RegisterTimelineComponent } from './register/register-timeline/register-timeline.component';
 import { RegisterService } from './services/register.service';
 import { IdeagenService } from './services/ideagen.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './routing-module/app-routing.module';
 import { CreateTimelineComponent } from './register/create-timeline/create-timeline.component';
 import { FilterPipe } from './pipes/filter.pipe';
-
+import {DatePipe} from '@angular/common';
 
 import { CreateEventComponent } from './events/create-event/create-event.component';
 import { DeleteTimelineComponent } from './register/delete-timeline/delete-timeline.component';
 import { MomentPipe } from './pipes/moment.pipe';
 import { TimelineOverviewComponent } from './register/timeline-overview/timeline-overview.component';
 import { ListEventComponent } from './events/list-event/list-event.component';
+import { DateFilterPipe } from './pipes/date-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -38,7 +37,6 @@ import { ListEventComponent } from './events/list-event/list-event.component';
     FooterComponent,
     RegisterComponent,
     RegisterListComponent,
-    // RegisterTimelineComponent,
     CreateTimelineComponent,
     FilterPipe,
     CreateEventComponent,
@@ -46,6 +44,7 @@ import { ListEventComponent } from './events/list-event/list-event.component';
     MomentPipe,
     TimelineOverviewComponent,
     ListEventComponent,
+    DateFilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +55,9 @@ import { ListEventComponent } from './events/list-event/list-event.component';
   ],
   providers: [
     IdeagenService,
-    RegisterService],
+    RegisterService,
+    DatePipe
+  ],
   bootstrap: [
     AppComponent
   ]

@@ -9,6 +9,13 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
+// import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/Observable/of';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+import { log } from 'util';
+import { Subscription } from 'rxjs/Subscription';
+import { Title } from '@angular/platform-browser';
 
 
 

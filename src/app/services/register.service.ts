@@ -4,6 +4,10 @@ import { Event } from '../models/event.model';
 import { Subject } from 'rxjs/Subject';
 import { IdeagenService } from './ideagen.service';
 import { Observable } from 'rxjs/Observable';
+import { EventApiService } from './event-api.service';
+import { EventAttachmentApiService } from './event-attachment-api.service';
+
+
 
 @Injectable()
 export class RegisterService {
@@ -12,6 +16,12 @@ export class RegisterService {
 
   register: Timeline[] = [];
   registerChanged = new Subject<Timeline[]>();
+  
+  registerChangedEv = new Subject<Event[]>();
+  registerEv: Event;
+
+
+
 
 
   private loadTimelines() {
@@ -30,16 +40,19 @@ export class RegisterService {
 
   }
 
+
+
   getTimelines(): Timeline[] {
     this.loadTimelines();
     return this.register.slice();
   }
 
   getTimeline(id: string): Timeline {
-    // this.loadTimelines();
-    // this.ideagenService.getTimeline()
+
     return this.register.find(timeline => timeline.timelineId === id);
   }
+
+ 
 
   editTimelineTitle(timeline: Timeline) {
     this.ideagenService.editTimelineTitle(timeline)
@@ -76,15 +89,29 @@ export class RegisterService {
 
   }
 
+  // deleteEvent(event: Event) {
+
+  //   this.EventApiService.deleteEvent(event).subscribe(
+  //     (data: any) => {
+  //       console.log(data);
+  //       console.log(this.registerEv.splice(this.registerEv.indexOf(event), 1));
+  //       this.registerChangedEv.next(this.registerEv.slice());
+  //     },
+  //     (error) => {
+  //       console.log('There was an error with delete Event:' + error);
+  //     }
+  //   );
+
+  // }
+
   setTimelines(timelines: Timeline[]) {
     this.register = timelines;
     this.registerChanged.next(this.register.slice());
   }
 
-  /**
-   * Subscribes to API call in IdeaGen service waiting on the API response call to add.
-   * @param timeline Timeline to be added
-   */
+
+
+  
   addTimeline(timeline: Timeline) {
 
     // SUBSCRIBE AND WAIT FOR RESPONSE
