@@ -25,6 +25,7 @@ import { MomentPipe } from './pipes/moment.pipe';
 import { TimelineOverviewComponent } from './register/timeline-overview/timeline-overview.component';
 import { ListEventComponent } from './events/list-event/list-event.component';
 import { DateFilterPipe } from './pipes/date-filter.pipe';
+import { Chart } from 'chart.js';
 
 @NgModule({
   declarations: [
