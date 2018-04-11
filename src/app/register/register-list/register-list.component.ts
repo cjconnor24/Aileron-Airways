@@ -52,19 +52,6 @@ export class RegisterListComponent implements OnInit, OnDestroy {
   //   }
   // )
 
-//   this.ideagenService.getLinkedEvents('101134').subscribe((data) => {
-//     // console.log('THIS IS INSIDE');
-
-//     console.log(data);
-//   },
-//   (error) => {
-//     console.log('There was an error');
-//   },
-//   () => {
-//     console.log("Done");
-//   }
-// )
-
   }
 
   ngOnDestroy() {
