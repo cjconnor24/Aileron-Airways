@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { EventApiService } from './services/event-api.service';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TimelineListComponent } from './timeline-list/timeline-list.component';
@@ -12,7 +11,6 @@ import { HeaderComponent } from './ui/header/header.component';
 import { FooterComponent } from './ui/footer/footer.component';
 import { RegisterComponent } from './register/register/register.component';
 import { RegisterListComponent } from './register/register-list/register-list.component';
-// import { RegisterTimelineComponent } from './register/register-timeline/register-timeline.component';
 import { RegisterService } from './services/register.service';
 import { IdeagenService } from './services/ideagen.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -37,7 +35,6 @@ import { DateFilterPipe } from './pipes/date-filter.pipe';
     FooterComponent,
     RegisterComponent,
     RegisterListComponent,
-    // RegisterTimelineComponent,
     CreateTimelineComponent,
     FilterPipe,
     CreateEventComponent,

@@ -7,7 +7,6 @@ import { Event } from '../models/event.model';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/Observable/of';
-import 'rxjs/add/observable/of';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { log } from 'util';
