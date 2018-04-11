@@ -62,6 +62,7 @@ export class CreateTimelineComponent implements OnInit {
 
     // GET THE ID FROM THE URL AND SET THE UPDATE MODE TO TRUE IF PARAMS EXIST
     
+    
     this.route.params.subscribe(
       (params: Params) => {
         this.id = params['id'];

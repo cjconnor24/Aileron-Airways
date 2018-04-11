@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { EventsAttachment, EventsAttachments } from '../data';
+
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -74,37 +74,37 @@ export class EventAttachmentApiService {
       .catch(this.handleError);
   }
 
-  public getTimelineEventAttachement(): Observable<EventsAttachment[]> {
+  // public getTimelineEventAttachement(): Observable<EventsAttachment[]> {
 
-    let myHeaders = new Headers();
-    myHeaders.append('TenantId', Tenant);
-    myHeaders.append('AuthToken', AToken);
-    return this.http
-      .get(API_URL + 'TimelineEventAttachment/GetAttachment', { headers: myHeaders })
-      .map(response => {
-        const eventsAttachment = response.json();
-        return eventsAttachment.map((eventsAttachment) => new EventsAttachment(eventsAttachment));
-
-
-      })
-      .catch(this.handleError);
-  }
-
-  public getTimelineEventAttachements(): Observable<EventsAttachments[]> {
-
-    let myHeaders = new Headers();
-    myHeaders.append('TenantId', Tenant);
-    myHeaders.append('AuthToken', AToken);
-    return this.http
-      .get(API_URL + 'TimelineEventAttachment/GetAttachments', { headers: myHeaders })
-      .map(response => {
-        const eventsAttachments = response.json();
-        return eventsAttachments.map((eventsAttachments) => new EventsAttachments(eventsAttachments));
+  //   let myHeaders = new Headers();
+  //   myHeaders.append('TenantId', Tenant);
+  //   myHeaders.append('AuthToken', AToken);
+  //   return this.http
+  //     .get(API_URL + 'TimelineEventAttachment/GetAttachment', { headers: myHeaders })
+  //     .map(response => {
+  //       const eventsAttachment = response.json();
+  //       return eventsAttachment.map((eventsAttachment) => new EventsAttachment(eventsAttachment));
 
 
-      })
-      .catch(this.handleError);
-  }
+  //     })
+  //     .catch(this.handleError);
+  // }
+
+  // public getTimelineEventAttachements(): Observable<EventsAttachments[]> {
+
+  //   let myHeaders = new Headers();
+  //   myHeaders.append('TenantId', Tenant);
+  //   myHeaders.append('AuthToken', AToken);
+  //   return this.http
+  //     .get(API_URL + 'TimelineEventAttachment/GetAttachments', { headers: myHeaders })
+  //     .map(response => {
+  //       const eventsAttachments = response.json();
+  //       return eventsAttachments.map((eventsAttachments) => new EventsAttachments(eventsAttachments));
+
+
+  //     })
+  //     .catch(this.handleError);
+  // }
 
   
 
