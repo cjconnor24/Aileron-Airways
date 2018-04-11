@@ -418,7 +418,8 @@ export class IdeagenService {
 
 
       // THIS IS CAUSE ISSUES
-      // timeline.events = events;
+      timeline.events = ev;
+      // console.log(timeline);
       return timeline;
     });
 
