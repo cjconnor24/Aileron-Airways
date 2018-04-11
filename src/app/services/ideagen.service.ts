@@ -274,19 +274,19 @@ export class IdeagenService {
       'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
     });
 
-    return this.httpClient.get(this.API_URL + 'TimelineEvent/GetLinkedTimelineEvents',{headers: headers.append('TimelineEventId',eventId)})
-    .flatMap((links: any) =>{
-      
-      return Observable.forkJoin(
-      links.map((data: any) =>{
-        return this.getEvent(data.TimelineEventId);
-      })
-    )
-      
-      // return this.getEvent(links);
-      // return links.LinkedToTimelineEventId;
-      
-    });
+    return this.httpClient.get(this.API_URL + 'TimelineEvent/GetLinkedTimelineEvents', { headers: headers.append('TimelineEventId', eventId) })
+      .flatMap((links: any) => {
+
+        return Observable.forkJoin(
+          links.map((data: any) => {
+            return this.getEvent(data.TimelineEventId);
+          })
+        )
+
+        // return this.getEvent(links);
+        // return links.LinkedToTimelineEventId;
+
+      });
 
   }
 
@@ -358,31 +358,48 @@ export class IdeagenService {
     return Observable.forkJoin([
       this.getTimelineById(timelineId), // Get the Timeline object
       this.getEventsByTimelineId(timelineId)
-        .flatMap((events: any) => {
+        .flatMap((eventIds: any) => {
 
           // LOOP THROUGH THE EVENTS AND GET INDIVIDUALLY
           return Observable.forkJoin(
-            events.map((event: any) => {
+            eventIds.map((event: any) => {
               return this.getEvent(event.TimelineEventId)
-              .flatMap((ev: any) => {
-                
-                // GET LINKED EVENTS
-                return this.httpClient.get(this.API_URL + 'TimelineEvent/GetLinkedTimelineEvents',{headers: headers.append("TimelineEventId",ev.eventId)})
-                .flatMap((links: any) => {
+                .flatMap((ev: any) => {
 
+                  console.log(ev);
 
-                  // console.log(links);
-                  
-                  return Observable.forkJoin(
-                    links.map((linkedEvent:any) =>{
-                      return this.getEvent(linkedEvent.LinkedToTimelineEventId);       
-                    })
-                  );
+                  // GET LINKED EVENTS
+                  return this.httpClient.get(this.API_URL + 'TimelineEvent/GetLinkedTimelineEvents', { headers: headers.append("TimelineEventId", ev.eventId) })
+                    .flatMap((links: any) => {
 
-                  // console.log(links);
-                  // return links;
+                      
+
+                      // GET THE ACTUAL EVENTS BACK
+                      return Observable.forkJoin(
+                        links.map((linkedEvent: any) => {
+
+                          // THIS IS RETURNING AN EVENT OBSERVABLE
+                          return this.getEvent(linkedEvent.LinkedToTimelineEventId)
+                          .map((res: Event) => {
+                            // console.log(event);
+                            // console.log(res);
+                            // linkedEvent.XXX = res;
+                            return res;
+                          });
+                        })
+                      ).map((result: any) => {
+
+                        // console.log('DAFUQ IS DIS');
+                        ev.linkedEvents = result;
+                        return ev;
+                        
+                        // console.log(result);
+                        // return result;
+
+                      });
+
+                    });
                 });
-              });
             })
           )
 
