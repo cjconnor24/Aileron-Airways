@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {DataService} from '../data.service';
 import { Chart } from 'chart.js';
+import { TimelineApiService } from '../services/Timelineapi.service';
+import { RegisterService } from '../services/register.service';
+import { IdeagenService } from '../services/ideagen.service';
+import { repeat } from 'rxjs/operators';
 
 
 @Component({
@@ -10,31 +14,30 @@ import { Chart } from 'chart.js';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _dataService: IdeagenService) { }
+  dataSize = 0; // initialize at 0
+  chart = []; //holds chart info
+  recentTimelines = []; // holds recent timelines
 
-  ngOnInit() {
-    var data;
 
-    data = {
-      datasets: [{
-          data: [10, 20, 30]
-      }],
-  
-      // These labels appear in the legend and in the tooltips when hovering different arcs
-      labels: [
-          'Red',
-          'Yellow',
-          'Blue'
-      ]
-  };
+   ngOnInit() {
 
-    var myDoughnutChart = new Chart('test', {
-      type: 'doughnut',
-      data: data,
-      options: {}
-  });
-  
+
+    this._dataService.getTimelines().subscribe(data => {
+
+      this.dataSize = data.length;
+
+      let sortedData = []
+      sortedData = data.sort((a: any, b: any) => a.dateCreated - b.dateCreated).reverse();
+
+      console.log(sortedData)
+
+      let currentDate = new Date();
+      currentDate.setDate(currentDate.getDate() - 1);
+
+
+      
+    })
   }
-  }
-
+  
 }
