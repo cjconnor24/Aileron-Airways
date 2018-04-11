@@ -1,0 +1,282 @@
+/* TIMELINE CSS */
+$eventbg: #EEE;
+$light-red: #CB9195;
+/* TIMELINE CONTAINER */
+.linked,
+.timeline {
+  position: relative;
+  width: 100%;
+  margin: 50px auto;
+}
+/* TIMELINE ACTUAL LINE */
+.timeline::before {
+  content: ' ';
+  position: absolute;
+  width: 20px;
+  background: $lightblue;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  z-index: 0.5;
+  border-radius: 20px;
+  margin-left: -10px;
+}
+
+.event + .linked::after {
+  content: ' ';
+  position: absolute;
+  border-right: 20px solid $light-red;
+  border-top: 20px solid $light-red;
+  top: -180px;
+  left: calc(50% - 60px);
+  border-radius: 0 50px 0 0;
+  width: 50px;
+  height: 178px;
+  z-index: -0.5;
+}
+
+.linked .linked::after {
+  content: ' ';
+  position: absolute;
+  border-right: 20px solid darkred;
+  border-top: 20px solid darkred;
+  top: -30px;
+  // left: calc(50% - 20px);
+  left:0;
+  border-radius: 0 50px 0 0;
+  width: 10px;
+  height: 20px;
+  z-index: -0.5;
+}
+/* LINKED EVENTS */
+.linked {
+  // display: none;
+  left: 30px;
+
+  &::before {
+    content: ' ';
+    position: absolute;
+    width: 20px;
+    background: $light-red;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    border-radius: 0 0 10px 10px;
+    margin-left: -10px;
+  }
+}
+
+.linked .event {
+  width: calc(50% - 30px);
+}
+/* NESTED LINK */
+.linked .linked::before {
+  background: darkred;
+}
+
+.linked .linked .event {
+  width: calc(50% - 60px);
+}
+
+.linked .event .details {
+  border: 3px dashed $light-red;
+}
+
+.linked .linked .event .details {
+  border: 3px dashed darkred;
+}
+
+.linked .event:nth-child(odd) .details {
+  margin: 0 0 20px 30px;
+}
+
+.linked .event:nth-child(even) .details {
+  margin: 0 0 20px 30px;
+}
+/* EVENT CONTAINER */
+.event {
+  position: relative;
+  width: 50%;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  line-height: 1.3em;
+}
+/* EVENT CIRCLES */
+.event::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #FFF;
+  right: -10px;
+  top: 20px;
+  border-radius: 50%;
+  border: 3px solid $navyblue;
+}
+/* ADDING LINK ICONS TO LINKED EVENTS*/
+.linked .event::after {
+  color: $darkred;
+  font-weight: 900;
+  font-family: "Font Awesome\ 5 Free";
+  content: "\f0c1";
+  font-size: 0.6em;
+  text-align: center;
+  line-height: 14px;
+  animation: spin 4s linear infinite;
+  border-color: $darkred;
+}
+/* POSITION LEFT AND RIGHT OF LINE */
+.event .left {
+  left: 0;
+}
+
+.left::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  right: 20px;
+  border: medium solid $eventbg;
+  border-width: 10px 0 10px 10px;
+  border-color: transparent transparent transparent $eventbg;
+  transition: $transitionspeed;
+}
+
+.right::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  left: 20px;
+  border: medium solid $eventbg;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent $eventbg transparent transparent;
+}
+/* TRIANGLE HOVER STATES */
+.left:hover::before {
+  border-color: transparent transparent transparent $highlightyellow;
+}
+
+.right:hover::before {
+  border-color: transparent $highlightyellow transparent transparent;
+}
+
+.event.right {
+  left: 50%;
+}
+
+.event.right::after {
+  left: -10px;
+}
+
+.event .details h2 {
+  font-weight: 700;
+}
+
+.event .details {
+  padding: 20px 30px;
+  background-color: $eventbg;
+  position: relative;
+  border-radius: 6px;
+  transition: $transitionspeed;
+}
+
+.event.left .details {
+  margin: 20px 30px 20px 0;
+}
+
+.event.right .details {
+  margin: 20px 0 20px 30px;
+}
+
+.event .details:hover {
+  background: $highlightyellow;
+}
+
+.details .info i {
+  color: $navyblue;
+}
+
+.details .linked-events strong {
+  background: #FFF;
+  color: $darkred;
+  padding: 5px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.button-row .button {
+  padding: 0 10px;
+}
+@media(max-width:1080px) {
+  /* BLOCK BUTTONS WHEN THEY START TO FOLD */
+  .details .button {
+    display: block;
+  }
+}
+@media(max-width:900px) {
+  /* MOVE THE LINE TO THE LEFT */
+  .linked::before,
+  .timeline::before {
+    left: 0;
+  }
+
+  .event {
+    width: 100%;
+  }
+
+  .event:not(:first-child) {
+    top: inherit;
+  }
+
+  .event.left,
+  .event.right {
+    left: 0;
+  }
+
+  .event.left::after {
+    left: -10px;
+  }
+
+  .event.left .details,
+  .event.right .details {
+    margin: 20px 0 20px 30px;
+  }
+
+  .linked {
+    left: 30px;
+  }
+
+  .linked .event {
+    width: calc(100% - 30px);
+  }
+  /* NESTED EVENT */
+  .linked .linked .event {
+    width: calc(100% - 60px);
+    margin: 0;
+    padding: 0;
+  }
+  /* FLIP THE ARROW TO THE LEFT */
+  .left::before {
+    content: " ";
+    height: 0;
+    position: absolute;
+    top: 22px;
+    width: 0;
+    left: 20px;
+    border: medium solid $eventbg;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent $eventbg transparent transparent;
+  }
+  /* THE BRANCHING BOXES */
+  .event + .linked::after {
+    width: 10px;
+    height: 30px;
+    left: -20px;
+    top: -30px;
+  }
+
+  .linked .linked::after {}
+}

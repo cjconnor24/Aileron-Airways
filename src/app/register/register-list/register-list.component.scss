@@ -1,9 +1,14 @@
-p.button-row {text-align: right;}
+p.button-row {
+    // text-align: right;
+    display: flex;
+    justify-content: flex-end;
+}
 
 .search-box {
     padding:1em;
     box-shadow:0 0 10px #CCC;
     display:flex;
+    flex-grow: 1;
     // border:1px solid #C00;
     border-radius: 10px;
     margin:0 0 1em 0;

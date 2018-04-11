@@ -249,6 +249,9 @@ input[type="button"] {
       font-size:1em;
       height:50px;
       line-height:50px;
+      &:hover {
+        transform:scale(1.025);
+      }
     }
 
 }
