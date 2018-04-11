@@ -4,18 +4,11 @@ import { Timeline } from '../models/timeline.model';
 import { Event } from '../models/event.model';
 import { environment } from '../../environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-
-
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
-// import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/Observable/of';
-import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
-import { log } from 'util';
-import { Subscription } from 'rxjs/Subscription';
-import { Title } from '@angular/platform-browser';
+
+// import { log } from 'util';
 
 
 
@@ -411,12 +404,6 @@ export class IdeagenService {
 
                     });
                 })
-              // .map((data: any) => {
-              // event.test = data;
-              // console.log(data);
-              // return data;
-              // return '1234';
-              // });
             })
           )
 
@@ -429,12 +416,8 @@ export class IdeagenService {
       const timeline: Timeline = data[0];
       const ev: Event[] = data[1];
 
-      // console.log(data);
-      // return data;
 
-      // console.log(data);
-      timeline.events = ev;
-
+      // THIS IS CAUSE ISSUES
       // timeline.events = events;
       return timeline;
     });
