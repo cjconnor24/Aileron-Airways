@@ -363,15 +363,8 @@ export class IdeagenService {
           return Observable.forkJoin(
             eventIds.map((event: any) => {
 
-              // console.log(event);
-
-
               return this.getEvent(event.TimelineEventId)
                 .flatMap((ev: any) => {
-
-                  // THIS IS THE EVENT
-                  // console.log('EVENT:');
-                  // console.log(ev);
 
                   // GET LINKED EVENTS
                   return this.httpClient.get(this.API_URL + 'TimelineEvent/GetLinkedTimelineEvents', { headers: headers.append("TimelineEventId", ev.eventId) })
