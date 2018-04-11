@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ApplicationRef} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EventApiService } from './services/event-api.service';
 import { AppComponent } from './app.component';
@@ -18,13 +18,18 @@ import { AppRoutingModule } from './routing-module/app-routing.module';
 import { CreateTimelineComponent } from './register/create-timeline/create-timeline.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import {DatePipe} from '@angular/common';
-import { AgmCoreModule } from '@agm/core';
+
 import { CreateEventComponent } from './events/create-event/create-event.component';
 import { DeleteTimelineComponent } from './register/delete-timeline/delete-timeline.component';
 import { MomentPipe } from './pipes/moment.pipe';
 import { TimelineOverviewComponent } from './register/timeline-overview/timeline-overview.component';
 import { ListEventComponent } from './events/list-event/list-event.component';
 import { DateFilterPipe } from './pipes/date-filter.pipe';
+
+
+import { CommonModule } from '@angular/common';
+import { MapComponent } from './map/map.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -45,13 +50,17 @@ import { DateFilterPipe } from './pipes/date-filter.pipe';
     TimelineOverviewComponent,
     ListEventComponent,
     DateFilterPipe,
+    MapComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyCBTGQi92BCCO3Q_MGNGK4VxuPrqEZTEpA",
+      libraries: ["places"]})
   ],
   providers: [
     IdeagenService,
