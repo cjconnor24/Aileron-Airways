@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './create-timeline.component.html',
   styleUrls: ['./create-timeline.component.scss']
 })
+
 export class CreateTimelineComponent implements OnInit {
 
   constructor(
@@ -25,13 +26,10 @@ export class CreateTimelineComponent implements OnInit {
   editMode = false;
   updated = false;
   id: string;
-
   subscription: Subscription;
 
   onSubmit() {
-
     console.log(this.createTimeline);
-
     if (!this.editMode) {
       console.log('TIMELINE ADDED');
       this.registerService.addTimeline(new Timeline(this.createTimeline.controls.name.value));
@@ -40,28 +38,22 @@ export class CreateTimelineComponent implements OnInit {
       this.timeline.title = this.createTimeline.controls.name.value;
       this.registerService.editTimelineTitle(this.timeline);
     }
-
   }
 
   private initForm() {
-
     let timelineTitle = '';
-
-    // IF EDITING, PULL THROUGH THE NAME
+    // IF EDITING, PULL THROUGH THE CURRENT TIMELINE TITLE
     if (this.editMode) {
       this.timeline = this.registerService.getTimeline(this.id);
       timelineTitle = this.timeline.title;
     }
-
     this.createTimeline = new FormGroup({
       'name': new FormControl(timelineTitle, Validators.required)
     });
   }
 
   ngOnInit() {
-
     // GET THE ID FROM THE URL AND SET THE UPDATE MODE TO TRUE IF PARAMS EXIST
-    
     this.route.params.subscribe(
       (params: Params) => {
         this.id = params['id'];
@@ -78,7 +70,6 @@ export class CreateTimelineComponent implements OnInit {
         this.updated = true;
       }
     );
-
   }
 
 }
