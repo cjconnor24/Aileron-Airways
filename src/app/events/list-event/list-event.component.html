@@ -5,6 +5,13 @@
 
 
   <p>Below are the events related to this timeline.</p>
+
+  <p class="button-row">
+      <a routerLink="/timelines" class="button button-primary large">
+          <i class="fas fa-arrow-left"></i> Return to Register</a>
+      <a routerLink="new" class="button button-success large">
+        <i class="fas fa-plus"></i> Create New Event</a>
+    </p>
   
   <div *ngIf="timeline?.events.length > 0; then hasEvents; "></div>
   
