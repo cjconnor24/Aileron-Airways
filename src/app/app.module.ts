@@ -25,6 +25,8 @@ import { MomentPipe } from './pipes/moment.pipe';
 import { TimelineOverviewComponent } from './register/timeline-overview/timeline-overview.component';
 import { ListEventComponent } from './events/list-event/list-event.component';
 import { DateFilterPipe } from './pipes/date-filter.pipe';
+import { ListEventItemComponent } from './events/list-event/list-event-item/list-event-item.component';
+import { SpinnerComponent } from './ui/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { DateFilterPipe } from './pipes/date-filter.pipe';
     TimelineOverviewComponent,
     ListEventComponent,
     DateFilterPipe,
+    ListEventItemComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
