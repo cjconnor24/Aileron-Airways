@@ -27,6 +27,7 @@ import { ListEventComponent } from './events/list-event/list-event.component';
 import { DateFilterPipe } from './pipes/date-filter.pipe';
 import { ListEventItemComponent } from './events/list-event/list-event-item/list-event-item.component';
 import { SpinnerComponent } from './ui/spinner/spinner.component';
+import { LayoutSliderComponent } from './ui/layout-slider/layout-slider.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { SpinnerComponent } from './ui/spinner/spinner.component';
     DateFilterPipe,
     ListEventItemComponent,
     SpinnerComponent,
+    LayoutSliderComponent,
   ],
   imports: [
     BrowserModule,
