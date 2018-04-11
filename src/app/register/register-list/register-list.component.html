@@ -1,8 +1,11 @@
-<h1>Timeline Register</h1>
-<p>Below is a list of all the current timelines</p>
+
+
+<img class="aileron-logo" src="/assets/img/aileron_airways_logo_text.svg" alt="TEST">
+<!-- <h1>Timeline Register</h1>
+<p>Below is a list of all the current timelines</p> -->
+
 
 <h4>Search Timelines</h4>
-
 <div class="search-box">
 
   <div class="input-group">
@@ -15,13 +18,19 @@
     <input [(ngModel)]="searchDate" placeholder="Filter by date..." type="date">
   </div>
 
+  <div class="input-group">
+    <i class="fas fa-angle-down"></i>
+    <input [(ngModel)]="searchText" placeholder="Search by name..." type="text">
+  </div>
+
 </div>
 
 <p class="button-row">
-  <button class="button button-primary">
-    <i class="fas fa-sync fa-spin"></i> Refresh from API</button>
-  <a routerLink="new" class="button button-success">
+
+  <a routerLink="new" class="button button-success large">
     <i class="fas fa-plus"></i> Create New Timeline</a>
+  <app-layout-slider></app-layout-slider>
+
 </p>
 
 <div class="register" *ngIf="loaded">
