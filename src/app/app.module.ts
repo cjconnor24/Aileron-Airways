@@ -19,11 +19,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './routing-module/app-routing.module';
 import { CreateTimelineComponent } from './register/create-timeline/create-timeline.component';
 import { FilterPipe } from './pipes/filter.pipe';
-
+import {DatePipe} from '@angular/common';
 
 import { CreateEventComponent } from './events/create-event/create-event.component';
 import { DeleteTimelineComponent } from './register/delete-timeline/delete-timeline.component';
 import { MomentPipe } from './pipes/moment.pipe';
+import { DateFilterPipe } from './pipes/date-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { MomentPipe } from './pipes/moment.pipe';
     CreateEventComponent,
     DeleteTimelineComponent,
     MomentPipe,
+    DateFilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,9 @@ import { MomentPipe } from './pipes/moment.pipe';
   ],
   providers: [
     IdeagenService,
-    RegisterService],
+    RegisterService,
+    DatePipe
+  ],
   bootstrap: [
     AppComponent
   ]

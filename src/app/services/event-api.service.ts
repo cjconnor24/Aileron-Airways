@@ -53,6 +53,7 @@ export class EventApiService {
   }
 
 
+<<<<<<< HEAD
   deleteEvent(event: Event): Observable<any> {
 
     const headers = new HttpHeaders(
@@ -90,6 +91,40 @@ export class EventApiService {
 
         return e;
       });
+=======
+      deleteEvent(event: Event) {
+
+        const headers = new HttpHeaders(
+          {
+            'TenantId': 'Team2',
+            'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+          }
+        );
+    
+        console.log(event);
+    
+        const body = {
+          'TenantId': 'Team2',
+          'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
+          EventId: event.eventId
+        }
+    
+        console.log(body);
+    
+        return this.httpClient.put(API_URL + 'TimelineEvent/Delete', body,
+          {
+            headers: headers
+          }).subscribe(
+            (data: any) => {
+              console.log(data);
+    
+              //this.registerService.deleteEvent(event);
+    
+    
+            }
+          );
+    
+>>>>>>> 8da0b3874a556ce382ad8348346b9174c5a94199
 
   }
 
