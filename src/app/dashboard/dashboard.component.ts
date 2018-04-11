@@ -27,7 +27,6 @@ export class DashboardComponent implements OnInit {
     this._dataService.getTimelines().subscribe(data => {
 
       this.dataSize = data.length;
-      console.log(this.dataSize)
 
       let sortedData = []
       sortedData = data.sort((a: any, b: any) => a.dateCreated - b.dateCreated).reverse();
@@ -38,9 +37,9 @@ export class DashboardComponent implements OnInit {
 
       this.recentTimelines = 
       sortedData.filter(x => { return x.dateCreated >= currentDate }  );
+      console.log(this.recentTimelines)
 
       this.recentSize = this.recentTimelines.length;
-      console.log(this.recentSize)
 
       this.chartIt();
 

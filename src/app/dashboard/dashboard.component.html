@@ -1,1 +1,29 @@
-<canvas id="chartId" width="650" height="400"></canvas>
+<h1>Dashboard</h1>
+
+<div class="row">
+
+    <div class="six columns">
+            <canvas id="chartId" width="400" height="400"></canvas>
+    </div>
+
+    <div class="six columns">
+    <table>
+    <th>Timeline Title</th>
+    <th>Date Created</th>
+    <tr *ngFor="let Timeline of recentTimelines">
+        <td>
+            {{Timeline.title}}
+        </td>
+        <td>
+            {{Timeline.dateCreated}}
+        </td>
+    </tr>
+    </table>
+    </div>
+    
+</div>
+
+
+
+
+
