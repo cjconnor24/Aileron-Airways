@@ -1,8 +1,8 @@
-<div class="event" [ngClass]="{'right':i % 2 === 0,'left':i % 2 !== 0}">
+<div class="event" [ngClass]="{'right':i!==0,'left':i===0}">
     <div class="details">
       <h2>{{event?.title}}</h2>
       <p class="info">
-        <i class="far fa-calendar"></i> {{ event?.dateTime | date:'short'}}
+        <i class="far fa-calendar"></i> {{ event?.dateTime | date:'longDate'}}
         <i class="far fa-clock"></i> {{ event?.dateTime | date:'HH:mm'}}
         <i class="fas fa-paperclip"></i> 4</p>
       <p>{{event.description}}</p>
