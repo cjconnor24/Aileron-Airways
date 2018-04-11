@@ -22,6 +22,8 @@ import {DatePipe} from '@angular/common';
 import { CreateEventComponent } from './events/create-event/create-event.component';
 import { DeleteTimelineComponent } from './register/delete-timeline/delete-timeline.component';
 import { MomentPipe } from './pipes/moment.pipe';
+import { TimelineOverviewComponent } from './register/timeline-overview/timeline-overview.component';
+import { ListEventComponent } from './events/list-event/list-event.component';
 import { DateFilterPipe } from './pipes/date-filter.pipe';
 
 @NgModule({
@@ -40,6 +42,8 @@ import { DateFilterPipe } from './pipes/date-filter.pipe';
     CreateEventComponent,
     DeleteTimelineComponent,
     MomentPipe,
+    TimelineOverviewComponent,
+    ListEventComponent,
     DateFilterPipe,
   ],
   imports: [

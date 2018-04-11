@@ -11,27 +11,30 @@ import { Timeline } from '../../models/timeline.model';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
 
-  register: Timeline[];
-  subscriber: Subscription;
+  // register: Timeline[];
+  // subscriber: Subscription;
   // searchText: string;
   // loaded = false;
 
   constructor(private registerService: RegisterService) { }
 
   ngOnInit() {
+ 
     // GET THE STATIC TIMELINES FROM THE SERVICE THEN LISTEN TO THE SUBJECT
-    this.register = this.registerService.getTimelines();
-    this.subscriber = this.registerService.registerChanged.subscribe(
-      (timelines: Timeline[]) => {
-        this.register = timelines;
-        // this.loaded = true;
-      }
-    );
+    // COMMENTED OUT WHILE I"M WORKING ON BUILDING THE OTHER TIMELINE OVERVIEW
+    // TODO: RE-COMMENT BACK IN
+    // this.register = this.registerService.getTimelines();
+    // this.subscriber = this.registerService.registerChanged.subscribe(
+    //   (timelines: Timeline[]) => {
+    //     this.register = timelines;
+    //     // this.loaded = true;
+    //   }
+    // );
   }
 
   ngOnDestroy() {
-    this.subscriber.unsubscribe();
-    console.log('Register List Subscription Destroyed');
+    // this.subscriber.unsubscribe();
+    // console.log('Register List Subscription Destroyed');
   }
 
 }
