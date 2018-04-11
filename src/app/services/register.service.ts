@@ -4,20 +4,20 @@ import { Event } from '../models/event.model';
 import { Subject } from 'rxjs/Subject';
 import { IdeagenService } from './ideagen.service';
 import { Observable } from 'rxjs/Observable';
-// import { EventApiService } from './event-api.service';
+import { EventApiService } from './event-api.service';
 import { EventAttachmentApiService } from './event-attachment-api.service';
 
 
 @Injectable()
 export class RegisterService {
 
-  constructor(private ideagenService: IdeagenService) { }
+  constructor(private ideagenService: IdeagenService, private EventApiService: EventApiService) { }
 
   register: Timeline[] = [];
   registerChanged = new Subject<Timeline[]>();
-  registerEv: Event[]= [];
+  
   registerChangedEv = new Subject<Event[]>();
-
+  registerEv: Event;
 
   private loadTimelines() {
 
@@ -36,29 +36,7 @@ export class RegisterService {
 
   }
 
-  // private loadEvents() {
 
-  //   this.EventApiService.getEvents()
-  //     .subscribe(
-  //       (event: Event[]) => {
-  //         this.registerEv = event;
-  //         this.registerChangedEv.next(this.registerEv.slice());
-
-  //         console.log('LOADING Events FROM API:');
-  //       },
-  //       (error: any) => {
-  //         console.log(error);
-  //       }
-  //     );
-
-  // }
-
-
-  // getEvents(): Event[]{
- 
-  //   return this.registerEv.slice();
-
-  // }
 
   getTimelines(): Timeline[] {
     this.loadTimelines();
@@ -66,10 +44,10 @@ export class RegisterService {
   }
 
   getTimeline(id: string): Timeline {
-    // this.loadTimelines();
-    // this.ideagenService.getTimeline()
     return this.register.find(timeline => timeline.timelineId === id);
   }
+
+ 
 
   editTimelineTitle(timeline: Timeline) {
     this.ideagenService.editTimelineTitle(timeline)
@@ -126,15 +104,9 @@ export class RegisterService {
     this.registerChanged.next(this.register.slice());
   }
 
-  // setEvents(event:Event[]){
-  //   this.registerEv = event;
-  //   this.registerChangedEv.next(this.registerEv.slice());
-  // }
 
-  /**
-   * Subscribes to API call in IdeaGen service waiting on the API response call to add.
-   * @param timeline Timeline to be added
-   */
+
+  
   addTimeline(timeline: Timeline) {
 
     // SUBSCRIBE AND WAIT FOR RESPONSE

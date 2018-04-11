@@ -50,53 +50,53 @@ export class EventApiService {
           console.log(data);
         }
       );
-    }
-
-
-    deleteEvent(event: Event): Observable<any> {
-
-      const headers = new HttpHeaders(
-        {
-          'TenantId': 'Team2',
-          'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
-        }
-      );
-  
-      const body = {
-        'TenantId': 'Team2',
-        'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
-        EventId: event.eventId
-      };
-  
-      return this.httpClient.put(API_URL + 'Timeline/Delete', body,
-        {
-          headers: headers
-        });
-  
-    }
-    
-          getEvents(): Observable<Event[]> {
-
-            const headers = new HttpHeaders({
-              'TenantId': 'Team2',
-              'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
-            });
-        
-            return this.httpClient.get(API_URL + 'TimelineEvent/GetTimelineEvent',
-              {
-                headers: headers
-              }).map((data: { eventId: string, Title: string, Description: string, dateTime: number, Location: string })=>  {
-                const e: Event = new Event(data.eventId,data.Title,data.Description,data.dateTime,data.Location);
-             
-                return e;
-              });
-        
-          }
-
   }
 
 
-  
+  deleteEvent(event: Event): Observable<any> {
+
+    const headers = new HttpHeaders(
+      {
+        'TenantId': 'Team2',
+        'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+      }
+    );
+
+    const body = {
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
+      EventId: event.eventId
+    };
+
+    return this.httpClient.put(API_URL + 'Timeline/Delete', body,
+      {
+        headers: headers
+      });
+
+  }
+
+  getEvent(): Observable<Event> {
+
+    const headers = new HttpHeaders({
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+    });
+
+    return this.httpClient.get(API_URL + 'TimelineEvent/GetTimelineEvents',
+      {
+        headers: headers
+      }).map((data: { Title: string, dateTime: string, Description: string, IsDeleted: string, Location: number, eventId: string }) => {
+        const e: Event = new Event( data.Title, data.dateTime, data.Description, data.Location,data.eventId);
+
+        return e;
+      });
+
+  }
+
+}
+
+
+
 
   // public editTitle() {
   //   console.log("edit Title PUT TimelineEventId + Title Req");
@@ -186,4 +186,4 @@ export class EventApiService {
   //     .catch(this.handleError);
   // }
 
-  
+
