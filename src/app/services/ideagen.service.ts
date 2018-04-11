@@ -363,33 +363,54 @@ export class IdeagenService {
           // LOOP THROUGH THE EVENTS AND GET INDIVIDUALLY
           return Observable.forkJoin(
             eventIds.map((event: any) => {
+
+              // console.log(event);
+
+
               return this.getEvent(event.TimelineEventId)
                 .flatMap((ev: any) => {
+
+                  // THIS IS THE EVENT
+                  // console.log('EVENT:');
+                  // console.log(ev);
 
                   // GET LINKED EVENTS
                   return this.httpClient.get(this.API_URL + 'TimelineEvent/GetLinkedTimelineEvents', { headers: headers.append("TimelineEventId", ev.eventId) })
                     .flatMap((links: any) => {
 
-                      // GET THE ACTUAL EVENTS BACK
-                      return Observable.forkJoin(
-                        links.map((linkedEvent: any) => {
+                      // IF THERE ARE LINKED EVENTS
+                      if (links.length > 0) {
 
-                          // THIS IS RETURNING AN EVENT OBSERVABLE
-                          return this.getEvent(linkedEvent.LinkedToTimelineEventId)
-                            .map((res: Event) => {
-                              return res;
-                            });
+                        // GET THE ACTUAL EVENTS BACK
+                        return Observable.forkJoin(
+                          links.map((linkedEvent: any) => {
 
-                        })
-                      ).map((result: any) => {
+                            // THIS IS RETURNING AN EVENT OBSERVABLE
+                            return this.getEvent(linkedEvent.LinkedToTimelineEventId)
+                              .map((res: Event) => {
+                                return res;
+                              });
+                          })
+                        ).map((result: any) => {
 
-                        ev.linkedEvents = result;
-                        return ev;
+                          ev.linkedEvents = result;
+                          return ev;
 
-                      });
+                        });
+                      } else {
+                        // OTHERWISE RETURN EMPTY OBSERVABLE
+                        console.log('THERE WERE NO LINKED EVENTS HERE');
+                        return Observable.of(ev);
+                      }
 
                     });
-                });
+                })
+              // .map((data: any) => {
+              // event.test = data;
+              // console.log(data);
+              // return data;
+              // return '1234';
+              // });
             })
           )
 
@@ -397,11 +418,18 @@ export class IdeagenService {
     ]
     ).map((data: any) => {
 
+      // console.log(data);
+
       const timeline: Timeline = data[0];
       const ev: Event[] = data[1];
 
+      // console.log(data);
+      // return data;
+
+      // console.log(data);
       timeline.events = ev;
 
+      // timeline.events = events;
       return timeline;
     });
 
