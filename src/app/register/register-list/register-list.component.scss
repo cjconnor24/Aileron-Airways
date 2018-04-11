@@ -1,8 +1,9 @@
 p.button-row {text-align: right;}
+
 .search-box {
     padding:1em;
     box-shadow:0 0 10px #CCC;
-    // display:flex;
+    display:flex;
     // border:1px solid #C00;
     border-radius: 10px;
     margin:0 0 1em 0;
@@ -10,8 +11,9 @@ p.button-row {text-align: right;}
     .input-group {
         margin:0;padding:0;
         position:relative;
+        margin: 0 1em 0 0;
         // display:flex;
-        // flex-grow:1;
+        // flex-grow:2;
 
         i {
             position:absolute;
@@ -24,7 +26,8 @@ p.button-row {text-align: right;}
             text-align:center;
             color:#CCC;
         }
-        input[type=text] {
+        input[type=text],
+        input[type=date] {
             margin:0 0;padding:0 38px;
             display:block;
             // display:flex;
