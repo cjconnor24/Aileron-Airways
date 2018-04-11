@@ -43,7 +43,8 @@ $light-red: #CB9195;
   border-right: 20px solid darkred;
   border-top: 20px solid darkred;
   top: -30px;
-  left: calc(50% - 20px);
+  // left: calc(50% - 20px);
+  left:0;
   border-radius: 0 50px 0 0;
   width: 10px;
   height: 20px;
@@ -51,7 +52,7 @@ $light-red: #CB9195;
 }
 /* LINKED EVENTS */
 .linked {
-  display: none;
+  // display: none;
   left: 30px;
 
   &::before {
