@@ -43,6 +43,11 @@ p.button-row {
             display:block;
             // display:flex;
             flex-grow: 1;
+            
+
+            &::placeholder {
+                text-align: center;    
+            }
         }
 
     }
