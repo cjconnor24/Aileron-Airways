@@ -8,7 +8,7 @@ import { IdeagenService } from '../../services/ideagen.service';
   selector: 'app-timeline-overview',
   templateUrl: './timeline-overview.component.html',
   styleUrls: ['./timeline-overview.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  // encapsulation: ViewEncapsulation.None
 })
 export class TimelineOverviewComponent implements OnInit {
 
