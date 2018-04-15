@@ -44,30 +44,30 @@ export class TimelineApiService {
      
         })}
 
-  public getAllTimelinesAndEvent() {
+  // public getAllTimelinesAndEvent() {
 
-    const headers = new HttpHeaders(
-      {
-        'TenantId': 'Team2',
-        'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
-      });
+  //   const headers = new HttpHeaders(
+  //     {
+  //       'TenantId': 'Team2',
+  //       'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+  //     });
 
-    return this.httpClient
-      .get(API_URL + 'Timeline/GetAllTimelinesAndEvent', { headers: headers })
-      .map(eventObj => {
-        return eventObj['Events'].map(event=>{
-          let eVent = new Event(event.id,event.title,event.description,event.location,event.dateTime);
-          eVent.title = event.title;
-          eVent.description = event.description;
-          eVent.location = event.location;
-          eVent.dateTime = event.dateTime;
-          console.log(Event);
-          console.log(event);
-          console.log(eVent);
-          return eVent;
-        });
-      }) 
-    }
+  //   return this.httpClient
+  //     .get(API_URL + 'Timeline/GetAllTimelinesAndEvent', { headers: headers })
+  //     .map(eventObj => {
+  //       return eventObj['Events'].map(event=>{
+  //         let eVent = new Event(event.id,event.title,event.description,event.location,event.dateTime);
+  //         eVent.title = event.title;
+  //         eVent.description = event.description;
+  //         eVent.location = event.location;
+  //         eVent.dateTime = event.dateTime;
+  //         console.log(Event);
+  //         console.log(event);
+  //         console.log(eVent);
+  //         return eVent;
+  //       });
+  //     }) 
+  //   }
   
 
     

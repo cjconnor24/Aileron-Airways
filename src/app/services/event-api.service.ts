@@ -36,7 +36,7 @@ export class EventApiService {
       'TenantId': 'Team2',
       'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
       EventId: 'eventid', // NEEDS AN ID
-      Title: event.title,
+    //  Title: event.title,
       Description: event.description,
       location: event.location,
       dateTime: event.dateTime
@@ -122,7 +122,7 @@ export class EventApiService {
   //           (data: any) => {
   //             console.log(data);
     
-  //             this.registerService.deleteEvent(event);
+        //      this.registerService.deleteEvent(event);
     
     
   //           }
