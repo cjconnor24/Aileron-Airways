@@ -1,0 +1,31 @@
+@import "../../sass/utilities/variables";
+.top-five
+{
+    tr {transition:$transitionspeed;}
+    th:first-child,
+    td:first-child {
+        padding:0 0 0 1em;
+        
+    }
+    tr:hover {
+        cursor: pointer;
+    @include background-opacity($navyblue,0.4);
+    & .event-count {
+        transform:scale(1.2);
+        background: lighten($darkred,30);
+    }
+    }
+}
+.event-count {
+    transition:$transitionspeed;
+    background: $darkred;
+    display:block;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 0.8em;
+    padding:4px;
+    color: #FFF;
+}
