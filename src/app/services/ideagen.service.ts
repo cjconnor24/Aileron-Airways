@@ -208,7 +208,7 @@ export class IdeagenService {
             // GET THE EVENTS AND MAP TO EVENT OBJECTS
             tl.events = timeline['TimelineEvents'].map(event => {
 
-              const e: TimelineEvent = new TimelineEvent(event.Id, event.Title, event.Description, this.ticksToTime(event.EventDateTime), event.Location);
+              const e: TimelineEvent = new TimelineEvent(event.Title, event.Description, this.ticksToTime(event.EventDateTime), event.Location, event.Id);
               return e;
               // console.log(e);
 
@@ -244,7 +244,7 @@ export class IdeagenService {
         Id: string,
         TenantId: string
       }) => {
-        const event: TimelineEvent = new TimelineEvent(data.Id, data.Title, data.Description, this.ticksToTime(data.EventDateTime), data.Location);
+        const event: TimelineEvent = new TimelineEvent(data.Title, data.Description, this.ticksToTime(data.EventDateTime), data.Location, data.Id);
         return event;
       });
   }
@@ -449,7 +449,7 @@ export class IdeagenService {
       TimelineEventId: event.eventId,
       Title: event.title,
       Description: event.description,
-      EventDateTime: event.dateTime,
+      EventDateTime: this.timeToTicks(event.dateTime),
       Location: event.location
     };
 
@@ -458,6 +458,15 @@ export class IdeagenService {
     return this.httpClient.put(this.API_URL + 'TimelineEvent/Create', body,
       {
         headers: headers
+      }).flatMap((event: any) => {
+
+        return this.httpClient.put(this.API_URL + 'Timeline/LinkEvent',{TenantId: 'Team2','AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',TimelineId: timelineId,EventId: event.Id})
+        .flatMap((createdLink: any) => {
+
+          console.log(createdLink);
+          return createdLink;
+        });
+
       });    
 
   }
@@ -466,12 +475,21 @@ export class IdeagenService {
    * Convert the IdeaGen Time Format to javascript Date Object
    * @param time time to conver
    */
-  private ticksToTime(time) {
+  private ticksToTime(time): Date {
 
     const epochTicks = 621355968000000000;
     const ticksPerMilisecond = 10000;
 
     return new Date((time - epochTicks) / ticksPerMilisecond);
+
+  }
+
+  private timeToTicks(date: Date):string {
+
+    const epochTicks = 621355968000000000;
+    const ticksPerMilisecond = 10000;
+
+    return ((date.getTime() * ticksPerMilisecond) + epochTicks).toString();
 
   }
 

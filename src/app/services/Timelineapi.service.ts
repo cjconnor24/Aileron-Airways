@@ -56,7 +56,7 @@ export class TimelineApiService {
       .get(API_URL + 'Timeline/GetAllTimelinesAndEvent', { headers: headers })
       .map(eventObj => {
         return eventObj['Events'].map(event=>{
-          let eVent = new TimelineEvent(event.id,event.title,event.description,event.location,event.dateTime);
+          let eVent = new TimelineEvent(event.title,event.description,event.location,event.dateTime, event.id);
           eVent.title = event.title;
           eVent.description = event.description;
           eVent.location = event.location;
