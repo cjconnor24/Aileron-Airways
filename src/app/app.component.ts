@@ -19,12 +19,6 @@ export class AppComponent implements OnInit {
 
   public ngOnInit() {
 
-  //   this.register = this.registerService.getTimelines();
-  //   this.subscriber = this.registerService.registerChanged.subscribe(
-  //     (timelines: Timeline[]) => {
-  //       this.register = timelines;
-  //       this.loaded = true;
-  //     }
-  //   );
+
   }
 }

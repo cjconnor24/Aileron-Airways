@@ -25,8 +25,8 @@ import { MomentPipe } from './pipes/moment.pipe';
 import { TimelineOverviewComponent } from './register/timeline-overview/timeline-overview.component';
 import { ListEventComponent } from './events/list-event/list-event.component';
 import { DateFilterPipe } from './pipes/date-filter.pipe';
-
-
+import { Chart } from 'chart.js';
+import { Geolocation } from '@ionic-native/geolocation';
 import { CommonModule } from '@angular/common';
 import { MapComponent } from './map/map.component';
 import { AgmCoreModule } from '@agm/core';
@@ -59,8 +59,7 @@ import { AgmCoreModule } from '@agm/core';
     AppRoutingModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyCBTGQi92BCCO3Q_MGNGK4VxuPrqEZTEpA",
-      libraries: ["places"]})
+      apiKey: "AIzaSyD6hEcUsA_ZmkI3-i3y_IZdnfeUs2Hbn0w"})
   ],
   providers: [
     IdeagenService,
@@ -71,4 +70,7 @@ import { AgmCoreModule } from '@agm/core';
     AppComponent
   ]
 })
-export class AppModule { }
+export class AppModule {
+
+
+}
