@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import {DataService} from '../data.service';
+import { MapComponent } from '../map/map.component';
 import * as Chart from 'chart.js'
 import { TimelineApiService } from '../services/Timelineapi.service';
 import { RegisterService } from '../services/register.service';

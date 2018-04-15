@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ApplicationRef} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EventApiService } from './services/event-api.service';
 import { AppComponent } from './app.component';
@@ -18,7 +18,7 @@ import { AppRoutingModule } from './routing-module/app-routing.module';
 import { CreateTimelineComponent } from './register/create-timeline/create-timeline.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import {DatePipe} from '@angular/common';
-import { AgmCoreModule } from '@agm/core';
+
 import { CreateEventComponent } from './events/create-event/create-event.component';
 import { DeleteTimelineComponent } from './register/delete-timeline/delete-timeline.component';
 import { MomentPipe } from './pipes/moment.pipe';
@@ -26,6 +26,10 @@ import { TimelineOverviewComponent } from './register/timeline-overview/timeline
 import { ListEventComponent } from './events/list-event/list-event.component';
 import { DateFilterPipe } from './pipes/date-filter.pipe';
 import { Chart } from 'chart.js';
+import { Geolocation } from '@ionic-native/geolocation';
+import { CommonModule } from '@angular/common';
+import { MapComponent } from './map/map.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -46,13 +50,16 @@ import { Chart } from 'chart.js';
     TimelineOverviewComponent,
     ListEventComponent,
     DateFilterPipe,
+    MapComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyD6hEcUsA_ZmkI3-i3y_IZdnfeUs2Hbn0w"})
   ],
   providers: [
     IdeagenService,
@@ -63,4 +70,7 @@ import { Chart } from 'chart.js';
     AppComponent
   ]
 })
-export class AppModule { }
+export class AppModule {
+
+
+}
