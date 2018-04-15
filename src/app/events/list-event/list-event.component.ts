@@ -13,7 +13,7 @@ import { TimelineEvent } from '../../models/timeline-event.model';
 })
 export class ListEventComponent implements OnInit {
 
-  id: string; 
+  id: string;
   timeline: Timeline;
   loaded: boolean = false;
   hasEvents: boolean;
@@ -25,14 +25,44 @@ export class ListEventComponent implements OnInit {
     private ideagenService: IdeagenService
   ) { }
 
-  createTestEvent(){
+  createTestEvent() {
 
-    const event: TimelineEvent = new TimelineEvent('1234','Title','Description', new Date(), 'test location');
+    const event: TimelineEvent = new TimelineEvent('Title', 'Description', new Date(), 'test location');
 
-    console.log(event);
-    
+    this.ideagenService.createEvent(this.id, event)
+      .subscribe((data: any) => {
 
-    // this.ideagenService.createEvent(this.id,event)
+
+
+      },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          this.timeline.events.push(event);
+        }
+      );
+
+
+
+  }
+
+
+  onDeleteEvent(eventId: string) {
+
+
+    this.ideagenService.deleteEvent(this.timeline.timelineId, eventId)
+      .subscribe((data: any) => {
+
+        console.log("SHOULD BE DELETED NOW :)");
+        console.log(data);
+
+        // REMOVE FROM TIMELINE OBJECT IN COMPONENET;
+        this.timeline.events = this.timeline.events.filter((x) => {
+          return x.eventId !== eventId
+        });
+
+      });
 
   }
 
@@ -51,13 +81,13 @@ export class ListEventComponent implements OnInit {
 
         // GET THE TIMELINE AND EVENTS FROM THE API
         this.ideagenService.getTimelineAndEvents(this.id)
-        .subscribe((data:Timeline)=>{
-          this.timeline = data;
-          this.loaded = true;
-          this.hasEvents = (data.events.length>0);
-          console.log(data);
-          
-        })
+          .subscribe((data: Timeline) => {
+            this.timeline = data;
+            this.loaded = true;
+            this.hasEvents = (data.events.length > 0);
+            console.log(data);
+
+          })
 
       }
     );

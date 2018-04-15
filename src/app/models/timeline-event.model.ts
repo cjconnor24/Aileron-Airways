@@ -1,4 +1,5 @@
 import { Guid } from "../services/guid";
+import { Attachment } from "./attachment.model";
 
 /**
  * Represents TimelineEvent Model
@@ -11,6 +12,7 @@ export class TimelineEvent extends Guid {
     dateTime: Date; // TODO: Might need different type
     location: string; // TODO: Might need location object type
     linkedEvents: TimelineEvent[];
+    attachments: Attachment[];
 
     /**
      * Build Timeline event object.
@@ -28,6 +30,7 @@ export class TimelineEvent extends Guid {
         this.dateTime = dateTime;
         this.location = location;
         this.linkedEvents = [];
+        this.attachments = [];
 
     }
 

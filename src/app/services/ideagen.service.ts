@@ -178,6 +178,7 @@ export class IdeagenService {
         }
         ) => {
           const tl: Timeline = new Timeline(data.Title);
+          tl.timelineId = data.Id;
           tl.dateCreated = this.ticksToTime(data.CreationTimeStamp); // TODO: CONVERT DATE
           return tl;
         });
@@ -437,12 +438,12 @@ export class IdeagenService {
    * @param timelineId ID of timeline to link
    * @param event Event to save in the API
    */
-  createEvent(timelineId:string, event: TimelineEvent){
+  createEvent(timelineId: string, event: TimelineEvent) {
 
     const headers = new HttpHeaders(
       this.API_AUTH
     );
-    
+
     const body = {
       'TenantId': 'Team2',
       'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
@@ -460,14 +461,47 @@ export class IdeagenService {
         headers: headers
       }).flatMap((event: any) => {
 
-        return this.httpClient.put(this.API_URL + 'Timeline/LinkEvent',{TenantId: 'Team2','AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',TimelineId: timelineId,EventId: event.Id})
-        .flatMap((createdLink: any) => {
+        return this.httpClient.put(this.API_URL + 'Timeline/LinkEvent', { TenantId: 'Team2', 'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282', TimelineId: timelineId, EventId: event.Id })
+          .flatMap((createdLink: any) => {
 
-          console.log(createdLink);
-          return createdLink;
-        });
+            console.log(createdLink);
+            return createdLink;
+          });
 
-      });    
+      });
+
+  }
+
+
+  deleteEvent(timelineId: string, eventId: string) {
+
+    // const headers = new HttpHeaders(
+    //   this.API_AUTH
+    // );
+
+    const body = {
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
+      TimelineId: timelineId,
+      EventId: eventId,
+    };
+
+    console.log(body);
+
+    // UNLINK EVENT
+    // DELETE EVENT
+
+    return this.httpClient.put(this.API_URL + 'Timeline/UnlinkEvent', body)
+      .flatMap((event: any) => {
+
+        return this.httpClient.put(this.API_URL + 'TimelineEvent/Delete', { TenantId: 'Team2', 'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282', TimelineEventId: eventId })
+          .flatMap((deleted: any) => {
+
+            console.log(deleted);
+            return deleted;
+          });
+
+      });
 
   }
 
@@ -484,7 +518,7 @@ export class IdeagenService {
 
   }
 
-  private timeToTicks(date: Date):string {
+  private timeToTicks(date: Date): string {
 
     const epochTicks = 621355968000000000;
     const ticksPerMilisecond = 10000;

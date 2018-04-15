@@ -2,7 +2,7 @@ import { TimelineEvent } from "./timeline-event.model";
 import { Guid } from "../services/guid";
 
 export class Timeline extends Guid {
-    timelineId: String;
+    timelineId: string;
     title: string;
     events: TimelineEvent[];
     dateCreated: Date;

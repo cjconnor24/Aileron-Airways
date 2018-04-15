@@ -4,13 +4,15 @@
       <p class="info">
         <i class="far fa-calendar"></i> {{ event?.dateTime | date:'longDate'}}
         <i class="far fa-clock"></i> {{ event?.dateTime | date:'HH:mm'}}
-        <i class="fas fa-paperclip"></i> 4</p>
+        <i class="fas fa-paperclip"></i> {{event?.attachments.length}}</p>
       <p>{{event.description}}</p>
       <p class="button-row">
         <a href="#" class="button button-primary green">
           <i class="fas fa-eye"></i> View Event</a>
         <a href="#" class="button button-primary blue">
           <i class="fas fa-pencil-alt"></i> Quick Edit</a>
+          <a (click)="onDelete()" class="button button-danger">
+            <i class="fas fa-pencil-alt"></i> DELETE</a>
         <!-- <a href="#" class="button button-primary red linked-events"><i class="fas fa-link"></i> <span>Show</span> Linked Events <strong>2</strong></a> -->
       </p>
     </div>
