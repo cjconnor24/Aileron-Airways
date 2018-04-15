@@ -1,5 +1,5 @@
 <app-spinner *ngIf="!loaded">
-  Timeline Events
+  Loading Timeline Events
 </app-spinner>
 
 <div *ngIf="loaded">
@@ -11,13 +11,9 @@
 <p class="button-row">
   <a routerLink="/timelines" class="button button-primary large">
     <i class="fas fa-arrow-left"></i> Return to Register</a>
-  <!-- <a routerLink="new" class="button button-success large">
-    <i class="fas fa-plus"></i> Create New Event</a> -->
+  <a routerLink="events/create" class="button button-success large"  *ngIf="timeline?.events.length > 0">
+    <i class="fas fa-plus"></i> Create New Event</a>
 </p>
-
-
-<a (click)="createTestEvent()" class="button button-success large">
-  <i class="fas fa-plus"></i> Create Event</a>
 
 
 <!-- DIRECTIVE TO CHECK FOR WHICH CONTENT TO DISPLAY -->
@@ -43,10 +39,8 @@
 <ng-template #noEvents>
   <div class="no-events">
     <p>There are currently no events on this timeline.</p>
-    <a (click)="createTestEvent()" class="button button-success large">
-        <i class="fas fa-plus"></i> Create Event</a>
         <a routerLink="events/create" class="button button-success large">
-            <i class="fas fa-plus"></i> (ACTUAL ROUTE) Create Event</a>
+            <i class="fas fa-plus"></i> Create Event</a>
   </div>
 </ng-template>
 </div>

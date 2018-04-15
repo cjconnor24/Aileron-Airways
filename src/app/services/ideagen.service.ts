@@ -7,6 +7,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
+import { EventLocation } from '../models/event-location';
 
 @Injectable()
 export class IdeagenService {
@@ -245,7 +246,7 @@ export class IdeagenService {
         Id: string,
         TenantId: string
       }) => {
-        const event: TimelineEvent = new TimelineEvent(data.Title, data.Description, this.ticksToTime(data.EventDateTime), data.Location, data.Id);
+        const event: TimelineEvent = new TimelineEvent(data.Title, data.Description, this.ticksToTime(data.EventDateTime), this.jsonToEventLocation(data.Location), data.Id);
         return event;
       });
   }
@@ -402,7 +403,7 @@ export class IdeagenService {
                           });
                         } else {
                           // OTHERWISE RETURN EMPTY OBSERVABLE
-                          // console.log('THERE WERE NO LINKED EVENTS HERE');
+                          console.log('THERE WERE NO LINKED EVENTS HERE');
                           return Observable.of(ev);
                         }
 
@@ -423,7 +424,7 @@ export class IdeagenService {
       const timeline: Timeline = data[0];
       const ev: TimelineEvent[] = data[1];
 
-      console.log(timeline);
+      // console.log(timeline);
 
 
       // THIS IS CAUSE ISSUES
@@ -451,7 +452,7 @@ export class IdeagenService {
       Title: event.title,
       Description: event.description,
       EventDateTime: this.timeToTicks(event.dateTime),
-      Location: event.location
+      Location: JSON.stringify(event.location)
     };
 
     console.log(body);
@@ -549,12 +550,23 @@ export class IdeagenService {
 
   }
 
+  /**
+   * Convert a date to ticks for the API
+   * @param date Date to convert to ticks
+   */
   private timeToTicks(date: Date): string {
 
     const epochTicks = 621355968000000000;
     const ticksPerMilisecond = 10000;
 
     return ((date.getTime() * ticksPerMilisecond) + epochTicks).toString();
+
+  }
+
+  private jsonToEventLocation(json:string): EventLocation {
+
+    const location:EventLocation = JSON.parse(json);
+    return location;
 
   }
 

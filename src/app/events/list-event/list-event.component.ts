@@ -25,27 +25,27 @@ export class ListEventComponent implements OnInit {
     private ideagenService: IdeagenService
   ) { }
 
-  createTestEvent() {
+  // createTestEvent() {
 
-    const event: TimelineEvent = new TimelineEvent('Title', 'Description', new Date(), 'test location');
+  //   const event: TimelineEvent = new TimelineEvent('Title', 'Description', new Date(), 'test location');
 
-    this.ideagenService.createEvent(this.id, event)
-      .subscribe((data: any) => {
-
-
-
-      },
-        (error) => {
-          console.log(error);
-        },
-        () => {
-          this.timeline.events.push(event);
-        }
-      );
+  //   this.ideagenService.createEvent(this.id, event)
+  //     .subscribe((data: any) => {
 
 
 
-  }
+  //     },
+  //       (error) => {
+  //         console.log(error);
+  //       },
+  //       () => {
+  //         this.timeline.events.push(event);
+  //       }
+  //     );
+
+
+
+  // }
 
 
   onDeleteEvent(eventId: string) {

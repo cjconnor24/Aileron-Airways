@@ -1,8 +1,9 @@
-import { ElementRef, NgZone, OnInit, ViewChild, Component, Input } from '@angular/core';
+import { ElementRef, NgZone, OnInit, ViewChild, Component, Input, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { } from 'googlemaps';
 import { AgmCoreModule, AgmMarker } from '@agm/core';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { EventLocation } from '../models/event-location';
 
 @Component({
   selector: 'app-map',
@@ -12,46 +13,45 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 
 
 export class MapComponent implements OnInit {
-    lat: number;// = 55.8691;
-    lng: number;// = -4.4351;
-    zoom: number = 8;
-    
 
+  lat: number;// = 55.8691;
+  lng: number;// = -4.4351;
+  zoom: number = 8;
 
-  constructor() {
-    
-  }
-  
+  constructor() {}
 
   @Input() eventName: string;
+  @Output() droppedPin: EventEmitter<EventLocation> = new EventEmitter<EventLocation>();
 
-  
+
   ngOnInit() {
-    if (navigator)
-    {
+    if (navigator) {
 
-    navigator.geolocation.getCurrentPosition( pos => {
+      navigator.geolocation.getCurrentPosition(pos => {
         this.lng = +pos.coords.longitude;
         this.lat = +pos.coords.latitude;
-        this.markers[0]=({
+        this.markers[0] = ({
           lat: +pos.coords.latitude,
           lng: +pos.coords.longitude,
           draggable: false
         });
       });
-      
-        }
-      }
+
+    }
+  }
 
 
   mapClicked($event: MouseEvent) {
     console.log($event);
-    this.markers[0]=({
+    
+    this.markers[0] = ({
       lat: $event.coords.lat,
       lng: $event.coords.lng,
       draggable: false
     });
-    
+
+    this.droppedPin.emit(new EventLocation('',$event.coords.lat, $event.coords.lng));
+
   }
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label || index}`)
@@ -62,19 +62,19 @@ export class MapComponent implements OnInit {
   }
 
   markers: marker[] = [
-	  {
+    {
       lat: 55.8691,
       lng: -4.4351,
-		  label: 'A',
-		  draggable: false
+      label: 'A',
+      draggable: false
     }];
-    
-  }
-  
-      
-    interface marker {
-      lat: number;
-      lng: number;
-      label?: string;
-      draggable: boolean;
-    }
+
+}
+
+
+interface marker {
+  lat: number;
+  lng: number;
+  label?: string;
+  draggable: boolean;
+}

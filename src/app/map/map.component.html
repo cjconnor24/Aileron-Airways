@@ -2,6 +2,7 @@
 [disableDefaultUI]="false"
 (mapClick)="mapClicked($event)"
 (center)="markers[0].center">
+
 <agm-marker 
 *ngFor="let m of markers; let i = index"
 (markerClick)="clickedMarker(m.label, i)"

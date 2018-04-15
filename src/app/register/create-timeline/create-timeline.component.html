@@ -2,7 +2,7 @@
 
   <div class="modal-content">
 
-    <span class="close">&times;</span> 
+    <span class="close" routerLink="../">&times;</span> 
 
 
 <form [formGroup]="createTimeline" (ngSubmit)="onSubmit()">
@@ -22,17 +22,19 @@
         </div>
 
       <label for="name">Timeline Name</label>
-      <input class="u-full-width" type="email" type="text" placeholder="Timeline name" id="name" formControlName="name">
+      <input class="u-full-width" type="email" type="text" [disabled]="updated" placeholder="Timeline name" id="name" formControlName="name">
     </div>
   </div>
 
 <button *ngIf="!updated" type="button" routerLink="/timelines">Cancel</button>
   <input *ngIf="!updated" type="submit" [disabled]="createTimeline.invalid" [ngClass]="{'button-success':!createTimeline.invalid}" value="{{editMode ? 'Update Timeline' : 'Create Timeline'}}">
+
+  <app-spinner *ngIf="saving && !updated" [medium]="true">Saving</app-spinner>
   
   <div *ngIf="updated">
       <button class="button" routerLink="/timelines">Return to Timelines</button>
 
-    <p> <i class="fas fa-check"></i> API CALL COMPELTE</p>
+    <p> <i class="fas fa-check"></i> <strong>Timeline Saved</strong></p>
   </div>
 </form>
 

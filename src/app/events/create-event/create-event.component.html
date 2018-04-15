@@ -6,7 +6,8 @@
     <h1>Create Event</h1>
 
 
-    <a routerLink="../../" class="button button-primary"><i class="fas fa-arrow-left"></i>Return to Timeline</a>
+    <a routerLink="../../" class="button button-primary">
+      <i class="fas fa-arrow-left"></i>Return to Timeline</a>
 
     <form [formGroup]="createEvent" (ngSubmit)="onSubmit()">
       <div class="row">
@@ -28,10 +29,15 @@
           <textarea class="u-full-width" type="text" formControlName="description" placeholder="Please enter a desciption" id="description"
             required></textarea>
 
-          <label for="events">Related Events</label>
-          <select class="u-full-width" id="exampleRecipientInput">
-            <option *ngFor="let levent of currentTimeline.events" value="{{levent.eventId}}">{{levent.title}}</option>
-          </select>
+            <app-spinner *ngIf="!linkedLoaded" [small]="true"></app-spinner>
+
+          <div *ngIf="currentTimeline?.events !== null">
+            <label for="events">Related Events</label>
+            <select class="u-full-width" *ngIf="linkedLoaded" id="exampleRecipientInput">
+              <option value="">Selected linked event</option>
+              <option *ngFor="let levent of currentTimeline.events" value="{{levent.eventId}}">{{levent.title}} [{{levent.eventId.substring(0,8) | uppercase}}]</option>
+            </select>
+          </div>
           <!-- <input class="u-full-width" type="text" placeholder="Event B" id="events"> -->
 
           <label for="attachments">Event Attachments</label>
@@ -49,17 +55,22 @@
         </div>
 
 
-      <div class="six columns">
-          <label for="location">Event Location</label>
+        <div class="six columns">
+          <label for="location">Location Name</label>
+          <input type="text" formControlName="location" class="u-full-width" name="location">
+          
+
+          <label><i class="fas fa-map-marker-alt"></i> Event Location</label>
+          <p>Please drop the location marker on the map below.</p>
           <div class="map-wrapper">
-          <app-map></app-map>
-        </div>
+            <app-map (droppedPin)="getLocation($event)"></app-map>
+          </div>
         </div>
 
       </div>
 
       <button *ngIf="!updated" type="button" routerLink="../../">Cancel</button>
-      <input *ngIf="!updated" type="submit" [disabled]="createEvent.invalid" [ngClass]="{'button-success':!createEvent.invalid}"
+      <input *ngIf="!updated" type="submit" [disabled]="createEvent.invalid || eventLocation === null" [ngClass]="{'button-success':!createEvent.invalid}"
         value="{{editMode ? 'Update Event' : 'Create Event'}}">
 
       <div *ngIf="updated">

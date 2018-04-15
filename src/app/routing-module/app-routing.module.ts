@@ -17,6 +17,7 @@ const routes: Routes = [
   {
     path: 'timelines', component: RegisterComponent, children: [
       { path: '', component: RegisterListComponent },
+      { path: 'create', component: CreateTimelineComponent },
       { path: ':id', component: ListEventComponent },    //NEEDS UPDATED
       { path: ':id/edit', component: CreateTimelineComponent },
       { path: ':id/overview', component: TimelineOverviewComponent },
