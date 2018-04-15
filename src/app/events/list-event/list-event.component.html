@@ -38,7 +38,7 @@
 <ng-template #noEvents>
   <div class="no-events">
     <p>There are currently no events on this timeline.</p>
-    <a href="#" class="button button-success large">
+    <a (click)="createTestEvent()" class="button button-success large">
         <i class="fas fa-plus"></i> Create Event</a>
   </div>
 </ng-template>
