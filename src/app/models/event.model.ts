@@ -2,10 +2,12 @@ export class Event {
 
     eventId: string;
     title: string;
+    dateTime: Date; //TODO: Might need different type 
     description: string;
-    dateTime: Date; // TODO: Might need different type
     location: string; // TODO: Might need location object type
     linkedEvents: Event[];
+    attachments: string;
+    
 
 
 
@@ -15,8 +17,10 @@ export class Event {
          this.title = title;
          this.description = description;
          this.dateTime = dateTime;
-         this.location = location;
+         this.description = description;
          this.linkedEvents = [];
+         this.location = location;
+         
 
      }
 
