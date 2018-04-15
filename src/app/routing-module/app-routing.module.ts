@@ -11,6 +11,8 @@ import { TimelineOverviewComponent } from '../register/timeline-overview/timelin
 import { ListEventComponent } from '../events/list-event/list-event.component';
 
 const routes: Routes = [
+ { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+ {path: 'dashboard', component: DashboardComponent}, 
   {
     path: 'timelines', component: RegisterComponent, children: [
       { path: '', component: RegisterListComponent },
@@ -22,7 +24,6 @@ const routes: Routes = [
     ]
   },
 ];
-
 
 @NgModule({
   imports: [

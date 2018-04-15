@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ApplicationRef} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EventApiService } from './services/event-api.service';
 import { AppComponent } from './app.component';
@@ -28,6 +28,11 @@ import { DateFilterPipe } from './pipes/date-filter.pipe';
 import { ListEventItemComponent } from './events/list-event/list-event-item/list-event-item.component';
 import { SpinnerComponent } from './ui/spinner/spinner.component';
 import { LayoutSliderComponent } from './ui/layout-slider/layout-slider.component';
+import { Chart } from 'chart.js';
+import { Geolocation } from '@ionic-native/geolocation';
+import { CommonModule } from '@angular/common';
+import { MapComponent } from './map/map.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -51,13 +56,16 @@ import { LayoutSliderComponent } from './ui/layout-slider/layout-slider.componen
     ListEventItemComponent,
     SpinnerComponent,
     LayoutSliderComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyD6hEcUsA_ZmkI3-i3y_IZdnfeUs2Hbn0w"})
   ],
   providers: [
     IdeagenService,
@@ -68,4 +76,7 @@ import { LayoutSliderComponent } from './ui/layout-slider/layout-slider.componen
     AppComponent
   ]
 })
-export class AppModule { }
+export class AppModule {
+
+
+}
