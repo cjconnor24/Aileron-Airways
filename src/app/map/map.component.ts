@@ -1,4 +1,4 @@
-import { ElementRef, NgZone, OnInit, ViewChild, Component } from '@angular/core';
+import { ElementRef, NgZone, OnInit, ViewChild, Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { } from 'googlemaps';
 import { AgmCoreModule, AgmMarker } from '@agm/core';
@@ -22,6 +22,8 @@ export class MapComponent implements OnInit {
     
   }
   
+
+  @Input() eventName: string;
 
   
   ngOnInit() {

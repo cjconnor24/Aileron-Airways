@@ -1,49 +1,76 @@
-<form [formGroup]="" (ngSubmit)="onSubmit()">
-  <div class="row">
-  <div class="six columns">
+<div class="modal">
+  <div class="modal-content">
 
-      <!-- <div class="event-info" *ngIf="editMode"> -->
-          <!-- <h1>{{ event.title}}</h1> -->
-          <p><i class="fas fa-clock"></i> <strong>Date/Time: </strong> <!--{{ event.dateTime | date: 'medium' }}--></p>
-      <!-- </div> -->
+    <span class="close" routerLink="../../">&times;</span>
 
-  <label for="name">Event Name</label>
-  <!-- <input class="u-full-width" type="text" formControlName="title" placeholder="Event A" id="name" required> -->
+    <h1>Create Event</h1>
 
-  <label for="date">Event Date</label>
-  <!-- <input class="u-full-width" type="text" formControlName="date" placeholder="HH:MM DD/MM/YYYY" id="date" required> -->
 
-  <label for="description">Event Description</label>
-  <!-- <textarea class="u-full-width" type="text" formControlName="description" placeholder="Please enter a desciption" id="description" required></textarea> -->
+    <a routerLink="../../" class="button button-primary"><i class="fas fa-arrow-left"></i>Return to Timeline</a>
 
-  <label for="events">Related Events</label>
-  <select class="u-full-width" id="exampleRecipientInput">
-    <!-- <option value="Option 1">Event A</option> -->
-    <!-- <option value="Option 2">Event B</option> -->
-    <!-- <option value="Option 3">Event C</option> -->
-  </select>
-  <input class="u-full-width" type="text" placeholder="Event B" id="events">
+    <form [formGroup]="createEvent" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="six columns">
 
-  <label for="attachments">Event Attachments</label>
-  <input class="u-full-width" type="text" placeholder="mydoc.docx" id="attachments">
-  <button type="button"><i class="fas fa-upload"></i> Upload Attachment</button>
-  <button type="button"><i class="fas fa-eye"></i> View Attachment</button>
-  <button type="button"><i class="fas fa-trash-alt"></i> Remove Attachment</button>
+          <!-- <div class="event-info" *ngIf="editMode">
+              <h1>{{ event.title}}</h1>
+              <p><i class="fas fa-clock"></i> <strong>Date/Time: </strong> 
+                {{ event.dateTime | date: 'medium' }}</p>
+          </div> -->
 
-  <label for="location">Event Location</label>
-  <input class="u-full-width" type="text" placeholder="G4 0BA" id="location" required>
-  <button type="button"><i class="fas fa-plus"></i> Add Location</button>
-  <button type="button"><i class="fas fa-minus"></i> Remove Location</button>
+          <label for="name">Event Name</label>
+          <input class="u-full-width" type="text" formControlName="title" placeholder="Event A" id="name" required>
+
+          <label for="date">Event Date</label>
+          <input class="u-full-width" type="datetime-local" formControlName="datetime" placeholder="HH:MM DD/MM/YYYY" id="date" required>
+
+          <label for="description">Event Description</label>
+          <textarea class="u-full-width" type="text" formControlName="description" placeholder="Please enter a desciption" id="description"
+            required></textarea>
+
+          <label for="events">Related Events</label>
+          <select class="u-full-width" id="exampleRecipientInput">
+            <option *ngFor="let levent of currentTimeline.events" value="{{levent.eventId}}">{{levent.title}}</option>
+          </select>
+          <!-- <input class="u-full-width" type="text" placeholder="Event B" id="events"> -->
+
+          <label for="attachments">Event Attachments</label>
+          <input class="u-full-width" type="file" placeholder="mydoc.docx" id="attachments">
+          <button type="button">
+            <i class="fas fa-upload"></i> Upload Attachment</button>
+          <button type="button">
+            <i class="fas fa-eye"></i> View Attachment</button>
+          <button type="button">
+            <i class="fas fa-trash-alt"></i> Remove Attachment</button>
+
+          <!-- <input class="u-full-width" type="text" placeholder="G4 0BA" id="location" required> -->
+          <!-- <button type="button"><i class="fas fa-plus"></i> Add Location</button>
+      <button type="button"><i class="fas fa-minus"></i> Remove Location</button> -->
+        </div>
+
+
+      <div class="six columns">
+          <label for="location">Event Location</label>
+          <div class="map-wrapper">
+          <app-map></app-map>
+        </div>
+        </div>
+
+      </div>
+
+      <button *ngIf="!updated" type="button" routerLink="../../">Cancel</button>
+      <input *ngIf="!updated" type="submit" [disabled]="createEvent.invalid" [ngClass]="{'button-success':!createEvent.invalid}"
+        value="{{editMode ? 'Update Event' : 'Create Event'}}">
+
+      <div *ngIf="updated">
+
+        <button class="button" routerLink="../">Return to Timelines</button>
+
+        <p>
+          <i class="fas fa-check"></i> API CALL COMPELTE</p>
+      </div>
+
+
+    </form>
   </div>
-  </div>
-
-  <button *ngIf="!updated" type="button" routerLink="/timelines">Cancel</button>
-  <!-- <input *ngIf="!updated" type="submit" [disabled]="createEvent.invalid" [ngClass]="{'button-success':!createEvent.invalid}" value="{{editMode ? 'Update Event' : 'Create Event'}}"> -->
-  
-  <div *ngIf="updated">
-      
-      <button class="button" routerLink="/timelines">Return to Timelines</button>
-
-    <p> <i class="fas fa-check"></i> API CALL COMPELTE</p>
-  </div>
-</form>
+</div>

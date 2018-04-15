@@ -9,6 +9,7 @@ import { RegisterListComponent } from '../register/register-list/register-list.c
 import { DeleteTimelineComponent } from '../register/delete-timeline/delete-timeline.component';
 import { TimelineOverviewComponent } from '../register/timeline-overview/timeline-overview.component';
 import { ListEventComponent } from '../events/list-event/list-event.component';
+import { CreateEventComponent } from '../events/create-event/create-event.component';
 
 const routes: Routes = [
  { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -16,11 +17,13 @@ const routes: Routes = [
   {
     path: 'timelines', component: RegisterComponent, children: [
       { path: '', component: RegisterListComponent },
-      { path: 'new', component: CreateTimelineComponent },
       { path: ':id', component: ListEventComponent },    //NEEDS UPDATED
       { path: ':id/edit', component: CreateTimelineComponent },
       { path: ':id/overview', component: TimelineOverviewComponent },
-      { path: ':id/delete', component: DeleteTimelineComponent }
+      { path: ':id/delete', component: DeleteTimelineComponent },
+
+      { path: ':id/events/create', component: CreateEventComponent },
+      { path: ':id/events/:eventid/edit', component: CreateEventComponent },
     ]
   },
 ];
