@@ -8,13 +8,13 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
-// import { log } from 'util';
-
-
-
 @Injectable()
 export class IdeagenService {
 
+  /**
+   * Constructor 
+   * @param httpClient HttpClient Service
+   */
   constructor(private httpClient: HttpClient) { }
 
   API_URL = environment.apiUrl;
@@ -91,7 +91,6 @@ export class IdeagenService {
           return tline;
           // return data;
         });
-
   }
 
   /**
@@ -149,7 +148,6 @@ export class IdeagenService {
           tl.dateCreated = this.ticksToTime(data.CreationTimeStamp); // TODO: CONVERT DATE
           return tl;
         });
-
   }
 
 
@@ -183,7 +181,6 @@ export class IdeagenService {
           tl.dateCreated = this.ticksToTime(data.CreationTimeStamp); // TODO: CONVERT DATE
           return tl;
         });
-
   }
 
 
@@ -250,7 +247,6 @@ export class IdeagenService {
         const event: Event = new Event(data.Id, data.Title, data.Description, this.ticksToTime(data.EventDateTime), data.Location);
         return event;
       });
-
   }
 
 
@@ -294,7 +290,6 @@ export class IdeagenService {
         // return links.LinkedToTimelineEventId;
 
       });
-
   }
 
   /**
@@ -321,7 +316,6 @@ export class IdeagenService {
         return timeline;
 
       })
-
   }
 
   /**
@@ -432,10 +426,6 @@ export class IdeagenService {
       // console.log(timeline);
       return timeline;
     });
-
-    // GET
-
-
   }
 
   /**
