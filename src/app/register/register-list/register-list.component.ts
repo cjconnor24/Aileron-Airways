@@ -38,20 +38,21 @@ export class RegisterListComponent implements OnInit, OnDestroy {
       }
     );
 
+    
+    //this.registerEv = this.registerService.getAllEvent();
+    //this.subscriber = this.registerService.registerChangeEv.subscribe((events:Event[]) =>{this.registerEv=events;})
+    this.getEvents();
+  
+  }
 
-  //   this.ideagenService.getTimelineAndEvents('105578').subscribe((data) => {
-  //     // console.log('THIS IS INSIDE');
+  getEvents(){
+    //this.ideagenSerivce.getTimelines();
+   // this.ideagenSerivce.getAllEvent();
+  }
 
-  //     console.log(data);
-  //   },
-  //   (error) => {
-  //     console.log('There was an error');
-  //   },
-  //   () => {
-  //     console.log("Done");
-  //   }
-  // )
-
+  fetchData(){
+    this.register = this.registerService.getTimelines();
+  //  this.registerEv = this.registerService.getAllEvent();
   }
 
   ngOnDestroy() {

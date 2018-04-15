@@ -10,8 +10,6 @@ import 'rxjs/add/operator/mergeMap';
 
 // import { log } from 'util';
 
-
-
 @Injectable()
 export class IdeagenService {
 
@@ -427,6 +425,32 @@ export class IdeagenService {
 
 
   }
+
+//   public getAllEvent() {
+//    const headers = new HttpHeaders(
+//      {
+//        'TenantId': 'Team2',
+//      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+//      });
+
+//    return this.httpClient
+//      .get(this.API_URL + 'TimelineEvent/GetAllEvents', { headers: headers })
+//    .map(EvData => {
+//        console.log(EvData);
+//        return EvData.map(data => {
+
+//          let event = new Event(data.Id, data.Title, data.Description, data.EventDateTime, data.Location);
+
+//          return event;
+
+//        });
+//      })
+//      .subscribe(
+//        (events: Event[]) => {
+//          this.registerService.setEvent(events);
+//          console.log(events);
+//        })
+//  }
 
   /**
    * Convert the IdeaGen Time Format to javascript Date Object
