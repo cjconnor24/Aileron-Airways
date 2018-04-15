@@ -352,6 +352,10 @@ export class IdeagenService {
       });
   }
 
+  /**
+   * Large function to pull down timelines and events.
+   * @param timelineId ID of timeline to pull down
+   */
   getTimelineAndEvents(timelineId: string): Observable<Timeline> {
 
     const headers = new HttpHeaders(this.API_AUTH);
@@ -361,53 +365,53 @@ export class IdeagenService {
       this.getEventsByTimelineId(timelineId)
         .flatMap((eventIds: any) => {
 
-          console.log('There are '+eventIds.length);
+          console.log('There are ' + eventIds.length);
 
-          if(eventIds.length > 0){
-          // LOOP THROUGH THE EVENTS AND GET INDIVIDUALLY
-          return Observable.forkJoin(
-            eventIds.map((event: any) => {
+          if (eventIds.length > 0) {
+            // LOOP THROUGH THE EVENTS AND GET INDIVIDUALLY
+            return Observable.forkJoin(
+              eventIds.map((event: any) => {
 
-              // GET THE INDIVIDUAL EVENT
-              return this.getEvent(event.TimelineEventId)
-                .flatMap((ev: any) => {
+                // GET THE INDIVIDUAL EVENT
+                return this.getEvent(event.TimelineEventId)
+                  .flatMap((ev: any) => {
 
-                  // GET LINKED EVENTS
-                  return this.httpClient.get(this.API_URL + 'TimelineEvent/GetLinkedTimelineEvents', { headers: headers.append("TimelineEventId", ev.eventId) })
-                    .flatMap((links: any) => {
+                    // GET LINKED EVENTS
+                    return this.httpClient.get(this.API_URL + 'TimelineEvent/GetLinkedTimelineEvents', { headers: headers.append("TimelineEventId", ev.eventId) })
+                      .flatMap((links: any) => {
 
-                      // IF THERE ARE LINKED EVENTS
-                      if (links.length > 0) {
+                        // IF THERE ARE LINKED EVENTS
+                        if (links.length > 0) {
 
-                        // GET THE ACTUAL EVENTS BACK
-                        return Observable.forkJoin(
-                          links.map((linkedEvent: any) => {
+                          // GET THE ACTUAL EVENTS BACK
+                          return Observable.forkJoin(
+                            links.map((linkedEvent: any) => {
 
-                            // THIS IS RETURNING AN EVENT OBSERVABLE
-                            return this.getEvent(linkedEvent.LinkedToTimelineEventId)
-                              .map((res: Event) => {
-                                return res;
-                              });
-                          })
-                        ).map((result: any) => {
+                              // THIS IS RETURNING AN EVENT OBSERVABLE
+                              return this.getEvent(linkedEvent.LinkedToTimelineEventId)
+                                .map((res: Event) => {
+                                  return res;
+                                });
+                            })
+                          ).map((result: any) => {
 
-                          ev.linkedEvents = result;
-                          return ev;
+                            ev.linkedEvents = result;
+                            return ev;
 
-                        });
-                      } else {
-                        // OTHERWISE RETURN EMPTY OBSERVABLE
-                        // console.log('THERE WERE NO LINKED EVENTS HERE');
-                        return Observable.of(ev);
-                      }
+                          });
+                        } else {
+                          // OTHERWISE RETURN EMPTY OBSERVABLE
+                          // console.log('THERE WERE NO LINKED EVENTS HERE');
+                          return Observable.of(ev);
+                        }
 
-                    });
-                })
-            })
-          )
-        } else {
-          return Observable.of([]);
-        }
+                      });
+                  })
+              })
+            )
+          } else {
+            return Observable.of([]);
+          }
 
         })
     ]
@@ -419,13 +423,43 @@ export class IdeagenService {
       const ev: Event[] = data[1];
 
       console.log(timeline);
-      
+
 
       // THIS IS CAUSE ISSUES
       timeline.events = ev;
       // console.log(timeline);
       return timeline;
     });
+  }
+
+  /**
+   * Create event in API
+   * @param timelineId ID of timeline to link
+   * @param event Event to save in the API
+   */
+  createEvent(timelineId:string, event: Event){
+
+    const headers = new HttpHeaders(
+      this.API_AUTH
+    );
+    
+    const body = {
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
+      TimelineEventId: event.eventId,
+      Title: event.title,
+      Description: event.description,
+      EventDateTime: event.dateTime,
+      Location: event.location
+    };
+
+    console.log(body);
+    
+    return this.httpClient.put(this.API_URL + 'TimelineEvent/Create', body,
+      {
+        headers: headers
+      });    
+
   }
 
   /**
