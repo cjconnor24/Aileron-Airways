@@ -1,4 +1,6 @@
-export class TimelineEvent {
+import { Guid } from "../services/guid";
+
+export class TimelineEvent extends Guid {
 
     eventId: string;
     title: string;
@@ -10,8 +12,9 @@ export class TimelineEvent {
 
 
 
-     constructor(id: string, title: string, description: string, dateTime: Date, location: string) {
-         this.eventId = id;
+     constructor( title: string, description: string, dateTime: Date, location: string) {
+         super();
+         this.eventId = this.uuidv4();
          this.title = title;
          this.description = description;
          this.dateTime = dateTime;
