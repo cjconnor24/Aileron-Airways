@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Event } from '../models/event.model';
+import { TimelineEvent } from '../models/timeline-event.model';
 
 @Component({
   selector: 'app-event-search',

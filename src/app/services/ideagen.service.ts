@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { RegisterService } from './register.service';
 import { Timeline } from '../models/timeline.model';
-import { Event } from '../models/event.model';
+import { TimelineEvent } from '../models/timeline-event.model';
 import { environment } from '../../environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
-// import { log } from 'util';
-
 @Injectable()
 export class IdeagenService {
 
+  /**
+   * Constructor 
+   * @param httpClient HttpClient Service
+   */
   constructor(private httpClient: HttpClient) { }
 
   API_URL = environment.apiUrl;
@@ -89,7 +91,6 @@ export class IdeagenService {
           return tline;
           // return data;
         });
-
   }
 
   /**
@@ -147,10 +148,13 @@ export class IdeagenService {
           tl.dateCreated = this.ticksToTime(data.CreationTimeStamp); // TODO: CONVERT DATE
           return tl;
         });
-
   }
 
 
+  /**
+   * Get timeline using the timeline ID
+   * @param timelineId Timeline ID to retrieve
+   */
   getTimelineById(timelineId: string): Observable<Timeline> {
 
     const headers = new HttpHeaders({
@@ -174,10 +178,10 @@ export class IdeagenService {
         }
         ) => {
           const tl: Timeline = new Timeline(data.Title);
+          tl.timelineId = data.Id;
           tl.dateCreated = this.ticksToTime(data.CreationTimeStamp); // TODO: CONVERT DATE
           return tl;
         });
-
   }
 
 
@@ -205,7 +209,7 @@ export class IdeagenService {
             // GET THE EVENTS AND MAP TO EVENT OBJECTS
             tl.events = timeline['TimelineEvents'].map(event => {
 
-              const e: Event = new Event(event.Id, event.Title, event.Description, this.ticksToTime(event.EventDateTime), event.Location);
+              const e: TimelineEvent = new TimelineEvent(event.Title, event.Description, this.ticksToTime(event.EventDateTime), event.Location, event.Id);
               return e;
               // console.log(e);
 
@@ -221,7 +225,7 @@ export class IdeagenService {
  * Get timeline based on passed timeline
  * @param timeline Timeline get get from API
  */
-  getEvent(eventId: string): Observable<Event> {
+  getEvent(eventId: string): Observable<TimelineEvent> {
 
     const headers = new HttpHeaders({
       'TenantId': 'Team2',
@@ -241,10 +245,9 @@ export class IdeagenService {
         Id: string,
         TenantId: string
       }) => {
-        const event: Event = new Event(data.Id, data.Title, data.Description, this.ticksToTime(data.EventDateTime), data.Location);
+        const event: TimelineEvent = new TimelineEvent(data.Title, data.Description, this.ticksToTime(data.EventDateTime), data.Location, data.Id);
         return event;
       });
-
   }
 
 
@@ -264,6 +267,10 @@ export class IdeagenService {
 
   }
 
+  /**
+   * Get all linked events for specific event id.
+   * @param eventId Event ID to check
+   */
   getLinkedEvents(eventId: string): Observable<any> {
 
     const headers = new HttpHeaders({
@@ -284,7 +291,6 @@ export class IdeagenService {
         // return links.LinkedToTimelineEventId;
 
       });
-
   }
 
   /**
@@ -311,11 +317,10 @@ export class IdeagenService {
         return timeline;
 
       })
-
   }
 
   /**
-   * Get timelines and events in series
+   * Get timelines and events in series using flat map
    * @param timelineId
    */
   getTimelineAndEventsSeries(timelineId: string): Observable<any> {
@@ -348,6 +353,10 @@ export class IdeagenService {
       });
   }
 
+  /**
+   * Large function to pull down timelines and events.
+   * @param timelineId ID of timeline to pull down
+   */
   getTimelineAndEvents(timelineId: string): Observable<Timeline> {
 
     const headers = new HttpHeaders(this.API_AUTH);
@@ -357,53 +366,53 @@ export class IdeagenService {
       this.getEventsByTimelineId(timelineId)
         .flatMap((eventIds: any) => {
 
-          // LOOP THROUGH THE EVENTS AND GET INDIVIDUALLY
-          return Observable.forkJoin(
-            eventIds.map((event: any) => {
+          console.log('There are ' + eventIds.length);
 
-              // console.log(event);
+          if (eventIds.length > 0) {
+            // LOOP THROUGH THE EVENTS AND GET INDIVIDUALLY
+            return Observable.forkJoin(
+              eventIds.map((event: any) => {
 
+                // GET THE INDIVIDUAL EVENT
+                return this.getEvent(event.TimelineEventId)
+                  .flatMap((ev: any) => {
 
-              return this.getEvent(event.TimelineEventId)
-                .flatMap((ev: any) => {
+                    // GET LINKED EVENTS
+                    return this.httpClient.get(this.API_URL + 'TimelineEvent/GetLinkedTimelineEvents', { headers: headers.append("TimelineEventId", ev.eventId) })
+                      .flatMap((links: any) => {
 
-                  // THIS IS THE EVENT
-                  // console.log('EVENT:');
-                  // console.log(ev);
+                        // IF THERE ARE LINKED EVENTS
+                        if (links.length > 0) {
 
-                  // GET LINKED EVENTS
-                  return this.httpClient.get(this.API_URL + 'TimelineEvent/GetLinkedTimelineEvents', { headers: headers.append("TimelineEventId", ev.eventId) })
-                    .flatMap((links: any) => {
+                          // GET THE ACTUAL EVENTS BACK
+                          return Observable.forkJoin(
+                            links.map((linkedEvent: any) => {
 
-                      // IF THERE ARE LINKED EVENTS
-                      if (links.length > 0) {
+                              // THIS IS RETURNING AN EVENT OBSERVABLE
+                              return this.getEvent(linkedEvent.LinkedToTimelineEventId)
+                                .map((res: TimelineEvent) => {
+                                  return res;
+                                });
+                            })
+                          ).map((result: any) => {
 
-                        // GET THE ACTUAL EVENTS BACK
-                        return Observable.forkJoin(
-                          links.map((linkedEvent: any) => {
+                            ev.linkedEvents = result;
+                            return ev;
 
-                            // THIS IS RETURNING AN EVENT OBSERVABLE
-                            return this.getEvent(linkedEvent.LinkedToTimelineEventId)
-                              .map((res: Event) => {
-                                return res;
-                              });
-                          })
-                        ).map((result: any) => {
+                          });
+                        } else {
+                          // OTHERWISE RETURN EMPTY OBSERVABLE
+                          // console.log('THERE WERE NO LINKED EVENTS HERE');
+                          return Observable.of(ev);
+                        }
 
-                          ev.linkedEvents = result;
-                          return ev;
-
-                        });
-                      } else {
-                        // OTHERWISE RETURN EMPTY OBSERVABLE
-                        // console.log('THERE WERE NO LINKED EVENTS HERE');
-                        return Observable.of(ev);
-                      }
-
-                    });
-                })
-            })
-          )
+                      });
+                  })
+              })
+            )
+          } else {
+            return Observable.of([]);
+          }
 
         })
     ]
@@ -412,7 +421,9 @@ export class IdeagenService {
       // console.log(data);
 
       const timeline: Timeline = data[0];
-      const ev: Event[] = data[1];
+      const ev: TimelineEvent[] = data[1];
+
+      console.log(timeline);
 
 
       // THIS IS CAUSE ISSUES
@@ -420,9 +431,82 @@ export class IdeagenService {
       // console.log(timeline);
       return timeline;
     });
+  }
 
-    // GET
+  /**
+   * Create event in API
+   * @param timelineId ID of timeline to link
+   * @param event Event to save in the API
+   */
+  createEvent(timelineId: string, event: TimelineEvent) {
 
+    const headers = new HttpHeaders(
+      this.API_AUTH
+    );
+
+    const body = {
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
+      TimelineEventId: event.eventId,
+      Title: event.title,
+      Description: event.description,
+      EventDateTime: this.timeToTicks(event.dateTime),
+      Location: event.location
+    };
+
+    console.log(body);
+
+    return this.httpClient.put(this.API_URL + 'TimelineEvent/Create', body,
+      {
+        headers: headers
+      }).flatMap((event: any) => {
+
+        return this.httpClient.put(this.API_URL + 'Timeline/LinkEvent', { TenantId: 'Team2', 'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282', TimelineId: timelineId, EventId: event.Id })
+          .flatMap((createdLink: any) => {
+
+            console.log(createdLink);
+            return createdLink;
+          });
+
+      });
+
+  }
+
+
+  /**
+   * Delete event from timeline
+   * @param timelineId Id of timeline to delete the event from
+   * @param eventId Id of event to delete
+   */
+  deleteEvent(timelineId: string, eventId: string) {
+
+    // const headers = new HttpHeaders(
+    //   this.API_AUTH
+    // );
+
+    const body = {
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
+      TimelineId: timelineId,
+      EventId: eventId,
+    };
+
+    console.log(body);
+
+    // UNLINK EVENT
+    // DELETE EVENT
+
+    return this.httpClient.put(this.API_URL + 'Timeline/UnlinkEvent', body)
+      .flatMap((event: any) => {
+
+        return this.httpClient.put(this.API_URL + 'TimelineEvent/Delete', { TenantId: 'Team2', 'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282', TimelineEventId: eventId })
+          .flatMap((deleted: any) => {
+
+            console.log(deleted);
+            return deleted;
+          });
+
+      });
 
   }
 
@@ -456,12 +540,21 @@ export class IdeagenService {
    * Convert the IdeaGen Time Format to javascript Date Object
    * @param time time to conver
    */
-  private ticksToTime(time) {
+  private ticksToTime(time): Date {
 
     const epochTicks = 621355968000000000;
     const ticksPerMilisecond = 10000;
 
     return new Date((time - epochTicks) / ticksPerMilisecond);
+
+  }
+
+  private timeToTicks(date: Date): string {
+
+    const epochTicks = 621355968000000000;
+    const ticksPerMilisecond = 10000;
+
+    return ((date.getTime() * ticksPerMilisecond) + epochTicks).toString();
 
   }
 

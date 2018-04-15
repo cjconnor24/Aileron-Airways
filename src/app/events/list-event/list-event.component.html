@@ -1,39 +1,50 @@
+<app-spinner *ngIf="!loaded">
+  Timeline Events
+</app-spinner>
+
+<div *ngIf="loaded">
 <h1>{{timeline?.title}}</h1>
+
 
 <p>Below are the events related to this timeline.</p>
 
-<div *ngIf="timeline?.events.length > 0; then hasEvents; "></div>
+<p class="button-row">
+  <a routerLink="/timelines" class="button button-primary large">
+    <i class="fas fa-arrow-left"></i> Return to Register</a>
+  <!-- <a routerLink="new" class="button button-success large">
+    <i class="fas fa-plus"></i> Create New Event</a> -->
+</p>
 
-<!-- TIMELINE TEMPLATE -->
+
+<a (click)="createTestEvent()" class="button button-success large">
+  <i class="fas fa-plus"></i> Create Event</a>
+
+
+<!-- DIRECTIVE TO CHECK FOR WHICH CONTENT TO DISPLAY -->
+<div *ngIf="timeline?.events.length > 0; then hasEvents; else noEvents; "></div>
+
+<!-- IF HAS EVENTS -->
 <ng-template #hasEvents>
   <div class="timeline">
 
-    <div *ngFor="let event of timeline?.events; let i = index" class="event" [ngClass]="{'right':i % 2 === 0,'left':i % 2 !== 0}">
+    <div *ngFor="let event of timeline?.events; let i = index">
 
-      <div class="details">
-        <h2>{{event?.title}}</h2>
-        <p class="info">
-          <i class="far fa-calendar"></i> {{ event?.dateTime | date:'medium'}}
-          <i class="far fa-clock"></i> {{ event?.dateTime | date:'short'}}
-          <i class="fas fa-paperclip"></i> 4</p>
-        <p>{{event.description}}</p>
-        <p class="button-row">
-          <a href="#" class="button button-primary green">
-            <i class="fas fa-eye"></i> View Event</a>
-          <a href="#" class="button button-primary blue">
-            <i class="fas fa-pencil-alt"></i> Quick Edit</a>
-          <!-- <a href="#" class="button button-primary red linked-events"><i class="fas fa-link"></i> <span>Show</span> Linked Events <strong>2</strong></a> -->
-        </p>
+      <app-list-event-item (deleteEvent)="onDeleteEvent($event)" [event]="event" [i]="i % 2"></app-list-event-item>
+
+      <div class="linked">
+        <app-list-event-item *ngFor="let levent of event.linkedEvents" [event]="levent" [i]="!(i % 2)"></app-list-event-item>
       </div>
 
     </div>
-
-
   </div>
 </ng-template>
 
-
+<!-- THERE WERE NO EVENT -->
 <ng-template #noEvents>
-    <p>There are currently no events on this timeline. <a href="#" class="button button-success"><i class="fas fa-plus"></i> Create Event</a></p>  
+  <div class="no-events">
+    <p>There are currently no events on this timeline.</p>
+    <a (click)="createTestEvent()" class="button button-success large">
+        <i class="fas fa-plus"></i> Create Event</a>
+  </div>
 </ng-template>
-
+</div>

@@ -1,17 +1,30 @@
-p.button-row {text-align: right;}
+p.button-row {
+    // text-align: right;
+    display: flex;
+    justify-content: space-between;
+}
+
+.aileron-logo {
+    max-width:500px;
+    margin:2em auto;
+}
+
 .search-box {
     padding:1em;
     box-shadow:0 0 10px #CCC;
-    // display:flex;
+    display:flex;
+    flex-grow: 1;
+    justify-content: space-evenly;
     // border:1px solid #C00;
     border-radius: 10px;
-    margin:0 0 1em 0;
+    margin:0 0 2em 0;
 
     .input-group {
         margin:0;padding:0;
         position:relative;
+        margin: 0 1em 0 0;
         // display:flex;
-        // flex-grow:1;
+        // flex-grow:2;
 
         i {
             position:absolute;
@@ -24,11 +37,17 @@ p.button-row {text-align: right;}
             text-align:center;
             color:#CCC;
         }
-        input[type=text] {
+        input[type=text],
+        input[type=date] {
             margin:0 0;padding:0 38px;
             display:block;
             // display:flex;
             flex-grow: 1;
+            
+
+            &::placeholder {
+                text-align: center;    
+            }
         }
 
     }

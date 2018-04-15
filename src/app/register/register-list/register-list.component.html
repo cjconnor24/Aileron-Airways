@@ -1,31 +1,43 @@
+
+
+<img class="aileron-logo" src="/assets/img/aileron_airways_logo_text.svg" alt="TEST">
+
+
+<h4>Search Timelines</h4>
+<div class="search-box">
+  
+  <div class="input-group">
+    <i class="fas fa-search"></i>
+    <input [(ngModel)]="searchText" placeholder="Search by name..." type="text">
+  </div>
+  
+  <div class="input-group">
+    <i class="fas fa-calendar-alt"></i>
+    <input [(ngModel)]="searchDate" placeholder="Filter by date..." type="date">
+  </div>
+  
+  <div class="input-group">
+    <i class="fas fa-angle-down"></i>
+    <input [(ngModel)]="searchText" placeholder="Search by name..." type="text">
+  </div>
+  
+</div>
+
 <h1>Timeline Register</h1>
 <p>Below is a list of all the current timelines</p>
 
-<h4>Search Timelines</h4>
-
-<div class="search-box">
-
-  <div class="input-group">
-    <i class="fas fa-search"></i>
-    <input [(ngModel)]="searchText" placeholder="Search by name..." type="text"> 
-    <br>   
-    <input [(ngModel)]="searchDate" placeholder="Filter by date..." type="date">
-  </div>
-
- </div>
-
 <p class="button-row">
-  <button class="button button-primary">
-    <i class="fas fa-sync fa-spin"></i> Refresh from API</button>
-  <a routerLink="new" class="button button-success">
+  
+  <a routerLink="new" class="button button-success large">
     <i class="fas fa-plus"></i> Create New Timeline</a>
-</p>
+    <app-layout-slider></app-layout-slider>
+    
+  </p>
 
-<p>Test box <input type="datetime-local"></p>
-
+  
 <div class="register" *ngIf="loaded">
 
-  <div class="tline" *ngFor="let timeline of register | filter: searchText | dateFilter: searchDate " routerLink="{{timeline.timelineId}}/edit">
+  <div class="tline" *ngFor="let timeline of register | filter: searchText | dateFilter: searchDate " routerLink="{{timeline.timelineId}}">
     <!-- <div class="tline" *ngFor="let timeline of register" routerLink="{{timeline.timelineId}}/edit"> -->
 
     <!-- Event Count -->
@@ -40,19 +52,20 @@
       <p class="details__time">
         <i class="fas fa-clock"></i> {{timeline.dateCreated | moment | lowercase }} </p>
       <p>
-        <a routerLink="{{timeline.timelineId}}" class="button button-success"><i class="fas fa-eye"></i> View Timeline</a>
+        <a routerLink="{{timeline.timelineId}}" class="button button-success">
+          <i class="fas fa-eye"></i> View Timeline</a>
       </p>
     </div>
 
     <!--       Timeline Buttons -->
     <div class="buttons">
       <ul>
-          <li>
-              <a routerLink="{{timeline.timelineId}}/overview">
-                <i class="fas fa-sitemap"></i>
-                <span>Show Overview</span>
-              </a>
-            </li>
+        <li>
+          <a routerLink="{{timeline.timelineId}}/overview">
+            <i class="fas fa-sitemap"></i>
+            <span>Show Overview</span>
+          </a>
+        </li>
         <li>
           <a routerLink="{{timeline.timelineId}}/delete">
             <i class="fas fa-trash-alt"></i>
@@ -72,7 +85,6 @@
 
 </div>
 
-<div *ngIf="!loaded" style="text-align:center;">
-  <h1>Loading Timelines...</h1>
-  <i class="fas fa-sync fa-spin" style="font-size:150px;"></i>
-</div>
+<app-spinner *ngIf="!loaded">
+  Register Timelines
+</app-spinner>
