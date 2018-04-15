@@ -153,6 +153,10 @@ export class IdeagenService {
   }
 
 
+  /**
+   * Get timeline using the timeline ID
+   * @param timelineId Timeline ID to retrieve
+   */
   getTimelineById(timelineId: string): Observable<Timeline> {
 
     const headers = new HttpHeaders({
@@ -266,6 +270,10 @@ export class IdeagenService {
 
   }
 
+  /**
+   * Get all linked events for specific event id.
+   * @param eventId Event ID to check
+   */
   getLinkedEvents(eventId: string): Observable<any> {
 
     const headers = new HttpHeaders({
@@ -317,7 +325,7 @@ export class IdeagenService {
   }
 
   /**
-   * Get timelines and events in series
+   * Get timelines and events in series using flat map
    * @param timelineId
    */
   getTimelineAndEventsSeries(timelineId: string): Observable<any> {
