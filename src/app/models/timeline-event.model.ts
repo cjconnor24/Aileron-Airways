@@ -1,11 +1,11 @@
-export class Event {
+export class TimelineEvent {
 
     eventId: string;
     title: string;
     description: string;
     dateTime: Date; // TODO: Might need different type
     location: string; // TODO: Might need location object type
-    linkedEvents: Event[];
+    linkedEvents: TimelineEvent[];
 
 
 

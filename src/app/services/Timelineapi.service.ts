@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { Timeline } from '../models/timeline.model';
-import { Event } from '../models/event.model';
+import { TimelineEvent } from '../models/timeline-event.model';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -56,7 +56,7 @@ export class TimelineApiService {
       .get(API_URL + 'Timeline/GetAllTimelinesAndEvent', { headers: headers })
       .map(eventObj => {
         return eventObj['Events'].map(event=>{
-          let eVent = new Event(event.id,event.title,event.description,event.location,event.dateTime);
+          let eVent = new TimelineEvent(event.id,event.title,event.description,event.location,event.dateTime);
           eVent.title = event.title;
           eVent.description = event.description;
           eVent.location = event.location;

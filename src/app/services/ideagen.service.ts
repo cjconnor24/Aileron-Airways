@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RegisterService } from './register.service';
 import { Timeline } from '../models/timeline.model';
-import { Event } from '../models/event.model';
+import { TimelineEvent } from '../models/timeline-event.model';
 import { environment } from '../../environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -208,7 +208,7 @@ export class IdeagenService {
             // GET THE EVENTS AND MAP TO EVENT OBJECTS
             tl.events = timeline['TimelineEvents'].map(event => {
 
-              const e: Event = new Event(event.Id, event.Title, event.Description, this.ticksToTime(event.EventDateTime), event.Location);
+              const e: TimelineEvent = new TimelineEvent(event.Id, event.Title, event.Description, this.ticksToTime(event.EventDateTime), event.Location);
               return e;
               // console.log(e);
 
@@ -224,7 +224,7 @@ export class IdeagenService {
  * Get timeline based on passed timeline
  * @param timeline Timeline get get from API
  */
-  getEvent(eventId: string): Observable<Event> {
+  getEvent(eventId: string): Observable<TimelineEvent> {
 
     const headers = new HttpHeaders({
       'TenantId': 'Team2',
@@ -244,7 +244,7 @@ export class IdeagenService {
         Id: string,
         TenantId: string
       }) => {
-        const event: Event = new Event(data.Id, data.Title, data.Description, this.ticksToTime(data.EventDateTime), data.Location);
+        const event: TimelineEvent = new TimelineEvent(data.Id, data.Title, data.Description, this.ticksToTime(data.EventDateTime), data.Location);
         return event;
       });
   }
@@ -389,7 +389,7 @@ export class IdeagenService {
 
                               // THIS IS RETURNING AN EVENT OBSERVABLE
                               return this.getEvent(linkedEvent.LinkedToTimelineEventId)
-                                .map((res: Event) => {
+                                .map((res: TimelineEvent) => {
                                   return res;
                                 });
                             })
@@ -420,7 +420,7 @@ export class IdeagenService {
       // console.log(data);
 
       const timeline: Timeline = data[0];
-      const ev: Event[] = data[1];
+      const ev: TimelineEvent[] = data[1];
 
       console.log(timeline);
 
@@ -437,7 +437,7 @@ export class IdeagenService {
    * @param timelineId ID of timeline to link
    * @param event Event to save in the API
    */
-  createEvent(timelineId:string, event: Event){
+  createEvent(timelineId:string, event: TimelineEvent){
 
     const headers = new HttpHeaders(
       this.API_AUTH
@@ -454,7 +454,7 @@ export class IdeagenService {
     };
 
     console.log(body);
-    
+
     return this.httpClient.put(this.API_URL + 'TimelineEvent/Create', body,
       {
         headers: headers

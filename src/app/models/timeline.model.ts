@@ -1,10 +1,12 @@
+import { TimelineEvent } from "./timeline-event.model";
+
 export class Timeline {
     timelineId: String;
     title: string;
-    events: Event[];
+    events: TimelineEvent[];
     dateCreated: Date;
 
-    constructor( title: string, events?: Event[]) {
+    constructor( title: string, events?: TimelineEvent[]) {
     
 
         this.timelineId = this.uuidv4();

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Timeline } from '../models/timeline.model';
 import { environment } from '../../environments/environment';
-import { Event } from '../models/event.model';
+import { TimelineEvent } from '../models/timeline-event.model';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
@@ -23,7 +23,7 @@ export class EventApiService {
 
   constructor(private httpClient: HttpClient) { }
 
-  createEvent(event: Event) {
+  createEvent(event: TimelineEvent) {
 
     const headers = new HttpHeaders(
       {

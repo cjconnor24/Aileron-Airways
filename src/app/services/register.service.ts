@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Timeline } from '../models/timeline.model';
-import { Event } from '../models/event.model';
+import { TimelineEvent } from '../models/timeline-event.model';
 import { Subject } from 'rxjs/Subject';
 import { IdeagenService } from './ideagen.service';
 import { Observable } from 'rxjs/Observable';
@@ -17,8 +17,8 @@ export class RegisterService {
   register: Timeline[] = [];
   registerChanged = new Subject<Timeline[]>();
   
-  registerChangedEv = new Subject<Event[]>();
-  registerEv: Event;
+  registerChangedEv = new Subject<TimelineEvent[]>();
+  registerEv: TimelineEvent;
 
 
 

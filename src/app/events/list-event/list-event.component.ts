@@ -3,7 +3,7 @@ import { RegisterService } from '../../services/register.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { IdeagenService } from '../../services/ideagen.service';
 import { Timeline } from '../../models/timeline.model';
-import { Event } from '../../models/event.model';
+import { TimelineEvent } from '../../models/timeline-event.model';
 
 @Component({
   selector: 'app-list-event',
@@ -27,7 +27,7 @@ export class ListEventComponent implements OnInit {
 
   createTestEvent(){
 
-    event: Event = new Event('1234','Title','Description', new Date(), 'test location');
+    const event: TimelineEvent = new TimelineEvent('1234','Title','Description', new Date(), 'test location');
 
     console.log(event);
     
