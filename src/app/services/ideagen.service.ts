@@ -33,14 +33,14 @@ export class IdeagenService {
     const headers = new HttpHeaders(
       this.API_AUTH
     );
-    console.log(timeline);
+    //console.log(timeline);
     const body = {
       'TenantId': 'Team2',
       'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
       TimelineId: timeline.timelineId, // NEEDS AN ID
       Title: timeline.title
     };
-    console.log(body);
+    //console.log(body);
     return this.httpClient.put(this.API_URL + 'Timeline/Create', body,
       {
         headers: headers
@@ -246,7 +246,11 @@ export class IdeagenService {
         Id: string,
         TenantId: string
       }) => {
-        const event: TimelineEvent = new TimelineEvent(data.Title, data.Description, this.ticksToTime(data.EventDateTime), this.jsonToEventLocation(data.Location), data.Id);
+        const event: TimelineEvent = new TimelineEvent(data.Title, data.Description, this.ticksToTime(data.EventDateTime), JSON.parse(data.Location), data.Id);
+
+        //console.log(event);
+        
+
         return event;
       });
   }
@@ -367,7 +371,7 @@ export class IdeagenService {
       this.getEventsByTimelineId(timelineId)
         .flatMap((eventIds: any) => {
 
-          console.log('There are ' + eventIds.length);
+          console.log('There are ' + eventIds.length + ' events.');
 
           if (eventIds.length > 0) {
             // LOOP THROUGH THE EVENTS AND GET INDIVIDUALLY
@@ -424,7 +428,7 @@ export class IdeagenService {
       const timeline: Timeline = data[0];
       const ev: TimelineEvent[] = data[1];
 
-      // console.log(timeline);
+      // console.log(ev);
 
 
       // THIS IS CAUSE ISSUES
@@ -455,7 +459,7 @@ export class IdeagenService {
       Location: JSON.stringify(event.location)
     };
 
-    console.log(body);
+    // console.log(body);
 
     return this.httpClient.put(this.API_URL + 'TimelineEvent/Create', body,
       {
@@ -465,7 +469,7 @@ export class IdeagenService {
         return this.httpClient.put(this.API_URL + 'Timeline/LinkEvent', { TenantId: 'Team2', 'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282', TimelineId: timelineId, EventId: event.Id })
           .flatMap((createdLink: any) => {
 
-            console.log(createdLink);
+            //console.log(createdLink);
             return createdLink;
           });
 
@@ -492,7 +496,7 @@ export class IdeagenService {
       EventId: eventId,
     };
 
-    console.log(body);
+    // console.log(body);
 
     // UNLINK EVENT
     // DELETE EVENT
@@ -503,7 +507,7 @@ export class IdeagenService {
         return this.httpClient.put(this.API_URL + 'TimelineEvent/Delete', { TenantId: 'Team2', 'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282', TimelineEventId: eventId })
           .flatMap((deleted: any) => {
 
-            console.log(deleted);
+            //console.log(deleted);
             return deleted;
           });
 
@@ -565,8 +569,11 @@ export class IdeagenService {
 
   private jsonToEventLocation(json:string): EventLocation {
 
-    const location:EventLocation = JSON.parse(json);
-    return location;
+  
+
+    const data:{name:string, lat: number, long:number} = JSON.parse(json);
+    console.log(data.lat);
+    return new EventLocation(data.name,data.lat,data.long);
 
   }
 

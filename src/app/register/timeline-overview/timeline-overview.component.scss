@@ -35,7 +35,7 @@
 
 
     // LINKED EVENTS
-    .linked {
+    .overview-linked {
         display: inline-block;
         position: relative;
 
@@ -141,14 +141,14 @@
         }
 
         // HIGHLIGHT THE WHOLE BRANCH YELLOW
-        &:hover + .linked .overview-event {
+        &:hover + .overview-linked .overview-event {
             // background: darken($highlightyellow,5);
             background: $highlightyellow;
             transition-delay:0.15s;
             transform:scale(1.05) rotate(-1deg);
             z-index: 1;
         }
-        &:hover + .linked .overview-event + .linked .overview-event {
+        &:hover + .overview-linked .overview-event + .overview-linked .overview-event {
             transition-delay:0.3s;
             z-index: 0.5;
         }

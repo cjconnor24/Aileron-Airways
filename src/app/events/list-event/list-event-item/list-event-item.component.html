@@ -7,12 +7,12 @@
         <i class="fas fa-paperclip"></i> {{event?.attachments.length}}</p>
       <p>{{event.description}}</p>
       <p class="button-row">
-        <a href="#" class="button button-primary green">
+        <a href="#" class="button button-success">
           <i class="fas fa-eye"></i> View Event</a>
-        <a href="#" class="button button-primary blue">
+        <a href="#" class="button button-primary">
           <i class="fas fa-pencil-alt"></i> Quick Edit</a>
           <a (click)="onDelete()" class="button button-danger">
-            <i class="fas fa-pencil-alt"></i> DELETE</a>
+            <i class="fas fa-trash-alt"></i> DELETE</a>
         <!-- <a href="#" class="button button-primary red linked-events"><i class="fas fa-link"></i> <span>Show</span> Linked Events <strong>2</strong></a> -->
       </p>
     </div>

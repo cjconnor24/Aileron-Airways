@@ -9,7 +9,7 @@ import { TimelineEvent } from '../../models/timeline-event.model';
   selector: 'app-list-event',
   templateUrl: './list-event.component.html',
   styleUrls: ['./list-event.component.scss'],
-  // encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None
 })
 export class ListEventComponent implements OnInit {
 

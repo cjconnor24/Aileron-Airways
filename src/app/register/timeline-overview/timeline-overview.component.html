@@ -26,7 +26,7 @@
               <p>{{ event.dateTime | moment }}</p>
             </div>
 
-            <div *ngIf="event.linkedEvents.length > 0" class="linked left">
+            <div *ngIf="event.linkedEvents.length > 0" class="overview-linked left">
 
               <div *ngFor="let linkedEvent of event.linkedEvents" class="overview-event">
                 <h5>{{ linkedEvent.title }}</h5>
