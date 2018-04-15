@@ -12,7 +12,7 @@
     <th>Date Created</th>
     <tr *ngFor="let Timeline of recentTimelines">
         <td>
-            {{Timeline.title}}
+           <a routerLink="{{Timeline.timelineId}}" class="button">{{Timeline.title}}</a>
         </td>
         <td>
             {{Timeline.dateCreated}}
