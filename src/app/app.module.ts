@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EventApiService } from './services/event-api.service';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { TimelineListComponent } from './timeline-list/timeline-list.component';
+// import { TimelineListComponent } from './timeline-list/timeline-list.component';
 import { TimelineSearchComponent } from './timeline-search/timeline-search.component';
 import { EventSearchComponent } from './event-search/event-search.component';
 import { HeaderComponent } from './ui/header/header.component';
@@ -38,7 +38,6 @@ import { AgmCoreModule } from '@agm/core';
   declarations: [
     AppComponent,
     DashboardComponent,
-    TimelineListComponent,
     TimelineSearchComponent,
     EventSearchComponent,
     HeaderComponent,

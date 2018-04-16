@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from '../register/register/register.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
-import { TimelineListComponent } from '../timeline-list/timeline-list.component';
 import { CreateTimelineComponent } from '../register/create-timeline/create-timeline.component';
 import { RegisterListComponent } from '../register/register-list/register-list.component';
 import { DeleteTimelineComponent } from '../register/delete-timeline/delete-timeline.component';
