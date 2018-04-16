@@ -5,7 +5,7 @@
 
       <div *ngIf="!deleting">
         <h2>{{event?.title}}</h2>
-        <!-- <p><input type="text" class="u-full-width" value="{{event?.eventId}}"></p> -->
+        <p><input type="text" class="u-full-width" value="{{event?.eventId}}"></p>
         <p class="info">
           <i class="far fa-calendar"></i> {{ event?.dateTime | date:'longDate'}}
           <i class="far fa-clock"></i> {{ event?.dateTime | date:'HH:mm'}}
@@ -15,7 +15,7 @@
         <p class="button-row">
           <a href="#" class="button button-success">
             <i class="fas fa-eye"></i> View Event</a>
-          <a href="#" class="button button-primary">
+          <a [routerLink]="['events',event.eventId,'edit']" class="button button-primary">
             <i class="fas fa-pencil-alt"></i> Quick Edit</a>
             <a (click)="onDelete()" class="button button-danger">
               <i class="fas fa-trash-alt"></i> DELETE</a>

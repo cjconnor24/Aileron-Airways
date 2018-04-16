@@ -90,18 +90,18 @@ export class CreateEventComponent implements OnInit {
 
   private initForm() {
     let eventName = '';
-    let eventDateTime = '';
+    let eventDateTime;
     let eventDescription = '';
-    let eventLinkedEvents = '';
+    let eventLinkedEvents:TimelineEvent[];
     let eventAttachments = '';
     let eventLocation = '';
 
     // IF EDITING, PULL THROUGH THE CURRENT EVENT DETAILS
     if (this.editMode) {
       // this.event = this.registerService.getEvent(this.id);
-      // eventTitle = this.event.title;
-      // eventDateTime = this.event.dateTime;
-      // eventDescription = this.event.description;
+      eventName = this.event.title;
+      eventDateTime = this.event.dateTime;
+      eventDescription = this.event.description;
       // eventLinkedEvents = this.event.linkedEvents;
       // eventAttachments = this.event.attachments;
       // eventLocation = this.event.location;
@@ -117,14 +117,13 @@ export class CreateEventComponent implements OnInit {
   }
 
   ngOnInit() {
+
     // GET THE ID FROM THE URL AND SET THE UPDATE MODE TO TRUE IF PARAMS EXIST
     this.route.params.subscribe(
       (params: Params) => {
+
         this.timelineId = params['id'];
         this.editMode = params['eventid'] != null;
-
-        console.log(params['eventid']);
-
 
         //TODO: FETCH EXISTING EVENT
         // this.event = this.registerService.getEvent(this.id);

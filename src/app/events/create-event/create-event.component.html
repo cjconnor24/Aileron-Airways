@@ -1,13 +1,13 @@
 <div class="modal">
   <div class="modal-content">
 
-    <span class="close" routerLink="../../">&times;</span>
+    <span class="close" [routerLink]="['/timelines',timelineId]">&times;</span>
 
     <h1>Create Event</h1>
 
 
-    <a routerLink="../../" class="button button-primary">
-      <i class="fas fa-arrow-left"></i>Return to Timeline</a>
+    <a [routerLink]="['/timelines',timelineId]" class="button button-primary">
+      <i class="fas fa-arrow-left"></i> Return to Timeline</a>
 
     <form [formGroup]="createEvent" (ngSubmit)="onSubmit()">
       <div class="row">
@@ -69,13 +69,13 @@
 
       </div>
 
-      <button *ngIf="!updated" type="button" routerLink="../../">Cancel</button>
+      <button *ngIf="!updated" type="button" [routerLink]="['/timelines',timelineId]">Cancel</button>
       <input *ngIf="!updated" type="submit" [disabled]="createEvent.invalid || eventLocation === null" [ngClass]="{'button-success':!createEvent.invalid}"
         value="{{editMode ? 'Update Event' : 'Create Event'}}">
 
       <div *ngIf="updated">
 
-        <button class="button" routerLink="../">Return to Timelines</button>
+        <button class="button" [routerLink]="['/timelines',timelineId]">Return to Timelines</button>
 
         <p>
           <i class="fas fa-check"></i> API CALL COMPELTE</p>
