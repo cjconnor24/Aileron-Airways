@@ -22,6 +22,7 @@ export class RegisterListComponent implements OnInit, OnDestroy {
   subscriber: Subscription;
   searchText: string;
   loaded = false;
+  rowsMode:boolean = false; // THIS HOLDS THE STATE FOR THE LAYOUT
 
 
   constructor(private registerService: RegisterService, private ideagenService: IdeagenService) { }
@@ -41,15 +42,28 @@ export class RegisterListComponent implements OnInit, OnDestroy {
     
     //this.registerEv = this.registerService.getAllEvent();
     //this.subscriber = this.registerService.registerChangeEv.subscribe((events:Event[]) =>{this.registerEv=events;})
-    this.getEvents();
+    // this.getEvents();
   
   }
 
-  getEvents(){
-    //this.ideagenSerivce.getTimelines();
-   // this.ideagenSerivce.getAllEvent();
+  // getEvents(){
+  //   //this.ideagenSerivce.getTimelines();
+  //  // this.ideagenSerivce.getAllEvent();
+  // }
+
+  /**
+   * Update the layout based on event emitter from slider component
+   * @param rows State of the layout
+   */
+  toggleLayout(rows: boolean){
+
+    this.rowsMode = rows;
+
   }
 
+  /**
+   * Fetch register data from register service
+   */
   fetchData(){
     this.register = this.registerService.getTimelines();
   //  this.registerEv = this.registerService.getAllEvent();

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-layout-slider',
@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutSliderComponent implements OnInit {
 
+  @Output() selectedState: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  checked: boolean = false;
+
   constructor() { }
 
-  ngOnInit() {
+  /**
+   * When the box is checked - emit an event
+   */
+  onChecked():void{
+    this.checked = !this.checked;
+    this.selectedState.emit(this.checked);
   }
+
+  ngOnInit(){}
 
 }

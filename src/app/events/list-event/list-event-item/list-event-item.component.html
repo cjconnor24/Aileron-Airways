@@ -4,7 +4,8 @@
       <p class="info">
         <i class="far fa-calendar"></i> {{ event?.dateTime | date:'longDate'}}
         <i class="far fa-clock"></i> {{ event?.dateTime | date:'HH:mm'}}
-        <i class="fas fa-paperclip"></i> {{event?.attachments.length}}</p>
+        <i class="fas fa-paperclip"></i> {{event?.attachments.length}}
+      <span *ngIf="event?.location.name!==''"><i class="fas fa-map-marker-alt"></i> {{event?.location.name}}</span></p>
       <p>{{event.description}}</p>
       <p class="button-row">
         <a href="#" class="button button-success">
