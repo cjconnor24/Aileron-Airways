@@ -249,7 +249,7 @@ export class IdeagenService {
         const event: TimelineEvent = new TimelineEvent(data.Title, data.Description, this.ticksToTime(data.EventDateTime), JSON.parse(data.Location), data.Id);
 
         //console.log(event);
-        
+
 
         return event;
       });
@@ -443,7 +443,7 @@ export class IdeagenService {
    * @param timelineId ID of timeline to link
    * @param event Event to save in the API
    */
-  createEvent(timelineId: string, event: TimelineEvent) {
+  createEvent(timelineId: string, event: TimelineEvent, linkedEventId?: string) {
 
     const headers = new HttpHeaders(
       this.API_AUTH
@@ -459,8 +459,6 @@ export class IdeagenService {
       Location: JSON.stringify(event.location)
     };
 
-    // console.log(body);
-
     return this.httpClient.put(this.API_URL + 'TimelineEvent/Create', body,
       {
         headers: headers
@@ -469,8 +467,29 @@ export class IdeagenService {
         return this.httpClient.put(this.API_URL + 'Timeline/LinkEvent', { TenantId: 'Team2', 'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282', TimelineId: timelineId, EventId: event.Id })
           .flatMap((createdLink: any) => {
 
-            //console.log(createdLink);
-            return createdLink;
+            // if (linkedEventId !== null || linkedEventId !== "") {
+
+              const LinkedToTimelineEventId:string = event.eventId;      //LinkedToTimelineEventId
+              const TimelineEventId:string = linkedEventId;  //TimelineEventId
+
+              const temp = {
+                'TenantId': 'Team2',
+                'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
+                'TimelineEventId': TimelineEventId,
+                'LinkedToTimelineEventId': event.Id
+              };
+
+              console.log(temp);
+
+              return this.httpClient.put(this.API_URL + 'TimelineEvent/LinkEvents', temp).flatMap((data: any) => {
+                console.log(data);
+                return data;
+              });
+
+            // } else {
+            //   //console.log(createdLink);
+            //   return createdLink;
+            // }
           });
 
       });
@@ -515,31 +534,31 @@ export class IdeagenService {
 
   }
 
-//   public getAllEvent() {
-//    const headers = new HttpHeaders(
-//      {
-//        'TenantId': 'Team2',
-//      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
-//      });
+  //   public getAllEvent() {
+  //    const headers = new HttpHeaders(
+  //      {
+  //        'TenantId': 'Team2',
+  //      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
+  //      });
 
-//    return this.httpClient
-//      .get(this.API_URL + 'TimelineEvent/GetAllEvents', { headers: headers })
-//    .map(EvData => {
-//        console.log(EvData);
-//        return EvData.map(data => {
+  //    return this.httpClient
+  //      .get(this.API_URL + 'TimelineEvent/GetAllEvents', { headers: headers })
+  //    .map(EvData => {
+  //        console.log(EvData);
+  //        return EvData.map(data => {
 
-//          let event = new Event(data.Id, data.Title, data.Description, data.EventDateTime, data.Location);
+  //          let event = new Event(data.Id, data.Title, data.Description, data.EventDateTime, data.Location);
 
-//          return event;
+  //          return event;
 
-//        });
-//      })
-//      .subscribe(
-//        (events: Event[]) => {
-//          this.registerService.setEvent(events);
-//          console.log(events);
-//        })
-//  }
+  //        });
+  //      })
+  //      .subscribe(
+  //        (events: Event[]) => {
+  //          this.registerService.setEvent(events);
+  //          console.log(events);
+  //        })
+  //  }
 
   /**
    * Convert the IdeaGen Time Format to javascript Date Object
@@ -567,13 +586,13 @@ export class IdeagenService {
 
   }
 
-  private jsonToEventLocation(json:string): EventLocation {
+  private jsonToEventLocation(json: string): EventLocation {
 
-  
 
-    const data:{name:string, lat: number, long:number} = JSON.parse(json);
+
+    const data: { name: string, lat: number, long: number } = JSON.parse(json);
     console.log(data.lat);
-    return new EventLocation(data.name,data.lat,data.long);
+    return new EventLocation(data.name, data.lat, data.long);
 
   }
 

@@ -49,7 +49,13 @@ export class CreateEventComponent implements OnInit {
         this.eventLocation
       );
 
-      this.ideagenService.createEvent(this.timelineId, e)
+      const linkedId = this.createEvent.controls.linked.value;
+
+
+      console.log('THIS LINKED ID IS' + linkedId);
+      console.log('NEWLY CREATED ID IS ' + e.eventId);
+
+      this.ideagenService.createEvent(this.timelineId, e, linkedId)
         .subscribe((data: any) => {
 
           console.log(data);
@@ -106,7 +112,7 @@ export class CreateEventComponent implements OnInit {
       'datetime': new FormControl(eventDateTime, Validators.required),
       'description': new FormControl(eventDescription, Validators.required),
       'location': new FormControl(eventLocation),
-      // 'linked': new FormControl(eventLinkedEvents, Validators.required)
+      'linked': new FormControl(eventLinkedEvents)
     });
   }
 

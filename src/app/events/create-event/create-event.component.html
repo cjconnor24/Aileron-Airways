@@ -33,7 +33,7 @@
 
           <div *ngIf="currentTimeline?.events !== null">
             <label for="events">Related Events</label>
-            <select class="u-full-width" *ngIf="linkedLoaded" id="exampleRecipientInput">
+            <select class="u-full-width" *ngIf="linkedLoaded" formControlName="linked" id="exampleRecipientInput">
               <option value="">Selected linked event</option>
               <option *ngFor="let levent of currentTimeline.events" value="{{levent.eventId}}">{{levent.title}} [{{levent.eventId.substring(0,8) | uppercase}}]</option>
             </select>
