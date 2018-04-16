@@ -33,6 +33,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { CommonModule } from '@angular/common';
 import { MapComponent } from './map/map.component';
 import { AgmCoreModule } from '@agm/core';
+import { SortEventsPipe } from './pipes/sort-events.pipe';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { AgmCoreModule } from '@agm/core';
     ListEventItemComponent,
     SpinnerComponent,
     LayoutSliderComponent,
-    MapComponent
+    MapComponent,
+    SortEventsPipe
   ],
   imports: [
     BrowserModule,

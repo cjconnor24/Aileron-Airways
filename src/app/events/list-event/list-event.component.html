@@ -31,13 +31,13 @@
 <ng-template #hasEvents>
   <div class="timeline">
 
-    <div *ngFor="let event of timeline?.events; let i = index">
+    <div *ngFor="let event of timeline?.events | sortEvents; let i = index">
 
       <app-list-event-item (deleteEvent)="onDeleteEvent($event)" [event]="event" [parent]="(event.linkedEvents.length > 0)" [rowIndex]="i"></app-list-event-item>
 
       <!-- IF THERE ARE LINKED EVENTS -->
       <div *ngIf="event.linkedEvents.length > 0" class="linked">
-        <app-list-event-item *ngFor="let levent of event.linkedEvents" [event]="levent" [nested]="true" [rowIndex]="i"></app-list-event-item>
+        <app-list-event-item *ngFor="let levent of event.linkedEvents | sortEvents" [event]="levent" [nested]="true" [rowIndex]="i"></app-list-event-item>
       </div>
 
     </div>
