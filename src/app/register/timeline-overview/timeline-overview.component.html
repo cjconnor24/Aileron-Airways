@@ -22,14 +22,14 @@
       <ng-template #hasEvents>
         <div class="timeline-overview">
 
-          <div *ngFor="let event of timeline.events">
+          <div *ngFor="let event of timeline.events; let i = index;">
 
             <div class="overview-event">
-              <h5>{{ event.title }}</h5>
+              <h5>{{ event.title }} {{i}}</h5>
               <p>{{ event.dateTime | moment }}</p>
             </div>
 
-            <div *ngIf="event.linkedEvents.length > 0" class="overview-linked left">
+            <div *ngIf="event.linkedEvents.length > 0" class="overview-linked" [ngClass]="{'left': i % 2 === 0, 'right': i % 2 !==0}">
 
               <div *ngFor="let linkedEvent of event.linkedEvents" class="overview-event">
                 <h5>{{ linkedEvent.title }}</h5>

@@ -65,7 +65,7 @@ export class CreateEventComponent implements OnInit {
             console.log(error);
           },
           () => {
-            this.router.navigate(['../']);
+            this.router.navigate(['../../'], { relativeTo: this.route });
           });
 
     } else {
