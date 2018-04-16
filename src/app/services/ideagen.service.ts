@@ -365,6 +365,7 @@ export class IdeagenService {
   getTimelineAndEvents(timelineId: string): Observable<Timeline> {
 
     const headers = new HttpHeaders(this.API_AUTH);
+    const childEvents: string[] = [];
 
     return Observable.forkJoin([
       this.getTimelineById(timelineId), // Get the Timeline object
@@ -396,6 +397,9 @@ export class IdeagenService {
                               // THIS IS RETURNING AN EVENT OBSERVABLE
                               return this.getEvent(linkedEvent.LinkedToTimelineEventId)
                                 .map((res: TimelineEvent) => {
+                                  
+                                  childEvents.push(res.eventId);
+                                  
                                   return res;
                                 });
                             })
@@ -423,12 +427,16 @@ export class IdeagenService {
     ]
     ).map((data: any) => {
 
-      // console.log(data);
-
+      // JOIN THE FORK JOINED API CALLS
       const timeline: Timeline = data[0];
-      const ev: TimelineEvent[] = data[1];
+      let ev: TimelineEvent[] = data[1];
 
-      // console.log(ev);
+      // REMOVE ANY NON-ROOT EVENTS BASED ON CHILD EVENTS
+      ev = ev.filter((x: TimelineEvent) => {
+
+        return childEvents.indexOf(x.eventId) < 0;
+
+      });
 
 
       // THIS IS CAUSE ISSUES
@@ -467,7 +475,14 @@ export class IdeagenService {
         return this.httpClient.put(this.API_URL + 'Timeline/LinkEvent', { TenantId: 'Team2', 'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282', TimelineId: timelineId, EventId: event.Id })
           .flatMap((createdLink: any) => {
 
-            // if (linkedEventId !== null || linkedEventId !== "") {
+            console.log('OPTIONAL PARAMETER');
+            console.log(linkedEventId);
+
+            if (linkedEventId == null || linkedEventId == "") {
+
+              return createdLink;
+
+            } else {
 
               const LinkedToTimelineEventId:string = event.eventId;      //LinkedToTimelineEventId
               const TimelineEventId:string = linkedEventId;  //TimelineEventId
@@ -479,17 +494,13 @@ export class IdeagenService {
                 'LinkedToTimelineEventId': event.Id
               };
 
-              console.log(temp);
 
-              return this.httpClient.put(this.API_URL + 'TimelineEvent/LinkEvents', temp).flatMap((data: any) => {
-                console.log(data);
+              return this.httpClient.put(this.API_URL + 'TimelineEvent/LinkEvents', temp).map((data: any) => {
+                // console.log(data);
                 return data;
               });
 
-            // } else {
-            //   //console.log(createdLink);
-            //   return createdLink;
-            // }
+            }
           });
 
       });

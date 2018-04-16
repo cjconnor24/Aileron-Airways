@@ -87,6 +87,8 @@ export class ListEventComponent implements OnInit {
             this.hasEvents = (data.events.length > 0);
             console.log(data);
 
+            console.log(JSON.stringify(data));
+
           })
 
       }
