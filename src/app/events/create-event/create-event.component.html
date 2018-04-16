@@ -3,7 +3,7 @@
 
     <span class="close" [routerLink]="['/timelines',timelineId]">&times;</span>
 
-    <h1>Create Event</h1>
+    <h1>{{editMode ? 'Edit' : 'Create'}} Event</h1>
 
 
     <a [routerLink]="['/timelines',timelineId]" class="button button-primary">

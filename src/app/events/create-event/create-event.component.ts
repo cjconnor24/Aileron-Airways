@@ -31,17 +31,24 @@ export class CreateEventComponent implements OnInit {
   subscription: Subscription;
   eventLocation: EventLocation;
 
-  linkedLoaded:boolean = false;
+  linkedLoaded: boolean = false;
 
   currentTimeline: Timeline;
+  currentEvent: TimelineEvent;
+  currentEventId: string;
 
+  /**
+   * SUBMIT FORM FOR PROCESSING
+   */
   onSubmit() {
 
-    console.log(this.createEvent);
+    /**
+     * IF CREATE NEW EVENT
+     */
     if (!this.editMode) {
 
       this.eventLocation.name = this.createEvent.controls.location.value;
-      
+
       const e = new TimelineEvent(
         this.createEvent.controls.title.value,
         this.createEvent.controls.description.value,
@@ -52,8 +59,8 @@ export class CreateEventComponent implements OnInit {
       const linkedId = this.createEvent.controls.linked.value;
 
 
-      console.log('THIS LINKED ID IS' + linkedId);
-      console.log('NEWLY CREATED ID IS ' + e.eventId);
+      // console.log('THIS LINKED ID IS' + linkedId);
+      // console.log('NEWLY CREATED ID IS ' + e.eventId);
 
       this.ideagenService.createEvent(this.timelineId, e, linkedId)
         .subscribe((data: any) => {
@@ -69,6 +76,8 @@ export class CreateEventComponent implements OnInit {
           });
 
     } else {
+
+      // OTHERWISE EDIT
       console.log('EVENT EDITED');
       this.event.title = this.createEvent.controls.title.value;
       this.event.dateTime = this.createEvent.controls.dateTime.value;
@@ -89,19 +98,24 @@ export class CreateEventComponent implements OnInit {
   }
 
   private initForm() {
+
     let eventName = '';
     let eventDateTime;
     let eventDescription = '';
-    let eventLinkedEvents:TimelineEvent[];
+    let eventLinkedEvents: TimelineEvent[];
     let eventAttachments = '';
     let eventLocation = '';
 
     // IF EDITING, PULL THROUGH THE CURRENT EVENT DETAILS
     if (this.editMode) {
       // this.event = this.registerService.getEvent(this.id);
-      eventName = this.event.title;
-      eventDateTime = this.event.dateTime;
-      eventDescription = this.event.description;
+
+
+      // console.log(this.currentEvent | async);
+
+      // eventName = this.event.title;
+      // eventDateTime = this.event.dateTime;
+      // eventDescription = this.event.description;
       // eventLinkedEvents = this.event.linkedEvents;
       // eventAttachments = this.event.attachments;
       // eventLocation = this.event.location;
@@ -122,8 +136,10 @@ export class CreateEventComponent implements OnInit {
     this.route.params.subscribe(
       (params: Params) => {
 
+        // GET THE ROUTING PARAMETERS
         this.timelineId = params['id'];
         this.editMode = params['eventid'] != null;
+        this.currentEventId = params['eventid'];
 
         //TODO: FETCH EXISTING EVENT
         // this.event = this.registerService.getEvent(this.id);
@@ -139,26 +155,29 @@ export class CreateEventComponent implements OnInit {
               this.currentTimeline.events = [];
             }
 
+            this.currentEvent = this.currentTimeline.events.find((tl: TimelineEvent) => {
+              return tl.eventId === this.currentEventId
+            });
+
+            console.log(this.currentEvent);
+
+            this.linkedLoaded = true;
+
           },
             (error) => {
               console.log(error);
             },
             () => {
-              this.linkedLoaded = true;
+
+
+
             });
 
-        console.log(this.event);
-        console.log(this.editMode);
-
         this.initForm();
+
       }
     );
 
-    // this.subscription = this.registerService.registerChanged.subscribe(
-    //   (event: Event[]) => {
-    //     this.updated = true;
-    //   }
-    // );
 
   }
 
