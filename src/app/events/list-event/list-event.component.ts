@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { IdeagenService } from '../../services/ideagen.service';
 import { Timeline } from '../../models/timeline.model';
 import { TimelineEvent } from '../../models/timeline-event.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-list-event',
@@ -17,6 +18,7 @@ export class ListEventComponent implements OnInit {
   timeline: Timeline;
   loaded: boolean = false;
   hasEvents: boolean;
+  error: HttpErrorResponse;
 
   constructor(
     private registerService: RegisterService,
@@ -83,15 +85,17 @@ export class ListEventComponent implements OnInit {
         this.ideagenService.getTimelineAndEvents(this.id)
           .subscribe((data: Timeline) => {
             this.timeline = data;
-            this.loaded = true;
+            
             this.hasEvents = (data.events.length > 0);
             console.log(data);
-
+            this.loaded = true;
             console.log(JSON.stringify(data));
 
-          })
-
-      }
+          },
+        (error: HttpErrorResponse) => {
+          this.error = error;
+          this.router.navigate(['./'])
+        })}
     );
 
   }

@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
   recentTimelines = []; // holds recent timelines
   DoughnutChart: any;
   recentSize = 0; // initialize at 0
+  loaded:boolean = false; // display spinner
 
 
    ngOnInit() {
@@ -42,7 +43,12 @@ export class DashboardComponent implements OnInit {
 
       this.recentSize = this.recentTimelines.length;
 
+      // // HIDE THE SPINNER AND DISPLAY THE DATA
+      this.loaded = true;
+
       this.chartIt();
+
+      
 
       
     })

@@ -26,6 +26,7 @@ export class DeleteTimelineComponent implements OnInit {
    * Delete timeline and redirect to timelines main
    */
   onConfirmDelete() {
+    // console.log(this.timeline);
     this.registerService.deleteTimeline(this.timeline);
     this.router.navigate(['timelines']);
   }

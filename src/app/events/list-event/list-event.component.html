@@ -2,6 +2,11 @@
   Loading Timeline Events
 </app-spinner>
 
+<div *ngIf="error === null">
+  <h1>Uh Oh</h1>
+  <p>Error</p>
+</div>
+
 <div *ngIf="loaded">
 <h1>{{timeline?.title}}</h1>
 
