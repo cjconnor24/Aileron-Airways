@@ -438,9 +438,11 @@ export class IdeagenService {
 
       });
 
+      
+
 
       // THIS IS CAUSE ISSUES
-      timeline.events = ev;
+      timeline.events = ev.sort((a: any, b: any) => a.dateCreated - b.dateCreated).reverse();
       // console.log(timeline);
       return timeline;
     });

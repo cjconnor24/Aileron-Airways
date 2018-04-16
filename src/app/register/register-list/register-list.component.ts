@@ -34,7 +34,10 @@ export class RegisterListComponent implements OnInit, OnDestroy {
     this.register = this.registerService.getTimelines();
     this.subscriber = this.registerService.registerChanged.subscribe(
       (timelines: Timeline[]) => {
-        this.register = timelines;
+
+
+        // SORT IN REVERSE ORDER
+        this.register = timelines.sort((a: any, b: any) => a.dateCreated - b.dateCreated).reverse();
         this.loaded = true;
       }
     );

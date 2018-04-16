@@ -1,10 +1,10 @@
 @import "../../../sass/utilities/variables"; // COLOUR VARIABLES
 
-p.button-row {
-  text-align: left;
-  // display: flex;
-  // justify-content: space-between;
-}
+// p > p.button-row {
+//   text-align: left;
+//   display: flex;
+//   justify-content: space-between;
+// }
 
 .no-events {
   text-align: center;
@@ -37,7 +37,7 @@ $light-red: #CB9195;
   margin-left: -10px;
 }
 
-.event + .linked::after {
+.linked::after {
   content: ' ';
   position: absolute;
   border-right: 20px solid $light-red;

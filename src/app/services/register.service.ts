@@ -41,9 +41,19 @@ export class RegisterService {
   }
 
 
+  private sortRegister(){
+    // this.dataSize = data.length;
+
+      let sortedData = []
+      sortedData = this.register.slice().sort((a: any, b: any) => a.dateCreated - b.dateCreated);
+      
+  }
+
+
 
   getTimelines(): Timeline[] {
     this.loadTimelines();
+    // this.sortRegister();
     return this.register.slice();
   }
 
