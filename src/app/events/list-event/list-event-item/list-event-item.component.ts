@@ -13,22 +13,44 @@ export class ListEventItemComponent implements OnInit {
   constructor() { }
 
   @Input() event: TimelineEvent;
-  @Input() i: number;
+  @Input() rowIndex: number;
+  @Input() nested: boolean;
+  @Input() parent: boolean;
+
   @Output() deleteEvent: EventEmitter<string> = new EventEmitter<string>();
 
-
-
   /**
-   * Emit event with eventId for parent component to process deletion
-   */
-  onDelete(){
+     * Emit event with eventId for parent component to process deletion
+     */
+  onDelete() {
 
     this.deleteEvent.emit(this.event.eventId);
 
   }
-  
+
+  getClassName() {
+
+    if(this.parent){
+      return 'left';
+    } else if (this.nested) {
+      return 'right';
+    }
+
+    if (this.rowIndex % 2 === 0) {
+
+      return 'left';
+
+    } else {
+
+      return 'right';
+
+    }
+
+  }
+
 
   ngOnInit() {
+
   }
 
 }

@@ -8,6 +8,11 @@
     100%{background-position:50% 100%}
 }
 
+.spacer-row {
+    display:flex;
+    justify-content: space-between;
+}
+
 // MAIN CONTAINER
 .timeline-overview * {
     box-sizing: border-box;

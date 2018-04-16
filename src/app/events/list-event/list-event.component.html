@@ -15,6 +15,10 @@
 <p class="button-row">
   <a routerLink="/timelines" class="button button-primary large">
     <i class="fas fa-arrow-left"></i> Return to Register</a>
+
+    <a routerLink="overview" class="button button-primary large">
+      <i class="fas fa-link"></i> View Overview</a>
+
   <a routerLink="events/create" class="button button-success large"  *ngIf="timeline?.events.length > 0">
     <i class="fas fa-plus"></i> Create New Event</a>
 </p>
@@ -29,10 +33,11 @@
 
     <div *ngFor="let event of timeline?.events; let i = index">
 
-      <app-list-event-item (deleteEvent)="onDeleteEvent($event)" [event]="event" [i]="i % 2"></app-list-event-item>
+      <app-list-event-item (deleteEvent)="onDeleteEvent($event)" [event]="event" [parent]="(event.linkedEvents.length > 0)" [rowIndex]="i"></app-list-event-item>
 
-      <div class="linked">
-        <app-list-event-item *ngFor="let levent of event.linkedEvents" [event]="levent" [i]="!(i % 2)"></app-list-event-item>
+      <!-- IF THERE ARE LINKED EVENTS -->
+      <div *ngIf="event.linkedEvents.length > 0" class="linked">
+        <app-list-event-item *ngFor="let levent of event.linkedEvents" [event]="levent" [nested]="true" [rowIndex]="i"></app-list-event-item>
       </div>
 
     </div>
