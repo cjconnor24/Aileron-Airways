@@ -9,15 +9,15 @@
     <a [routerLink]="['/timelines',timelineId]" class="button button-primary">
       <i class="fas fa-arrow-left"></i> Return to Timeline</a>
 
-    <form [formGroup]="createEvent" (ngSubmit)="onSubmit()">
+    <form [formGroup]="createEvent" *ngIf="temp" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="six columns">
 
-          <!-- <div class="event-info" *ngIf="editMode">
-              <h1>{{ event.title}}</h1>
-              <p><i class="fas fa-clock"></i> <strong>Date/Time: </strong> 
-                {{ event.dateTime | date: 'medium' }}</p>
-          </div> -->
+          <div class="event-info" *ngIf="editMode">
+              <h1>{{ currentEvent?.title}}</h1>
+              <!-- <p><i class="fas fa-clock"></i> <strong>Date/Time: </strong> 
+                {{ event.dateTime | date: 'medium' }}</p> -->
+          </div>
 
           <label for="name">Event Name</label>
           <input class="u-full-width" type="text" formControlName="title" placeholder="Event A" id="name" required>

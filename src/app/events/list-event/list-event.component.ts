@@ -94,7 +94,7 @@ export class ListEventComponent implements OnInit {
           },
         (error: HttpErrorResponse) => {
           this.error = error;
-          this.router.navigate(['./'])
+          // this.router.navigate(['./'])
         })}
     );
 

@@ -34,8 +34,10 @@
     
   </p>
 
+  <p><strong>There are currently no timelines to view</strong></p>
+
   
-<div class="register" [ngClass]="{'rows':rowsMode}" *ngIf="loaded">
+<div class="register" [ngClass]="{'rows':rowsMode}" *ngIf="loaded && register.length > 0">
 
   <div class="tline" *ngFor="let timeline of register | filter: searchText | dateFilter: searchDate " routerLink="{{timeline.timelineId}}">
     <!-- <div class="tline" *ngFor="let timeline of register" routerLink="{{timeline.timelineId}}/edit"> -->
