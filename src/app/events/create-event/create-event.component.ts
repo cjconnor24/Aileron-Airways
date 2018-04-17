@@ -23,6 +23,7 @@ export class CreateEventComponent implements OnInit {
     private ideagenService: IdeagenService
   ) { }
 
+  // LOCALVARS FOR USAGE WITHIN COMPONENT
   createEvent: FormGroup;
   event: Event;
   editMode = false;
@@ -97,8 +98,12 @@ export class CreateEventComponent implements OnInit {
     this.eventLocation = location;
   }
 
+  /**
+   * Initialise the form
+   */
   private initForm() {
 
+    // CREATE TEMP DATA TO POPULATE THE FORM
     let eventName = '';
     let eventDateTime;
     let eventDescription = '';
@@ -108,10 +113,6 @@ export class CreateEventComponent implements OnInit {
 
     // IF EDITING, PULL THROUGH THE CURRENT EVENT DETAILS
     if (this.editMode) {
-      // this.event = this.registerService.getEvent(this.id);
-
-
-      // console.log(this.currentEvent | async);
 
       // eventName = this.event.title;
       // eventDateTime = this.event.dateTime;
@@ -121,6 +122,7 @@ export class CreateEventComponent implements OnInit {
       // eventLocation = this.event.location;
     }
 
+    // THIS POPULATES THE ACTUAL FORM
     this.createEvent = new FormGroup({
       'title': new FormControl(eventName, Validators.required),
       'datetime': new FormControl(eventDateTime, Validators.required),
@@ -130,6 +132,9 @@ export class CreateEventComponent implements OnInit {
     });
   }
 
+  /**
+   * When initialising the component
+   */
   ngOnInit() {
 
     // GET THE ID FROM THE URL AND SET THE UPDATE MODE TO TRUE IF PARAMS EXIST
@@ -142,12 +147,13 @@ export class CreateEventComponent implements OnInit {
         this.currentEventId = params['eventid'];
 
         //TODO: FETCH EXISTING EVENT
-        // this.event = this.registerService.getEvent(this.id);
+        // this.event = this.ideagenService.getEvent(this.currentEventId);
 
         // GET THE TIMELINES AND EVENTS FOR LINKED EVENTS DROPDOWN
         this.ideagenService.getTimelineAndEvents(this.timelineId)
           .subscribe((timeline: Timeline) => {
 
+            // ASSIGN THE TIMELINE LOCALLY
             this.currentTimeline = timeline;
 
             // IF THERE ARE NO EVENTS, INITIALISE THE ARRAY
@@ -155,13 +161,10 @@ export class CreateEventComponent implements OnInit {
               this.currentTimeline.events = [];
             }
 
+            // THIS WAS TRYING TO PULL THE CURRENT EVENT FROM THE ARRAY ABOVE
             this.currentEvent = this.currentTimeline.events.find((tl: TimelineEvent) => {
               return tl.eventId === this.currentEventId
             });
-
-            console.log(this.currentEvent);
-
-            this.linkedLoaded = true;
 
           },
             (error) => {
@@ -169,16 +172,16 @@ export class CreateEventComponent implements OnInit {
             },
             () => {
 
-
+              // DISPLAY THE LINKED EVENT DROPDOWN ONCE LOADED
+              this.linkedLoaded = true;
 
             });
+
 
         this.initForm();
 
       }
     );
-
-
   }
 
 
