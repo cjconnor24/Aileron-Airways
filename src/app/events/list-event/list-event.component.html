@@ -31,7 +31,7 @@
 <ng-template #hasEvents>
   <div class="timeline">
 
-    <div *ngFor="let event of timeline?.events | sortEvents:'desc'; let i = index">
+    <div *ngFor="let event of timeline?.events | sortEvents:'asc'; let i = index">
 
       <app-list-event-item (deleteEvent)="onDeleteEvent($event)" [event]="event" [parent]="(event.linkedEvents.length > 0)" [rowIndex]="i"></app-list-event-item>
 

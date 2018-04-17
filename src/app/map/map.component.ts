@@ -43,6 +43,8 @@ export class MapComponent implements OnInit {
       if(this.existingLocation){
     this.defaultPosition.lat = this.existingLocation.latitude;
     this.defaultPosition.lng = this.existingLocation.longitude;
+      } else {
+        this.droppedPin.emit(new EventLocation('',this.defaultPosition.lat, this.defaultPosition.lat));
       }
     // }
     // if (navigator) {

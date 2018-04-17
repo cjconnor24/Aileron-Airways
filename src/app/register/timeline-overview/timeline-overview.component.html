@@ -22,7 +22,7 @@
       <ng-template #hasEvents>
         <div class="timeline-overview">
 
-          <div *ngFor="let event of timeline.events | sortEvents:'desc'; let i = index;">
+          <div *ngFor="let event of timeline.events | sortEvents:'asc'; let i = index;">
 
             <div class="overview-event">
               <h5>{{ event.title }}</h5>
@@ -31,7 +31,7 @@
 
             <div *ngIf="event.linkedEvents.length > 0" class="overview-linked" [ngClass]="{'left': i % 2 === 0, 'right': i % 2 !==0}">
 
-              <div *ngFor="let linkedEvent of event.linkedEvents | sortEvents:'desc'" class="overview-event">
+              <div *ngFor="let linkedEvent of event.linkedEvents | sortEvents:'asc'" class="overview-event">
                 <h5>{{ linkedEvent.title }}</h5>
                 <p>{{ linkedEvent.dateTime | date:'d LLLL yyyy' }} <br> <i class="far fa-clock"></i> {{ linkedEvent.dateTime | date:'HH:mm' }}</p>
               </div>

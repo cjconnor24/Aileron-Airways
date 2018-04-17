@@ -20,6 +20,7 @@ export class ListEventItemComponent implements OnInit {
   @Output() deleteEvent: EventEmitter<string> = new EventEmitter<string>();
 
   deleting: boolean = false;
+  showMap: boolean = false;
 
   /**
      * Emit event with eventId for parent component to process deletion
@@ -28,6 +29,12 @@ export class ListEventItemComponent implements OnInit {
 
     this.deleting = true;
     this.deleteEvent.emit(this.event.eventId);
+
+  }
+
+  toggleMap(){
+
+    this.showMap = !this.showMap;
 
   }
 

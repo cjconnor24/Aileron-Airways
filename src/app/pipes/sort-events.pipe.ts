@@ -9,11 +9,11 @@ export class SortEventsPipe implements PipeTransform {
   transform(value: TimelineEvent[], order?: string): any {
 
     if(order==='asc'){
-      return value.sort((a: any, b: any) => a.dateCreated - b.dateCreated);
+      return value.sort((a: any, b: any) => a.dateTime - b.dateTime);
     } else if(order==='desc') {
-      return value.sort((a: any, b: any) => a.dateCreated - b.dateCreated).reverse();
+      return value.sort((a: any, b: any) => a.dateTime - b.dateTime).reverse();
     } else {
-      return value.sort((a: any, b: any) => a.dateCreated - b.dateCreated).reverse();
+      return value.sort((a: any, b: any) => a.dateTime - b.dateTime).reverse();
     }
 
     
