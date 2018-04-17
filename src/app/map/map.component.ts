@@ -16,28 +16,51 @@ export class MapComponent implements OnInit {
 
   lat: number;// = 55.8691;
   lng: number;// = -4.4351;
-  zoom: number = 8;
+  zoom: number = 12;
 
   constructor() {}
-
+  
   @Input() eventName: string;
   @Output() droppedPin: EventEmitter<EventLocation> = new EventEmitter<EventLocation>();
-
+  @Input() existingLocation: any;
+  
+  
+  defaultPosition = {
+    lat: 55.8691,
+    lng: -4.4351,
+    // label: 'A',
+    draggable: false
+  };
+  
+  markers: marker[] = [this.defaultPosition];
 
   ngOnInit() {
-    if (navigator) {
 
-      navigator.geolocation.getCurrentPosition(pos => {
-        this.lng = +pos.coords.longitude;
-        this.lat = +pos.coords.latitude;
-        this.markers[0] = ({
-          lat: +pos.coords.latitude,
-          lng: +pos.coords.longitude,
-          draggable: false
-        });
-      });
 
-    }
+  
+    
+    // if(this.existingLocation!==null){
+      if(this.existingLocation){
+    this.defaultPosition.lat = this.existingLocation.latitude;
+    this.defaultPosition.lng = this.existingLocation.longitude;
+      }
+    // }
+    // if (navigator) {
+      
+      //   navigator.geolocation.getCurrentPosition(pos => {
+        //     this.lng = +pos.coords.longitude;
+        //     this.lat = +pos.coords.latitude;
+    //     this.markers[0] = ({
+    //       lat: +pos.coords.latitude,
+    //       lng: +pos.coords.longitude,
+    //       draggable: false
+    //     });
+    //   });
+
+    // }
+
+
+
   }
 
 
@@ -61,13 +84,6 @@ export class MapComponent implements OnInit {
     console.log('dragEnd', m, $event);
   }
 
-  markers: marker[] = [
-    {
-      lat: 55.8691,
-      lng: -4.4351,
-      label: 'A',
-      draggable: false
-    }];
 
 }
 

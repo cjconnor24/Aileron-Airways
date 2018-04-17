@@ -509,6 +509,46 @@ export class IdeagenService {
 
   }
 
+  private objectBuilder(orig:any, k: any, v: any){
+
+    let nobject = orig;
+    nobject[k] = v;
+
+    return nobject;
+
+
+  }
+
+  editEvent(event: TimelineEvent) {
+
+    const headers = new HttpHeaders(
+      this.API_AUTH
+    );
+
+    const body = {
+      'TenantId': 'Team2',
+      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
+      'TimelineEventId' : event.eventId
+    };
+
+    // console.log(event);
+
+    return Observable.forkJoin([
+      this.httpClient.put(this.API_URL + 'TimelineEvent/EditTitle', this.objectBuilder(body,'Title',event.title)),
+      this.httpClient.put(this.API_URL + 'TimelineEvent/EditDescription', this.objectBuilder(body,'Description',event.description)),
+      this.httpClient.put(this.API_URL + 'TimelineEvent/EditLocation', this.objectBuilder(body,'Location',JSON.stringify(event.location))),
+      this.httpClient.put(this.API_URL + 'TimelineEvent/EditEventDateTime', this.objectBuilder(body,'EventDateTime',this.timeToTicks(event.dateTime)))
+    ])
+      .map((data: any[]) => {
+        // let timeline: any = data[0]; // TIMELINE
+        // let events: any = data[1]; // THE EVENTS
+        // timeline.Events = events; // ADD THEM TO THAT OBJECTq
+        return data;
+
+      });
+
+  }
+
 
   /**
    * Delete event from timeline

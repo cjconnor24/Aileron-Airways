@@ -45,6 +45,8 @@ export class CreateEventComponent implements OnInit {
   currentEvent: TimelineEvent;
   currentEventId: string;
 
+  now = new Date();
+
 
 
 
@@ -58,9 +60,6 @@ export class CreateEventComponent implements OnInit {
      * IF CREATE NEW EVENT
      */
     if (!this.editMode) {
-
-
-
 
       this.eventLocation.name = this.createEvent.controls.location.value;
 
@@ -93,15 +92,30 @@ export class CreateEventComponent implements OnInit {
     } else {
 
       // OTHERWISE EDIT
-      console.log('EVENT EDITED');
-      this.event.title = this.createEvent.controls.title.value;
-      this.event.dateTime = this.createEvent.controls.dateTime.value;
-      this.event.description = this.createEvent.controls.description.value;
-      this.event.linkedEvents = this.createEvent.controls.linkedEvents.value;
-      this.event.attachments = this.createEvent.controls.attachments.value;
-      this.event.location = this.createEvent.controls.location.value;
-      // this.registerService.editEvent(this.event);
+
+      this.currentEvent.title = this.createEvent.controls.title.value;
+      this.currentEvent.dateTime = new Date(this.createEvent.controls.datetime.value);
+      this.currentEvent.description = this.createEvent.controls.description.value;
+
+      // LOCATION A NAME FRMO FORM
+      this.eventLocation.name = this.createEvent.controls.location.value;
+
+      this.currentEvent.location = this.eventLocation;
+
+
+
+      this.ideagenService.editEvent(this.currentEvent)
+        .subscribe((data: any) => {
+          console.log(data);
+        },
+          (error: any) => {
+            console.log(error);
+          },
+          () => {
+            this.updated = true;
+          });
     }
+    
   }
 
 
@@ -123,7 +137,7 @@ export class CreateEventComponent implements OnInit {
     // CREATE TEMP DATA TO POPULATE THE FORM
     // TEST VARIABLE
     let eventName = '';
-    let eventDateTime;
+    let eventDateTime = '';
     let eventDescription = '';
     let eventLinkedEvents: TimelineEvent[];
     let eventAttachments = '';
@@ -144,11 +158,14 @@ export class CreateEventComponent implements OnInit {
           this.currentEvent = event;
 
           eventName = this.currentEvent.title;
-          eventDateTime = event.dateTime;
+          eventDateTime = event.dateTime.toISOString();
           eventDescription = event.description;
           eventLinkedEvents = event.linkedEvents;
           // eventAttachments = event.attachments;
           eventLocation = event.location;
+
+          // ALOS UPDATE THE GLOBAL EVENT OBJ
+          this.eventLocation = event.location;
 
 
         },
@@ -163,7 +180,7 @@ export class CreateEventComponent implements OnInit {
             // THIS POPULATES THE ACTUAL FORM
             this.createEvent = new FormGroup({
               'title': new FormControl(eventName, Validators.required),
-              'datetime': new FormControl(Date.parse(eventDateTime), Validators.required),
+              'datetime': new FormControl(eventDateTime, Validators.required),
               'description': new FormControl(eventDescription, Validators.required),
               'location': new FormControl(eventLocation.name),
               'linked': new FormControl(eventLinkedEvents)
@@ -189,6 +206,8 @@ export class CreateEventComponent implements OnInit {
 
 
   }
+
+
 
   /**
    * When initialising the component

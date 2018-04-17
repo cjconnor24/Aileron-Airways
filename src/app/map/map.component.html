@@ -1,17 +1,20 @@
-<agm-map [latitude]="lat" [longitude]="lng"   [zoom]="zoom"
+<agm-map
+[zoom]="zoom"
 [disableDefaultUI]="false"
 (mapClick)="mapClicked($event)"
+[latitude]="defaultPosition.lat"
+[longitude]="defaultPosition.lng"
 (center)="markers[0].center">
-
+<!-- *ngFor="let m of markers; let i = index" -->
 <agm-marker 
-*ngFor="let m of markers; let i = index"
-(markerClick)="clickedMarker(m.label, i)"
+
+(markerClick)="clickedMarker(markers[0].label, 0)"
 [iconUrl]="'http://localhost:4200/assets/img/map-marker.png'"
-[latitude]="m.lat"
-[longitude]="m.lng"
-[label]="m.label"
-[markerDraggable]="m.draggable"
-(dragEnd)="markerDragEnd(m, $event)">
+[latitude]="markers[0].lat"
+[longitude]="markers[0].lng"
+[label]="markers[0].label"
+[markerDraggable]="markers[0].draggable"
+(dragEnd)="markerDragEnd(markers[0], $event)">
 
 <!-- COMMENTING OUT AT THE MOMENT - MAY RETURN -->
 <!-- <agm-info-window>
