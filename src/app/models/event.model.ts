@@ -4,16 +4,12 @@ export class Event {
 
     eventId: string;
     title: string;
-    dateTime: Date; //TODO: Might need different type 
+    dateTime: Date;
     description: string;
-    location: EventLocation; // TODO: Might need location object type
+    location: EventLocation;
     linkedEvents: Event[];
     attachments: string;
     
-
-
-
-
      constructor(id: string, title: string, description: string, dateTime: Date, location: EventLocation) {
          this.eventId = id;
          this.title = title;
@@ -21,9 +17,7 @@ export class Event {
          this.dateTime = dateTime;
          this.description = description;
          this.linkedEvents = [];
-         this.location = location;
-         
-
+         this.location = location;    
      }
 
 }
