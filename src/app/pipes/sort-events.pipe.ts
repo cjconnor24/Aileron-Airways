@@ -1,6 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { TimelineEvent } from '../models/timeline-event.model';
 
+/**
+ * Custom pipe to sort an array of passed TimelineEvent objects.
+ */
 @Pipe({
   name: 'sortEvents'
 })
