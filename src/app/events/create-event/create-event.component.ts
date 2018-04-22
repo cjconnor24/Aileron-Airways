@@ -26,8 +26,6 @@ export class CreateEventComponent implements OnInit {
   ) { }
 
 
-
-
   // LOCALVARS FOR USAGE WITHIN COMPONENT
   createEvent: FormGroup;
   event: Event;
@@ -36,14 +34,14 @@ export class CreateEventComponent implements OnInit {
   timelineId: string;
   subscription: Subscription;
   eventLocation: EventLocation;
-
-  linkedLoaded: boolean = false;
-
-  temp: boolean = false;
-
   currentTimeline: Timeline;
   currentEvent: TimelineEvent;
   currentEventId: string;
+
+  // STATE VARIABLES
+  linkedLoaded: boolean = false;
+  temp: boolean = false;
+
 
   now = new Date();
 
@@ -72,10 +70,6 @@ export class CreateEventComponent implements OnInit {
 
       const linkedId = this.createEvent.controls.linked.value;
 
-
-      // console.log('THIS LINKED ID IS' + linkedId);
-      // console.log('NEWLY CREATED ID IS ' + e.eventId);
-
       this.ideagenService.createEvent(this.timelineId, e, linkedId)
         .subscribe((data: any) => {
 
@@ -92,7 +86,6 @@ export class CreateEventComponent implements OnInit {
     } else {
 
       // OTHERWISE EDIT
-
       this.currentEvent.title = this.createEvent.controls.title.value;
       this.currentEvent.dateTime = new Date(this.createEvent.controls.datetime.value);
       this.currentEvent.description = this.createEvent.controls.description.value;
@@ -104,6 +97,7 @@ export class CreateEventComponent implements OnInit {
 
 
 
+      // EDIT THE EVENT AT THE API SIDE
       this.ideagenService.editEvent(this.currentEvent)
         .subscribe((data: any) => {
           console.log(data);
@@ -115,7 +109,7 @@ export class CreateEventComponent implements OnInit {
             this.updated = true;
           });
     }
-    
+
   }
 
 
@@ -161,7 +155,6 @@ export class CreateEventComponent implements OnInit {
           eventDateTime = event.dateTime.toISOString();
           eventDescription = event.description;
           eventLinkedEvents = event.linkedEvents;
-          // eventAttachments = event.attachments;
           eventLocation = event.location;
 
           // ALOS UPDATE THE GLOBAL EVENT OBJ
@@ -207,15 +200,10 @@ export class CreateEventComponent implements OnInit {
 
   }
 
-
-
   /**
    * When initialising the component
    */
   ngOnInit() {
-
-    console.log('THIS IS THE POINT THE COMPONENT IS RENDERED');
-
 
     // GET THE ID FROM THE URL AND SET THE UPDATE MODE TO TRUE IF PARAMS EXIST
     this.route.params.subscribe(

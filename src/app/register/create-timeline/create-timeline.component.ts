@@ -29,6 +29,9 @@ export class CreateTimelineComponent implements OnInit {
   subscription: Subscription;
   saving: boolean;
 
+  /**
+   * Create the timeline when form submitted
+   */
   onSubmit() {
   
     // DISPLAY THE SPINNER
@@ -44,6 +47,9 @@ export class CreateTimelineComponent implements OnInit {
     }
   }
 
+  /**
+   * Initialize the form
+   */
   private initForm() {
     let timelineTitle = '';
     // IF EDITING, PULL THROUGH THE CURRENT TIMELINE TITLE
@@ -56,6 +62,9 @@ export class CreateTimelineComponent implements OnInit {
     });
   }
 
+  /**
+   * Pull down any existing data on init
+   */
   ngOnInit() {
     // GET THE ID FROM THE URL AND SET THE UPDATE MODE TO TRUE IF PARAMS EXIST
     this.route.params.subscribe(

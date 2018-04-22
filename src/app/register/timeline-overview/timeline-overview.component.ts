@@ -19,18 +19,15 @@ export class TimelineOverviewComponent implements OnInit {
     private ideagenService: IdeagenService
   ) { }
 
+  // LOCAL COMPONENT VARIABLES
   id: string;
   timeline: Timeline;
   loaded: boolean = false;
 
-  // apiSubscription: Subsription;
-
   ngOnInit() {
-    this.id = this.route.snapshot.params['id'];
-    // console.log('The id is' + this.id);
-    // this.timeline = this.registerService.getTimeline(this.id);
-    // console.log(this.timeline);
 
+    // PULL DOWN THE EVENTS FROM THE API
+    this.id = this.route.snapshot.params['id'];
     this.ideagenService.getTimelineAndEvents(this.id)
     .subscribe((data: Timeline) => {
       this.timeline = data;

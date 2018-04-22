@@ -8,39 +8,46 @@ import { TimelineEvent } from '../../../models/timeline-event.model';
   styleUrls: ['./list-event-item.component.scss'],
   // encapsulation: ViewEncapsulation.None
 })
-export class ListEventItemComponent implements OnInit {
+export class ListEventItemComponent {
 
   constructor() { }
 
+  // INPUTS AND OUTPUTS FOR COMPONENT RE-USE
   @Input() event: TimelineEvent;
   @Input() rowIndex: number;
   @Input() nested: boolean;
   @Input() parent: boolean;
-
   @Output() deleteEvent: EventEmitter<string> = new EventEmitter<string>();
 
+  // LOCAL STATE VARIABLES
   deleting: boolean = false;
   showMap: boolean = false;
 
   /**
-     * Emit event with eventId for parent component to process deletion
-     */
-  onDelete() {
+  * Emit event with eventId for parent component to process deletion
+  */
+  onDelete(): void {
 
     this.deleting = true;
     this.deleteEvent.emit(this.event.eventId);
 
   }
 
-  toggleMap(){
+  /**
+   * Show / hide the map
+   */
+  toggleMap(): void {
 
     this.showMap = !this.showMap;
 
   }
 
-  getClassName() {
+  /**
+   * Gets the class name based on the current index
+   */
+  getClassName(): string {
 
-    if(this.parent){
+    if (this.parent) {
       return 'left';
     } else if (this.nested) {
       return 'right';
@@ -55,11 +62,6 @@ export class ListEventItemComponent implements OnInit {
       return 'right';
 
     }
-
-  }
-
-
-  ngOnInit() {
 
   }
 

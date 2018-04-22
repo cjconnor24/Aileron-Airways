@@ -14,6 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class ListEventComponent implements OnInit {
 
+  // LOCAL VARIABLES FOR COMPONENT
   id: string;
   timeline: Timeline;
   loaded: boolean = false;
@@ -27,37 +28,16 @@ export class ListEventComponent implements OnInit {
     private ideagenService: IdeagenService
   ) { }
 
-  // createTestEvent() {
-
-  //   const event: TimelineEvent = new TimelineEvent('Title', 'Description', new Date(), 'test location');
-
-  //   this.ideagenService.createEvent(this.id, event)
-  //     .subscribe((data: any) => {
-
+  /**
+   * Event handler on click to delete
+   * @param eventId Event ID to be deleted
+   */
+  onDeleteEvent(eventId: string):void {
 
 
-  //     },
-  //       (error) => {
-  //         console.log(error);
-  //       },
-  //       () => {
-  //         this.timeline.events.push(event);
-  //       }
-  //     );
-
-
-
-  // }
-
-
-  onDeleteEvent(eventId: string) {
-
-
+    // CALL THE API AND DELETE THE EVENT
     this.ideagenService.deleteEvent(this.timeline.timelineId, eventId)
       .subscribe((data: any) => {
-
-        console.log("SHOULD BE DELETED NOW :)");
-        console.log(data);
 
         // REMOVE FROM TIMELINE OBJECT IN COMPONENET;
         this.timeline.events = this.timeline.events.filter((x) => {
@@ -75,11 +55,6 @@ export class ListEventComponent implements OnInit {
       (params: Params) => {
 
         this.id = params['id'];
-        // this.editMode = params['id'] != null;
-        // this.timeline = this.registerService.getTimeline(this.id);
-        // console.log(this.timeline);
-        // console.log(this.editMode);
-        // this.initForm();
 
         // GET THE TIMELINE AND EVENTS FROM THE API
         this.ideagenService.getTimelineAndEvents(this.id)
@@ -94,7 +69,6 @@ export class ListEventComponent implements OnInit {
           },
         (error: HttpErrorResponse) => {
           this.error = error;
-          // this.router.navigate(['./'])
         })}
     );
 

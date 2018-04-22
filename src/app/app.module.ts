@@ -3,7 +3,6 @@ import { NgModule, ApplicationRef} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { EventSearchComponent } from './event-search/event-search.component';
 import { HeaderComponent } from './ui/header/header.component';
 import { FooterComponent } from './ui/footer/footer.component';
 import { RegisterComponent } from './register/register/register.component';
@@ -35,7 +34,6 @@ import { SortEventsPipe } from './pipes/sort-events.pipe';
   declarations: [
     AppComponent,
     DashboardComponent,
-    EventSearchComponent,
     HeaderComponent,
     FooterComponent,
     RegisterComponent,
