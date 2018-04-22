@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
-import {DataService} from '../data.service';
+import { DataService } from '../data.service';
 import { MapComponent } from '../map/map.component';
 import * as Chart from 'chart.js'
 import { TimelineApiService } from '../services/Timelineapi.service';
@@ -21,10 +21,13 @@ export class DashboardComponent implements OnInit {
   recentTimelines = []; // holds recent timelines
   DoughnutChart: any;
   recentSize = 0; // initialize at 0
-  loaded:boolean = false; // display spinner
+  loaded: boolean = false; // display spinner
 
 
-   ngOnInit() {
+  /**
+   * Pull in the statistics for rendering the dashboard charts on INIT
+   */
+  ngOnInit() {
 
     this._dataService.getTimelines().subscribe(data => {
 
@@ -37,8 +40,8 @@ export class DashboardComponent implements OnInit {
       let currentDate = new Date();
       currentDate.setDate(currentDate.getDate() - 1);
 
-      this.recentTimelines = 
-      sortedData.filter(x => { return x.dateCreated >= currentDate }  );
+      this.recentTimelines =
+        sortedData.filter(x => { return x.dateCreated >= currentDate });
       console.log(this.recentTimelines)
 
       this.recentSize = this.recentTimelines.length;
@@ -48,40 +51,40 @@ export class DashboardComponent implements OnInit {
 
       this.chartIt();
 
-      
-
-      
     })
   }
 
-  chartIt(){
+  /**
+   * Render the chart
+   */
+  chartIt() {
     let htmlRef = this.elementRef.nativeElement.querySelector(`#chartId`);
-    this.DoughnutChart = new Chart( 'chartId' ,
-  {
-    type: 'doughnut',
-    data:{
-      labels: ["Last 24 hours", "Total Timelines"],
-      datasets:[{
-        label: 'Timelines',
-        data: [ this.recentSize, this.dataSize],
-        backgroundColor:[
-          '#3A4850',
-          '#0684C2'
-        ],
-        borderWidth: 1
-      }]
+    this.DoughnutChart = new Chart('chartId',
+      {
+        type: 'doughnut',
+        data: {
+          labels: ["Last 24 hours", "Total Timelines"],
+          datasets: [{
+            label: 'Timelines',
+            data: [this.recentSize, this.dataSize],
+            backgroundColor: [
+              '#3A4850',
+              '#0684C2'
+            ],
+            borderWidth: 1
+          }]
 
-    },
-    options:{
-      title:{
-        // text:"Timelines",
-        display: true
-      },
-      cutoutPercentage: 70,
-      responsive: false,
-      display: true
-    }
-  });
+        },
+        options: {
+          title: {
+            // text:"Timelines",
+            display: true
+          },
+          cutoutPercentage: 70,
+          responsive: false,
+          display: true
+        }
+      });
   }
-  
+
 }

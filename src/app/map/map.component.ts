@@ -11,77 +11,83 @@ import { EventLocation } from '../models/event-location';
   styleUrls: ['./map.component.scss'],
 })
 
-
+/**
+ * Map component for Google Maps interactions
+ */
 export class MapComponent implements OnInit {
 
   lat: number;// = 55.8691;
   lng: number;// = -4.4351;
   zoom: number = 12;
 
-  constructor() {}
-  
+  constructor() { }
+
   @Input() eventName: string;
   @Output() droppedPin: EventEmitter<EventLocation> = new EventEmitter<EventLocation>();
   @Input() existingLocation: any;
-  
-  
+
+
+  // DEFAULT POSITION MARKER
   defaultPosition = {
     lat: 55.8691,
     lng: -4.4351,
     // label: 'A',
     draggable: false
   };
-  
+
+  // MARKER ARRAY IF DEALING WITH MORE THAN ONE
   markers: marker[] = [this.defaultPosition];
 
+  /**
+   * INTIALISE THE COMPONENT
+   */
   ngOnInit() {
 
 
-  
-    
-    // if(this.existingLocation!==null){
-      if(this.existingLocation){
-    this.defaultPosition.lat = this.existingLocation.latitude;
-    this.defaultPosition.lng = this.existingLocation.longitude;
-      } else {
-        this.droppedPin.emit(new EventLocation('',this.defaultPosition.lat, this.defaultPosition.lat));
-      }
-    // }
-    // if (navigator) {
-      
-      //   navigator.geolocation.getCurrentPosition(pos => {
-        //     this.lng = +pos.coords.longitude;
-        //     this.lat = +pos.coords.latitude;
-    //     this.markers[0] = ({
-    //       lat: +pos.coords.latitude,
-    //       lng: +pos.coords.longitude,
-    //       draggable: false
-    //     });
-    //   });
+    if (this.existingLocation) {
 
-    // }
+      this.defaultPosition.lat = this.existingLocation.latitude;
+      this.defaultPosition.lng = this.existingLocation.longitude;
 
+    } else {
 
+      this.droppedPin.emit(new EventLocation('', this.defaultPosition.lat, this.defaultPosition.lat));
+
+    }
 
   }
 
-
+  /**
+   * If the map is clicked, drop the marker and emit event.
+   * @param  event
+   */
   mapClicked($event: MouseEvent) {
     console.log($event);
-    
+
     this.markers[0] = ({
       lat: $event.coords.lat,
       lng: $event.coords.lng,
       draggable: false
     });
 
-    this.droppedPin.emit(new EventLocation('',$event.coords.lat, $event.coords.lng));
+    this.droppedPin.emit(new EventLocation('', $event.coords.lat, $event.coords.lng));
 
   }
+
+  /**
+   * If marker is clicked, display console log.
+   * @param label Marker label
+   * @param index Marker index
+   */
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label || index}`)
   }
 
+  /**
+   * If marker is dragged, output data to console
+   * @param m Marker which is selected
+   * @param  Event
+   */
   markerDragEnd(m: marker, $event: MouseEvent) {
     console.log('dragEnd', m, $event);
   }
@@ -89,7 +95,9 @@ export class MapComponent implements OnInit {
 
 }
 
-
+/**
+ * Interface to represent marker.
+ */
 interface marker {
   lat: number;
   lng: number;

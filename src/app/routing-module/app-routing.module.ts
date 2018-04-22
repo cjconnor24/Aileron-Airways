@@ -11,17 +11,16 @@ import { ListEventComponent } from '../events/list-event/list-event.component';
 import { CreateEventComponent } from '../events/create-event/create-event.component';
 
 const routes: Routes = [
- { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
- {path: 'dashboard', component: DashboardComponent}, 
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardComponent },
   {
     path: 'timelines', component: RegisterComponent, children: [
       { path: '', component: RegisterListComponent },
       { path: 'create', component: CreateTimelineComponent },
-      { path: ':id', component: ListEventComponent },    //NEEDS UPDATED
+      { path: ':id', component: ListEventComponent },
       { path: ':id/edit', component: CreateTimelineComponent },
       { path: ':id/overview', component: TimelineOverviewComponent },
       { path: ':id/delete', component: DeleteTimelineComponent },
-
       { path: ':id/events/create', component: CreateEventComponent },
       { path: ':id/events/:eventid/edit', component: CreateEventComponent },
     ]
