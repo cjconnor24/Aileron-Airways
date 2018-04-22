@@ -67,8 +67,6 @@ export class IdeagenService {
       }
     );
 
-    // console.log(timeline);
-
     const body = {
       'TenantId': 'Team2',
       'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
@@ -90,7 +88,7 @@ export class IdeagenService {
           const tline: Timeline = new Timeline(data.Title);
           tline.dateCreated = this.ticksToTime(data.CreationTimeStamp);
           return tline;
-          // return data;
+
         });
   }
 
@@ -146,7 +144,7 @@ export class IdeagenService {
         }
         ) => {
           const tl: Timeline = new Timeline(data.Title);
-          tl.dateCreated = this.ticksToTime(data.CreationTimeStamp); // TODO: CONVERT DATE
+          tl.dateCreated = this.ticksToTime(data.CreationTimeStamp);
           return tl;
         });
   }
@@ -180,7 +178,7 @@ export class IdeagenService {
         ) => {
           const tl: Timeline = new Timeline(data.Title);
           tl.timelineId = data.Id;
-          tl.dateCreated = this.ticksToTime(data.CreationTimeStamp); // TODO: CONVERT DATE
+          tl.dateCreated = this.ticksToTime(data.CreationTimeStamp);
           return tl;
         });
   }
@@ -212,7 +210,6 @@ export class IdeagenService {
 
               const e: TimelineEvent = new TimelineEvent(event.Title, event.Description, this.ticksToTime(event.EventDateTime), event.Location, event.Id);
               return e;
-              // console.log(e);
 
             });
 
@@ -247,9 +244,6 @@ export class IdeagenService {
         TenantId: string
       }) => {
         const event: TimelineEvent = new TimelineEvent(data.Title, data.Description, this.ticksToTime(data.EventDateTime), JSON.parse(data.Location), data.Id);
-
-        //console.log(event);
-
 
         return event;
       });
@@ -291,9 +285,6 @@ export class IdeagenService {
             return this.getEvent(data.TimelineEventId);
           })
         )
-
-        // return this.getEvent(links);
-        // return links.LinkedToTimelineEventId;
 
       });
   }
@@ -348,9 +339,9 @@ export class IdeagenService {
                   .map((res: any) => {
                     let e = res;
                     event.event = e;
-                    // timeline.Events = event;
+
                     return event;
-                    // return timeline;
+
                   })
               })
             )
@@ -397,9 +388,9 @@ export class IdeagenService {
                               // THIS IS RETURNING AN EVENT OBSERVABLE
                               return this.getEvent(linkedEvent.LinkedToTimelineEventId)
                                 .map((res: TimelineEvent) => {
-                                  
+
                                   childEvents.push(res.eventId);
-                                  
+
                                   return res;
                                 });
                             })
@@ -438,12 +429,8 @@ export class IdeagenService {
 
       });
 
-      
-
-
       // THIS IS CAUSE ISSUES
       timeline.events = ev.sort((a: any, b: any) => a.dateCreated - b.dateCreated).reverse();
-      // console.log(timeline);
       return timeline;
     });
   }
@@ -486,8 +473,8 @@ export class IdeagenService {
 
             } else {
 
-              const LinkedToTimelineEventId:string = event.eventId;      //LinkedToTimelineEventId
-              const TimelineEventId:string = linkedEventId;  //TimelineEventId
+              const LinkedToTimelineEventId: string = event.eventId;      //LinkedToTimelineEventId
+              const TimelineEventId: string = linkedEventId;  //TimelineEventId
 
               const temp = {
                 'TenantId': 'Team2',
@@ -498,7 +485,6 @@ export class IdeagenService {
 
 
               return this.httpClient.put(this.API_URL + 'TimelineEvent/LinkEvents', temp).map((data: any) => {
-                // console.log(data);
                 return data;
               });
 
@@ -509,7 +495,13 @@ export class IdeagenService {
 
   }
 
-  private objectBuilder(orig:any, k: any, v: any){
+  /**
+   * Simple function to aid in the building of custom objects
+   * @param orig Original object
+   * @param k Key to be added
+   * @param v Value to be added
+   */
+  private objectBuilder(orig: any, k: any, v: any) {
 
     let nobject = orig;
     nobject[k] = v;
@@ -519,6 +511,10 @@ export class IdeagenService {
 
   }
 
+  /**
+   * Edit an event.
+   * @param event Event to be edited
+   */
   editEvent(event: TimelineEvent) {
 
     const headers = new HttpHeaders(
@@ -528,16 +524,16 @@ export class IdeagenService {
     const body = {
       'TenantId': 'Team2',
       'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
-      'TimelineEventId' : event.eventId
+      'TimelineEventId': event.eventId
     };
 
     // console.log(event);
 
     return Observable.forkJoin([
-      this.httpClient.put(this.API_URL + 'TimelineEvent/EditTitle', this.objectBuilder(body,'Title',event.title)),
-      this.httpClient.put(this.API_URL + 'TimelineEvent/EditDescription', this.objectBuilder(body,'Description',event.description)),
-      this.httpClient.put(this.API_URL + 'TimelineEvent/EditLocation', this.objectBuilder(body,'Location',JSON.stringify(event.location))),
-      this.httpClient.put(this.API_URL + 'TimelineEvent/EditEventDateTime', this.objectBuilder(body,'EventDateTime',this.timeToTicks(event.dateTime)))
+      this.httpClient.put(this.API_URL + 'TimelineEvent/EditTitle', this.objectBuilder(body, 'Title', event.title)),
+      this.httpClient.put(this.API_URL + 'TimelineEvent/EditDescription', this.objectBuilder(body, 'Description', event.description)),
+      this.httpClient.put(this.API_URL + 'TimelineEvent/EditLocation', this.objectBuilder(body, 'Location', JSON.stringify(event.location))),
+      this.httpClient.put(this.API_URL + 'TimelineEvent/EditEventDateTime', this.objectBuilder(body, 'EventDateTime', this.timeToTicks(event.dateTime)))
     ])
       .map((data: any[]) => {
         // let timeline: any = data[0]; // TIMELINE
@@ -557,10 +553,6 @@ export class IdeagenService {
    */
   deleteEvent(timelineId: string, eventId: string) {
 
-    // const headers = new HttpHeaders(
-    //   this.API_AUTH
-    // );
-
     const body = {
       'TenantId': 'Team2',
       'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282',
@@ -568,50 +560,18 @@ export class IdeagenService {
       EventId: eventId,
     };
 
-    // console.log(body);
-
-    // UNLINK EVENT
-    // DELETE EVENT
-
     return this.httpClient.put(this.API_URL + 'Timeline/UnlinkEvent', body)
       .flatMap((event: any) => {
 
         return this.httpClient.put(this.API_URL + 'TimelineEvent/Delete', { TenantId: 'Team2', 'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282', TimelineEventId: eventId })
           .flatMap((deleted: any) => {
 
-            //console.log(deleted);
             return deleted;
           });
 
       });
 
   }
-
-  //   public getAllEvent() {
-  //    const headers = new HttpHeaders(
-  //      {
-  //        'TenantId': 'Team2',
-  //      'AuthToken': 'b3872e1b-12e3-4852-aaf0-a3d87d597282'
-  //      });
-
-  //    return this.httpClient
-  //      .get(this.API_URL + 'TimelineEvent/GetAllEvents', { headers: headers })
-  //    .map(EvData => {
-  //        console.log(EvData);
-  //        return EvData.map(data => {
-
-  //          let event = new Event(data.Id, data.Title, data.Description, data.EventDateTime, data.Location);
-
-  //          return event;
-
-  //        });
-  //      })
-  //      .subscribe(
-  //        (events: Event[]) => {
-  //          this.registerService.setEvent(events);
-  //          console.log(events);
-  //        })
-  //  }
 
   /**
    * Convert the IdeaGen Time Format to javascript Date Object
@@ -639,9 +599,11 @@ export class IdeagenService {
 
   }
 
+  /**
+   * Convert a valid JSON string to an EventLocation Object
+   * @param json json string to convert
+   */
   private jsonToEventLocation(json: string): EventLocation {
-
-
 
     const data: { name: string, lat: number, long: number } = JSON.parse(json);
     console.log(data.lat);
