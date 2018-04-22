@@ -239,6 +239,7 @@ input[type="button"] {
     background: $darkred;
     color:#FFF;
     // border-color: $darkred;
+    border:none;
 
     &:hover {
       background:lighten($darkred,5);
@@ -273,6 +274,7 @@ input[type="button"] {
 input[type="email"],
 input[type="number"],
 input[type="date"],
+input[type="datetime-local"],
 input[type="search"],
 input[type="text"],
 input[type="tel"],

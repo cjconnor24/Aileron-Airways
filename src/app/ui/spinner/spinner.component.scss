@@ -15,4 +15,12 @@
         max-width:200px;
 
     }
+
+    &.medium img {
+        max-width: 100px;
+    }
+
+    &.small img {
+        max-width: 30px;
+    }
 }

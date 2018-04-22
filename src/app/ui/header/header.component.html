@@ -3,14 +3,14 @@
     <a routerlink="/dashboard" class="nav__logo">
       <span>Ideagen Coruson</span>
     </a>
-    <ul>
+    <ul [ngClass]="{'open':menuState}">
       <li>
-        <a routerLink="dashboard"> Dashboard</a>
+        <a routerLink="dashboard" (click)="toggleMenuState()"><i class="fas fa-chart-pie"></i> Dashboard</a>
       </li>
       <li>
-        <a routerLink="timelines"> Timelines</a>
+        <a routerLink="timelines" (click)="toggleMenuState()"><i class="fas fa-sitemap"></i> Register</a>
       </li>
     </ul>
-    <div class="navbar__hamburger"></div>
+    <div class="navbar__hamburger" (click)="toggleMenuState()"></div>
   </div>
 </nav>

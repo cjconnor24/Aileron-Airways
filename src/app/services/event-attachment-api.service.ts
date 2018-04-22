@@ -18,6 +18,9 @@ export class EventAttachmentApiService {
 
   constructor(private http: Http) { }
 
+  /**
+   * Create attachment
+   */
   public createAttachement() {
     console.log("create Attachment PUT TimelineEventId + AttachmentId + Title Req");
     let url = `${API_URL}TimelineEventAttachment/Create`;
@@ -26,6 +29,9 @@ export class EventAttachmentApiService {
     this.http.put(url, { id: Tenant, AuthToken: AToken }, { search }).subscribe(res => console.log(res.json()));
   }
 
+  /**
+   * Edit attachment title.
+   */
   public editTitle() {
     console.log("create Event PUT AttachmentId + Title Req");
     let url = `${API_URL}TimelineEventAttachment/EditTitle`;
@@ -34,6 +40,9 @@ export class EventAttachmentApiService {
     this.http.put(url, { id: Tenant, AuthToken: AToken }, { search }).subscribe(res => console.log(res.json()));
   }
 
+  /**
+   * Delete attachment
+   */
   public deleteAttachment() {
     console.log("create Event PUT AttachmentId Req");
     let url = `${API_URL}TimelineEventAttachment/Delete`;
@@ -42,6 +51,9 @@ export class EventAttachmentApiService {
     this.http.put(url, { id: Tenant, AuthToken: AToken }, { search }).subscribe(res => console.log(res.json()));
   }
 
+  /**
+   * Get Presigned URL from API
+   */
   public getPresignedURL() {
 
     let myHeaders = new Headers();
@@ -58,6 +70,9 @@ export class EventAttachmentApiService {
       .catch(this.handleError);
   }
 
+  /**
+   * Get the upload presigned URL from the API.
+   */
   public getUploadPresignedURL() {
 
     let myHeaders = new Headers();
@@ -74,40 +89,10 @@ export class EventAttachmentApiService {
       .catch(this.handleError);
   }
 
-  // public getTimelineEventAttachement(): Observable<EventsAttachment[]> {
-
-  //   let myHeaders = new Headers();
-  //   myHeaders.append('TenantId', Tenant);
-  //   myHeaders.append('AuthToken', AToken);
-  //   return this.http
-  //     .get(API_URL + 'TimelineEventAttachment/GetAttachment', { headers: myHeaders })
-  //     .map(response => {
-  //       const eventsAttachment = response.json();
-  //       return eventsAttachment.map((eventsAttachment) => new EventsAttachment(eventsAttachment));
-
-
-  //     })
-  //     .catch(this.handleError);
-  // }
-
-  // public getTimelineEventAttachements(): Observable<EventsAttachments[]> {
-
-  //   let myHeaders = new Headers();
-  //   myHeaders.append('TenantId', Tenant);
-  //   myHeaders.append('AuthToken', AToken);
-  //   return this.http
-  //     .get(API_URL + 'TimelineEventAttachment/GetAttachments', { headers: myHeaders })
-  //     .map(response => {
-  //       const eventsAttachments = response.json();
-  //       return eventsAttachments.map((eventsAttachments) => new EventsAttachments(eventsAttachments));
-
-
-  //     })
-  //     .catch(this.handleError);
-  // }
-
-  
-
+  /**
+   * General error handler for re-use
+   * @param error error to handle
+   */
   private handleError(error: Response | any) {
     console.error('ApiService::handleError', error);
     return Observable.throw(error);

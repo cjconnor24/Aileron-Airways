@@ -7,7 +7,10 @@ import { IdeagenService } from '../../services/ideagen.service';
 import { Subscription } from 'rxjs/Subscription';
 import { TimelineEvent } from '../../models/timeline-event.model';
 import { Timeline } from '../../models/timeline.model';
- 
+import { EventLocation } from '../../models/event-location';
+import { HttpErrorResponse } from '@angular/common/http';
+import { log } from 'util';
+
 @Component({
   selector: 'app-create-event',
   templateUrl: './create-event.component.html',
@@ -17,116 +20,235 @@ export class CreateEventComponent implements OnInit {
 
   constructor(
     private registerService: RegisterService,
-    private router:Router,
-    private route:ActivatedRoute,
+    private router: Router,
+    private route: ActivatedRoute,
     private ideagenService: IdeagenService
   ) { }
 
+
+  // LOCALVARS FOR USAGE WITHIN COMPONENT
   createEvent: FormGroup;
   event: Event;
   editMode = false;
   updated = false;
   timelineId: string;
   subscription: Subscription;
-
+  eventLocation: EventLocation;
   currentTimeline: Timeline;
+  currentEvent: TimelineEvent;
+  currentEventId: string;
 
+  // STATE VARIABLES
+  linkedLoaded: boolean = false;
+  temp: boolean = false;
+
+
+  now = new Date();
+
+
+
+
+
+  /**
+   * SUBMIT FORM FOR PROCESSING
+   */
   onSubmit() {
 
-    console.log(this.createEvent);
+    /**
+     * IF CREATE NEW EVENT
+     */
     if (!this.editMode) {
-      
-      console.log('EVENT ADDED');
-      // this.registerService.addEvent(new Event(this.createEvent.controls.name.value, this.createEvent.controls.dateTime.value, this.createEvent.controls.description.value, this.createEvent.controls.linkedEvents.value,  this.createEvent.controls.attachments.value, this.createEvent.controls.location.value));
+
+      this.eventLocation.name = this.createEvent.controls.location.value;
+
       const e = new TimelineEvent(
         this.createEvent.controls.title.value,
         this.createEvent.controls.description.value,
         new Date(this.createEvent.controls.datetime.value),
-        'oaiusdioasud'
+        this.eventLocation
       );
 
-      this.ideagenService.createEvent(this.timelineId,e)
-      .subscribe((data: any) => {
+      const linkedId = this.createEvent.controls.linked.value;
 
-        console.log(data);
+      this.ideagenService.createEvent(this.timelineId, e, linkedId)
+        .subscribe((data: any) => {
 
-      });
+          console.log(data);
+
+        },
+          (error: any) => {
+            console.log(error);
+          },
+          () => {
+            this.router.navigate(['../../'], { relativeTo: this.route });
+          });
 
     } else {
-      console.log('EVENT EDITED');
-      this.event.title = this.createEvent.controls.title.value;
-      this.event.dateTime = this.createEvent.controls.dateTime.value;
-      this.event.description = this.createEvent.controls.description.value;
-      this.event.linkedEvents = this.createEvent.controls.linkedEvents.value;
-      this.event.attachments = this.createEvent.controls.attachments.value;
-      this.event.location = this.createEvent.controls.location.value;
-      // this.registerService.editEvent(this.event);
+
+      // OTHERWISE EDIT
+      this.currentEvent.title = this.createEvent.controls.title.value;
+      this.currentEvent.dateTime = new Date(this.createEvent.controls.datetime.value);
+      this.currentEvent.description = this.createEvent.controls.description.value;
+
+      // LOCATION A NAME FRMO FORM
+      this.eventLocation.name = this.createEvent.controls.location.value;
+
+      this.currentEvent.location = this.eventLocation;
+
+
+
+      // EDIT THE EVENT AT THE API SIDE
+      this.ideagenService.editEvent(this.currentEvent)
+        .subscribe((data: any) => {
+          console.log(data);
+        },
+          (error: any) => {
+            console.log(error);
+          },
+          () => {
+            this.updated = true;
+          });
     }
+
   }
 
+
+
+  /**
+   * Get event from map
+   * @param event Event located on the map
+   */
+  getLocation(location: EventLocation) {
+    this.eventLocation = location;
+  }
+
+  /**
+   * Initialise the form
+   */
   private initForm() {
+
+
+    // CREATE TEMP DATA TO POPULATE THE FORM
+    // TEST VARIABLE
     let eventName = '';
     let eventDateTime = '';
     let eventDescription = '';
-    let eventLinkedEvents = '';
+    let eventLinkedEvents: TimelineEvent[];
     let eventAttachments = '';
-    let eventLocation = '';
-    
+    let eventLocation: EventLocation;
+
     // IF EDITING, PULL THROUGH THE CURRENT EVENT DETAILS
     if (this.editMode) {
-      // this.event = this.registerService.getEvent(this.id);
-      // eventTitle = this.event.title;
-      // eventDateTime = this.event.dateTime;
-      // eventDescription = this.event.description;
-      // eventLinkedEvents = this.event.linkedEvents;
-      // eventAttachments = this.event.attachments;
-      // eventLocation = this.event.location;
-      
+
+
+      // this.createEvent = new FormGroup(controls{[]});
+
+      this.ideagenService.getEvent(this.currentEventId)
+        .subscribe((event: TimelineEvent) => {
+
+          console.log('THIS IS EDIT EVENT CALL');
+          console.log(event);
+
+          this.currentEvent = event;
+
+          eventName = this.currentEvent.title;
+          eventDateTime = event.dateTime.toISOString();
+          eventDescription = event.description;
+          eventLinkedEvents = event.linkedEvents;
+          eventLocation = event.location;
+
+          // ALOS UPDATE THE GLOBAL EVENT OBJ
+          this.eventLocation = event.location;
+
+
+        },
+          (error: HttpErrorResponse) => {
+            console.log(error);
+          },
+          () => {
+            console.log('this finished');
+            console.log(this.currentEvent);
+            this.temp = true;
+
+            // THIS POPULATES THE ACTUAL FORM
+            this.createEvent = new FormGroup({
+              'title': new FormControl(eventName, Validators.required),
+              'datetime': new FormControl(eventDateTime, Validators.required),
+              'description': new FormControl(eventDescription, Validators.required),
+              'location': new FormControl(eventLocation.name),
+              'linked': new FormControl(eventLinkedEvents)
+            });
+
+          });
+
+    } else {
+      this.temp = true;
+
+      // THIS POPULATES THE ACTUAL FORM
+      this.createEvent = new FormGroup({
+        'title': new FormControl(eventName, Validators.required),
+        'datetime': new FormControl(eventDateTime, Validators.required),
+        'description': new FormControl(eventDescription, Validators.required),
+        'location': new FormControl(eventLocation),
+        'linked': new FormControl(eventLinkedEvents)
+      });
+
     }
-    this.createEvent = new FormGroup({
-      'title': new FormControl(eventName, Validators.required),
-      'datetime': new FormControl(eventDateTime, Validators.required),
-      'description': new FormControl(eventDescription, Validators.required),
-      // 'location': new FormControl(eventLocation, Validators.required),
-      // 'linked': new FormControl(eventLinkedEvents, Validators.required)
-    });
+
+
+
+
   }
 
+  /**
+   * When initialising the component
+   */
   ngOnInit() {
+
     // GET THE ID FROM THE URL AND SET THE UPDATE MODE TO TRUE IF PARAMS EXIST
     this.route.params.subscribe(
       (params: Params) => {
+
+        // GET THE ROUTING PARAMETERS
         this.timelineId = params['id'];
         this.editMode = params['eventid'] != null;
+        this.currentEventId = params['eventid'];
 
-        console.log(params['eventid']);
-        
-
-        //TODO: FETCH EXISTING EVENT
-        // this.event = this.registerService.getEvent(this.id);
-
+        // GET THE TIMELINES AND EVENTS FOR LINKED EVENTS DROPDOWN
         this.ideagenService.getTimelineAndEvents(this.timelineId)
-        .subscribe((timeline: Timeline) => {
+          .subscribe((timeline: Timeline) => {
 
-          this.currentTimeline = timeline;
+            // ASSIGN THE TIMELINE LOCALLY
+            this.currentTimeline = timeline;
 
-        });
+            // IF THERE ARE NO EVENTS, INITIALISE THE ARRAY
+            if (this.currentTimeline.events == null) {
+              this.currentTimeline.events = [];
+            }
 
-        console.log(this.event);
-        console.log(this.editMode);
+            // THIS WAS TRYING TO PULL THE CURRENT EVENT FROM THE ARRAY ABOVE
+            // this.currentEvent = this.currentTimeline.events.find((tl: TimelineEvent) => {
+            //   return tl.eventId === this.currentEventId
+            // });
+
+          },
+            (error) => {
+              console.log(error);
+            },
+            () => {
+
+              // DISPLAY THE LINKED EVENT DROPDOWN ONCE LOADED
+              this.linkedLoaded = true;
+
+            });
+
 
         this.initForm();
+
       }
     );
-
-    // this.subscription = this.registerService.registerChanged.subscribe(
-    //   (event: Event[]) => {
-    //     this.updated = true;
-    //   }
-    // );
-
   }
 
-  
+
 
 }

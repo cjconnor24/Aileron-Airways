@@ -9,7 +9,10 @@
 
       <h1>{{timeline?.title}} Overview</h1>
 
-      <a routerLink="/timelines" class="button button-primary"><i class="fas fa-arrow-left"></i> Return to Register</a>
+      <p class="spacer-row">
+        <a routerLink="/timelines" class="button button-primary"><i class="fas fa-arrow-left"></i> Return to Register</a>
+        <a routerLink="../" class="button button-success"><i class="fas fa-eye"></i> View Timeline</a>
+      </p>
 
 
       <!-- CHECK TO SEE IF THERE ARE EVENTS -->
@@ -19,18 +22,18 @@
       <ng-template #hasEvents>
         <div class="timeline-overview">
 
-          <div *ngFor="let event of timeline.events">
+          <div *ngFor="let event of timeline.events | sortEvents:'asc'; let i = index;">
 
             <div class="overview-event">
               <h5>{{ event.title }}</h5>
-              <p>{{ event.dateTime | moment }}</p>
+              <p>{{ event.dateTime | date:'d LLLL yyyy' }} <br> <i class="far fa-clock"></i> {{ event.dateTime | date:'HH:mm' }}</p>
             </div>
 
-            <div *ngIf="event.linkedEvents.length > 0" class="linked left">
+            <div *ngIf="event.linkedEvents.length > 0" class="overview-linked" [ngClass]="{'left': i % 2 === 0, 'right': i % 2 !==0}">
 
-              <div *ngFor="let linkedEvent of event.linkedEvents" class="overview-event">
+              <div *ngFor="let linkedEvent of event.linkedEvents | sortEvents:'asc'" class="overview-event">
                 <h5>{{ linkedEvent.title }}</h5>
-                <p>{{ linkedEvent.dateTime | moment }}</p>
+                <p>{{ linkedEvent.dateTime | date:'d LLLL yyyy' }} <br> <i class="far fa-clock"></i> {{ linkedEvent.dateTime | date:'HH:mm' }}</p>
               </div>
 
             </div>
@@ -43,8 +46,8 @@
       <!-- THERE ARE NO EVENTS, GIVE USER OPTION TO CREATE -->
       <ng-template #noEvents>
         <p>There are currently no events on this timeline.</p>
-        <p>
-          <a href="" class="button button-success">
+        <p style="text-align: center;">
+          <a class="button button-success large">
             <i class="fas fa-plus"></i> Create Event</a>
         </p>
       </ng-template>

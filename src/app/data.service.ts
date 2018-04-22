@@ -12,8 +12,7 @@ export class DataService {
 
   constructor(
      private Timelineapi: TimelineApiService
-   ) {
-   }
+   ) {}
 
 
 

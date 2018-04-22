@@ -1,7 +1,13 @@
+/**
+ * Custom abstract class to provide functionality to multiple classes
+ */
 export abstract class Guid {
 
     constructor(){}
 
+    /**
+     * Generate a customer GUID
+     */
     protected uuidv4():string {
     
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {

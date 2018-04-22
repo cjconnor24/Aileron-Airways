@@ -1,19 +1,46 @@
-<div class="event" [ngClass]="{'right':i!==0,'left':i===0}">
-    <div class="details">
+<div class="event" [ngClass]="getClassName()">
+  <div class="details">
+
+    <app-spinner *ngIf="deleting"></app-spinner>
+
+    <div *ngIf="!deleting">
       <h2>{{event?.title}}</h2>
+      <!-- <label for="temp-id">Temp ID</label>
+        <input type="text" class="u-full-width" value="{{event?.eventId}}"> -->
       <p class="info">
         <i class="far fa-calendar"></i> {{ event?.dateTime | date:'longDate'}}
         <i class="far fa-clock"></i> {{ event?.dateTime | date:'HH:mm'}}
-        <i class="fas fa-paperclip"></i> {{event?.attachments.length}}</p>
-      <p>{{event.description}}</p>
+        <i class="fas fa-link"></i> {{event?.linkedEvents.length}}
+        <span *ngIf="event?.location.name!==''">
+          <i class="fas fa-map-marker-alt"></i> {{event?.location.name}}</span>
+      </p>
+      <p>
+        <strong>Event Description</strong>
+        <br>{{event.description}}</p>
+
       <p class="button-row">
-        <a href="#" class="button button-primary green">
-          <i class="fas fa-eye"></i> View Event</a>
-        <a href="#" class="button button-primary blue">
-          <i class="fas fa-pencil-alt"></i> Quick Edit</a>
-          <a (click)="onDelete()" class="button button-danger">
-            <i class="fas fa-pencil-alt"></i> DELETE</a>
+        <a (click)="toggleMap()" class="button button-success">
+          <i class="fas fa-map-marker"></i> {{ !showMap ? 'Show' : 'Hide' }} Location</a>
+        <a [routerLink]="['events',event.eventId,'edit']" class="button button-primary">
+          <i class="fas fa-pencil-alt"></i> Edit Event</a>
+        <button (click)="onDelete()" class="button button-danger" [disabled]="event.linkedEvents.length > 0 || nested">
+          <i class="fas fa-trash-alt"></i> DELETE Event</button>
         <!-- <a href="#" class="button button-primary red linked-events"><i class="fas fa-link"></i> <span>Show</span> Linked Events <strong>2</strong></a> -->
       </p>
+
+      <div class="location-section" *ngIf="showMap">
+          <h4>
+            <i class="far fa-map"></i>
+            <strong>Event Location</strong>
+          </h4>
+          <!-- <p>Below is the event location.</p> -->
+          <div class="map-wrapper">
+            <app-map [existingLocation]="event.location"></app-map>
+          </div>
+  
+        </div>
+
     </div>
+
   </div>
+</div>

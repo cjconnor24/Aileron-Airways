@@ -27,9 +27,16 @@ export class CreateTimelineComponent implements OnInit {
   updated = false;
   id: string;
   subscription: Subscription;
+  saving: boolean;
 
+  /**
+   * Create the timeline when form submitted
+   */
   onSubmit() {
-    console.log(this.createTimeline);
+  
+    // DISPLAY THE SPINNER
+    this.saving = true;
+
     if (!this.editMode) {
       console.log('TIMELINE ADDED');
       this.registerService.addTimeline(new Timeline(this.createTimeline.controls.name.value));
@@ -40,6 +47,9 @@ export class CreateTimelineComponent implements OnInit {
     }
   }
 
+  /**
+   * Initialize the form
+   */
   private initForm() {
     let timelineTitle = '';
     // IF EDITING, PULL THROUGH THE CURRENT TIMELINE TITLE
@@ -52,6 +62,9 @@ export class CreateTimelineComponent implements OnInit {
     });
   }
 
+  /**
+   * Pull down any existing data on init
+   */
   ngOnInit() {
     // GET THE ID FROM THE URL AND SET THE UPDATE MODE TO TRUE IF PARAMS EXIST
     this.route.params.subscribe(
@@ -68,6 +81,7 @@ export class CreateTimelineComponent implements OnInit {
     this.subscription = this.registerService.registerChanged.subscribe(
       (timeline: Timeline[]) => {
         this.updated = true;
+        // this.router.navigate(['/']);
       }
     );
   }

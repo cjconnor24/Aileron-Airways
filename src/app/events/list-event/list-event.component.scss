@@ -1,10 +1,10 @@
 @import "../../../sass/utilities/variables"; // COLOUR VARIABLES
 
-p.button-row {
-  text-align: right;
-  display: flex;
-  justify-content: space-between;
-}
+// p > p.button-row {
+//   text-align: left;
+//   display: flex;
+//   justify-content: space-between;
+// }
 
 .no-events {
   text-align: center;
@@ -16,11 +16,12 @@ p.button-row {
 /* TIMELINE CSS */
 $eventbg: #EEE;
 $light-red: #CB9195;
+
 /* TIMELINE CONTAINER */
 .linked,
 .timeline {
   position: relative;
-  width: 100%;
+  width: 100%;  
   margin: 50px auto;
 }
 /* TIMELINE ACTUAL LINE */
@@ -37,7 +38,12 @@ $light-red: #CB9195;
   margin-left: -10px;
 }
 
-.event + .linked::after {
+// .linked app-list-event-item div.event.right {
+//   background: #F00!important;
+// }
+
+// THIS IS THE REND BENDY LINE
+ .linked::after {
   content: ' ';
   position: absolute;
   border-right: 20px solid $light-red;
@@ -50,19 +56,6 @@ $light-red: #CB9195;
   z-index: -0.5;
 }
 
-.linked .linked::after {
-  content: ' ';
-  position: absolute;
-  border-right: 20px solid darkred;
-  border-top: 20px solid darkred;
-  top: -30px;
-  // left: calc(50% - 20px);
-  left:0;
-  border-radius: 0 50px 0 0;
-  width: 10px;
-  height: 20px;
-  z-index: -0.5;
-}
 /* LINKED EVENTS */
 .linked {
   // display: none;
@@ -91,10 +84,6 @@ $light-red: #CB9195;
 
 .linked .linked .event {
   width: calc(50% - 60px);
-}
-
-.linked .event .details {
-  border: 3px dashed $light-red;
 }
 
 .linked .linked .event .details {
@@ -169,6 +158,29 @@ $light-red: #CB9195;
   border-width: 10px 10px 10px 0;
   border-color: transparent $eventbg transparent transparent;
 }
+
+
+.linked .event .details {
+  background: lighten($light-red,25);
+  transition:$transitionspeed;
+}
+.linked .event:hover .details {
+  background: lighten($light-red,20);
+}
+
+
+.linked .event.right::before {
+  border: medium solid lighten($light-red,25);
+  border-width: 10px 10px 10px 0;
+  border-color: transparent lighten($light-red,25) transparent transparent;
+  transition:$transitionspeed;
+}
+.linked .event.right:hover::before {
+  border: medium solid lighten($light-red,20);
+  border-width: 10px 10px 10px 0;
+  border-color: transparent lighten($light-red,20) transparent transparent;
+}
+
 /* TRIANGLE HOVER STATES */
 .left:hover::before {
   border-color: transparent transparent transparent $highlightyellow;
@@ -210,6 +222,7 @@ $light-red: #CB9195;
   background: $highlightyellow;
 }
 
+
 .details .info i {
   color: $navyblue;
 }
@@ -225,6 +238,9 @@ $light-red: #CB9195;
 .button-row .button {
   padding: 0 10px;
 }
+
+
+
 @media(max-width:1080px) {
   /* BLOCK BUTTONS WHEN THEY START TO FOLD */
   .details .button {
@@ -286,7 +302,7 @@ $light-red: #CB9195;
     border-color: transparent $eventbg transparent transparent;
   }
   /* THE BRANCHING BOXES */
-  .event + .linked::after {
+  .linked::after {
     width: 10px;
     height: 30px;
     left: -20px;

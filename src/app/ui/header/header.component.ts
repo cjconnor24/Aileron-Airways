@@ -9,6 +9,14 @@ export class HeaderComponent implements OnInit {
 
   constructor() { }
 
+  menuState:boolean = false;
+
+  toggleMenuState(){
+
+    this.menuState = !this.menuState;
+
+  }
+
   ngOnInit() {
   }
 

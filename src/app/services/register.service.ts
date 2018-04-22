@@ -4,27 +4,28 @@ import { TimelineEvent } from '../models/timeline-event.model';
 import { Subject } from 'rxjs/Subject';
 import { IdeagenService } from './ideagen.service';
 import { Observable } from 'rxjs/Observable';
-import { EventApiService } from './event-api.service';
 import { EventAttachmentApiService } from './event-attachment-api.service';
 
 
 
 @Injectable()
+/**
+ * Register service to handle all register interactions.
+ */
 export class RegisterService {
 
   constructor(private ideagenService: IdeagenService) { }
 
+  // LOCAL VARIABLES FOR SERVICE
   register: Timeline[] = [];
   registerChanged = new Subject<Timeline[]>();
-  
   registerChangedEv = new Subject<TimelineEvent[]>();
   registerEv: TimelineEvent;
 
-
-
-
-
-  private loadTimelines() {
+  /**
+   * load all timelines into the register
+   */
+  private loadTimelines():void {
 
     this.ideagenService.getTimelines()
       .subscribe(
@@ -41,12 +42,31 @@ export class RegisterService {
   }
 
 
+  /**
+   * Sort the register of timelines.
+   */
+  private sortRegister(): void{
 
+      let sortedData = []
+      sortedData = this.register.slice().sort((a: any, b: any) => a.dateCreated - b.dateCreated);
+      
+  }
+
+
+
+  /**
+   * Get all the timelines.
+   */
   getTimelines(): Timeline[] {
     this.loadTimelines();
+    // this.sortRegister();
     return this.register.slice();
   }
 
+  /**
+   * Retrieve a timeline with a specific ID
+   * @param id ID of timeline to retrieve
+   */
   getTimeline(id: string): Timeline {
 
     return this.register.find(timeline => timeline.timelineId === id);
@@ -54,6 +74,10 @@ export class RegisterService {
 
  
 
+  /**
+   * Edit the timeline title.
+   * @param timeline Timeline to edit
+   */
   editTimelineTitle(timeline: Timeline) {
     this.ideagenService.editTimelineTitle(timeline)
     .subscribe(
@@ -89,21 +113,10 @@ export class RegisterService {
 
   }
 
-  // deleteEvent(event: Event) {
-
-  //   this.EventApiService.deleteEvent(event).subscribe(
-  //     (data: any) => {
-  //       console.log(data);
-  //       console.log(this.registerEv.splice(this.registerEv.indexOf(event), 1));
-  //       this.registerChangedEv.next(this.registerEv.slice());
-  //     },
-  //     (error) => {
-  //       console.log('There was an error with delete Event:' + error);
-  //     }
-  //   );
-
-  // }
-
+  /**
+   * Add timelines to the register
+   * @param timelines Array of timelines to add to the register
+   */
   setTimelines(timelines: Timeline[]) {
     this.register = timelines;
     this.registerChanged.next(this.register.slice());
@@ -111,7 +124,10 @@ export class RegisterService {
 
 
 
-  
+  /**
+   * Add a timeline to the register
+   * @param timeline Timeline to be added
+   */
   addTimeline(timeline: Timeline) {
 
     // SUBSCRIBE AND WAIT FOR RESPONSE
@@ -126,8 +142,6 @@ export class RegisterService {
       }
     );
 
-    // this.register.push(timeline);
-    // this.registerChanged.next(this.register.slice());
   }
 
 

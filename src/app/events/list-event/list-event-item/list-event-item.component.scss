@@ -1,0 +1,18 @@
+@import "../../../../sass/utilities/variables";
+.map-wrapper {
+    border-radius:20px;
+    overflow: hidden;
+    border:5px solid #FFF;
+    margin:0 0 1em 0;
+    box-shadow: 0px 0px 5px #CCC;
+}
+h4 i {
+    color: $navyblue;
+}
+// .location-section {
+//     box-sizing: border-box;
+//     padding:2em;
+//     background: lighten(#CCC,20);
+//     border-radius:20px;
+//     box-shadow:inset 0px 0px 10px #CCC;
+// }

@@ -1,47 +1,56 @@
 <div class="modal">
   <div class="modal-content">
 
-    <span class="close" routerLink="../../">&times;</span>
+    <span class="close" [routerLink]="['/timelines',timelineId]">&times;</span>
 
-    <h1>Create Event</h1>
+    <h1>{{editMode ? 'Edit' : 'Create'}} Event</h1>
 
 
-    <a routerLink="../../" class="button button-primary"><i class="fas fa-arrow-left"></i>Return to Timeline</a>
+    <a [routerLink]="['/timelines',timelineId]" class="button button-primary">
+      <i class="fas fa-arrow-left"></i> Return to Timeline</a>
 
-    <form [formGroup]="createEvent" (ngSubmit)="onSubmit()">
+    <form [formGroup]="createEvent" *ngIf="temp" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="six columns">
 
           <!-- <div class="event-info" *ngIf="editMode">
-              <h1>{{ event.title}}</h1>
+              <h1>{{ currentEvent?.title}}</h1>
               <p><i class="fas fa-clock"></i> <strong>Date/Time: </strong> 
                 {{ event.dateTime | date: 'medium' }}</p>
           </div> -->
 
           <label for="name">Event Name</label>
-          <input class="u-full-width" type="text" formControlName="title" placeholder="Event A" id="name" required>
+          <input class="u-full-width" type="text" formControlName="title" placeholder="Event name" id="name" required>
 
           <label for="date">Event Date</label>
-          <input class="u-full-width" type="datetime-local" formControlName="datetime" placeholder="HH:MM DD/MM/YYYY" id="date" required>
+          <input class="u-full-width" type="datetime-local" formControlName="datetime" placeholder="HH:MM DD/MM/YYYY" id="date" max="2018-04-18T11:15"
+            required>
 
           <label for="description">Event Description</label>
           <textarea class="u-full-width" type="text" formControlName="description" placeholder="Please enter a desciption" id="description"
             required></textarea>
 
-          <label for="events">Related Events</label>
-          <select class="u-full-width" id="exampleRecipientInput">
-            <option *ngFor="let levent of currentTimeline.events" value="{{levent.eventId}}">{{levent.title}}</option>
-          </select>
+          <app-spinner *ngIf="!linkedLoaded" [small]="true"></app-spinner>
+          <div *ngIf="(currentTimeline?.events !== null)" [ngStyle]="{'display':editMode ? 'none' : ''}">
+            <label for="events">Related Events</label>
+            <select class="u-full-width" *ngIf="linkedLoaded" formControlName="linked">
+              <option value="">Selected linked event</option>
+              <option *ngFor="let levent of currentTimeline.events" value="{{levent.eventId}}">{{levent.title}} [{{levent.eventId.substring(0,8) | uppercase}}]</option>
+            </select>
+          </div>
           <!-- <input class="u-full-width" type="text" placeholder="Event B" id="events"> -->
 
           <label for="attachments">Event Attachments</label>
-          <input class="u-full-width" type="file" placeholder="mydoc.docx" id="attachments">
-          <button type="button">
-            <i class="fas fa-upload"></i> Upload Attachment</button>
-          <button type="button">
-            <i class="fas fa-eye"></i> View Attachment</button>
-          <button type="button">
-            <i class="fas fa-trash-alt"></i> Remove Attachment</button>
+          <div class="attachment-row">
+
+            <!-- <input class="u-full-width" type="file" placeholder="mydoc.docx" id="attachments"> -->
+            <button class="button button-success">
+              <i class="fas fa-upload"></i> Upload Attachment</button>
+            <button class="button button-primary">
+              <i class="fas fa-eye"></i> View Attachment</button>
+            <button class="button button-danger">
+              <i class="fas fa-trash-alt"></i> Remove Attachment</button>
+          </div>
 
           <!-- <input class="u-full-width" type="text" placeholder="G4 0BA" id="location" required> -->
           <!-- <button type="button"><i class="fas fa-plus"></i> Add Location</button>
@@ -49,25 +58,33 @@
         </div>
 
 
-      <div class="six columns">
-          <label for="location">Event Location</label>
+        <div class="six columns">
+          <label for="location">Location Name</label>
+          <input type="text" formControlName="location" placeholder="Location name" class="u-full-width" name="location">
+
+
+          <label>
+            <i class="fas fa-map-marker-alt"></i> Event Location</label>
+          <p>Please drop the location marker on the map below.</p>
           <div class="map-wrapper">
-          <app-map></app-map>
-        </div>
+            <app-map (droppedPin)="getLocation($event)" *ngIf="editMode === true" [existingLocation]="currentEvent.location"></app-map>
+            <app-map (droppedPin)="getLocation($event)" *ngIf="editMode === false"></app-map>
+          </div>
         </div>
 
       </div>
 
-      <button *ngIf="!updated" type="button" routerLink="../../">Cancel</button>
-      <input *ngIf="!updated" type="submit" [disabled]="createEvent.invalid" [ngClass]="{'button-success':!createEvent.invalid}"
-        value="{{editMode ? 'Update Event' : 'Create Event'}}">
+
+      <!-- EDITING -->
+      <div>
+        <button *ngIf="!updated" type="button" [routerLink]="['/timelines',timelineId]">Cancel</button>
+        <input *ngIf="!updated" type="submit" [disabled]="createEvent.invalid || eventLocation === null" [ngClass]="{'button-success':!createEvent.invalid}"
+          value="{{editMode ? 'Update Event' : 'Create Event'}}">
+      </div>
 
       <div *ngIf="updated">
-
-        <button class="button" routerLink="../">Return to Timelines</button>
-
-        <p>
-          <i class="fas fa-check"></i> API CALL COMPELTE</p>
+        <button class="button" [routerLink]="['/timelines',timelineId]"><i class="fas fa-arrow-left"></i> Return to Timeline</button>
+        <p><i class="fas fa-check"></i> Event Succesfully Updated.</p>
       </div>
 
 
