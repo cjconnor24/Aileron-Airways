@@ -1,33 +1,41 @@
-# Aileron Airways
+# Aileron Airways #
 
-This project respository is the master repo for our Aileron Airways IP3 University Project.
+This project is a timeline management tool for tracking and logging risk for a fictional airline, Aileron Aiways. This project was developed in conjunction with Ideagen PLC as part of a University project at Glasgow Caledonian University.
 
-Each team member will be working on their own respective branches.
+This will be the repo for our WPD2 Coursework.
+The application itself is a milestone application that allows users to have different projects that are made up of milestones. Users can only see their own projects and must log in to do so but can share them if they wish. 
 
-## About this project
+![Project Logos and Sponsors](docs/logos.jpg)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.7.
+## Team Members
+Below are the current team members
 
-## Development server
+|Team Member | Email Address|
+| --- | ---: |
+|Christopher Connor|	cconno208@caledonian.ac.uk|
+|Iain Craig |	icraig200@caledonian.ac.uk|
+|Catriona Crowe |	ccrowe201@caledonian.ac.uk|
+|Matthew Hederly |	mhedde200@caledonian.ac.uk|
+|Scott McLaughlan |	icraig200@caledonian.ac.uk|
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+# How to run?
 
-## Code scaffolding
+To run this project, you must have node installed as this will manage the dependencies.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+From the root of the application, run the following
 
-## Build
+```
+npm install
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Once this has updated, you can now launch the application by typing the following
 
-## Running unit tests
+```
+ng serve
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+The application will now be available locally. The default location is `http://localhost:4200`
 
-## Running end-to-end tests
+# Issues?
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+If you are having issues running this, please contact cconno208@caledonian.ac.uk
