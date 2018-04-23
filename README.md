@@ -2,12 +2,9 @@
 
 This project is a timeline management tool for tracking and logging risk for a fictional airline, Aileron Aiways. This project was developed in conjunction with Ideagen PLC as part of a University project at Glasgow Caledonian University.
 
-This will be the repo for our WPD2 Coursework.
-The application itself is a milestone application that allows users to have different projects that are made up of milestones. Users can only see their own projects and must log in to do so but can share them if they wish. 
-
 ![Project Logos and Sponsors](docs/logos.jpg)
 
-## Team Members
+# Team Members
 Below are the current team members
 
 |Team Member | Email Address|
