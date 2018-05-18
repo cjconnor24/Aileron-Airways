@@ -200,7 +200,9 @@ overflow: auto;
 // nav .container {
 //   width:100%;
 // }
-
+button, .button, .button-primary {
+  display: block;
+}
 
 nav {
   position:fixed;
