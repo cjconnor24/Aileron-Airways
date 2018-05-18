@@ -243,8 +243,9 @@ $light-red: #CB9195;
 
 @media(max-width:1080px) {
   /* BLOCK BUTTONS WHEN THEY START TO FOLD */
-  .details .button {
+  .details .button, .details button {
     display: block;
+    width:100%;
   }
 }
 @media(max-width:900px) {

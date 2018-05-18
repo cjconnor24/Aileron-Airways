@@ -25,6 +25,8 @@
           <i class="fas fa-pencil-alt"></i> Edit Event</a>
         <button (click)="onDelete()" class="button button-danger" [disabled]="event.linkedEvents.length > 0 || nested">
           <i class="fas fa-trash-alt"></i> DELETE Event</button>
+          <!-- <a (click)="onDelete()" class="button button-danger">
+            <i class="fas fa-trash-alt"></i> DELETE Event</a> -->
         <!-- <a href="#" class="button button-primary red linked-events"><i class="fas fa-link"></i> <span>Show</span> Linked Events <strong>2</strong></a> -->
       </p>
 
