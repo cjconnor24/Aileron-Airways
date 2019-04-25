@@ -9,11 +9,11 @@ Below are the current team members
 
 |Team Member | Email Address|
 | --- | ---: |
-|Christopher Connor|	cconno208@caledonian.ac.uk|
-|Iain Craig |	icraig200@caledonian.ac.uk|
-|Catriona Crowe |	ccrowe201@caledonian.ac.uk|
-|Matthew Hederly |	mhedde200@caledonian.ac.uk|
-|Scott McLaughlan |	icraig200@caledonian.ac.uk|
+|Christopher Connor|	█████████@caledonian.ac.uk|
+|Iain Craig |	█████████@caledonian.ac.uk|
+|Catriona Crowe |	██████████@caledonian.ac.uk|
+|Matthew Hederly |	█████████@caledonian.ac.uk|
+|Scott McLaughlan |	█████████@caledonian.ac.uk|
 
 # How to run?
 
