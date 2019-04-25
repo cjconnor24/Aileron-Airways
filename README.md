@@ -33,6 +33,5 @@ ng serve
 
 The application will now be available locally. The default location is `http://localhost:4200`
 
-# Issues?
-
-If you are having issues running this, please contact cconno208@caledonian.ac.uk
+#Note:
+This API is no longer active so the app will *not run*.
