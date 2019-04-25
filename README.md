@@ -9,11 +9,11 @@ Below are the current team members
 
 |Team Member | Email Address|
 | --- | ---: |
-|Christopher Connor|	█████████@caledonian.ac.uk|
+|*Christopher Connor*|	█████████@caledonian.ac.uk|
 |Iain Craig |	█████████@caledonian.ac.uk|
-|Catriona Crowe |	██████████@caledonian.ac.uk|
-|Matthew Hederly |	█████████@caledonian.ac.uk|
-|Scott McLaughlan |	█████████@caledonian.ac.uk|
+|[Catriona Crowe](https://github.com/catcro) |	██████████@caledonian.ac.uk|
+|[Matthew Hederly](https://github.com/MattHedderly) |	█████████@caledonian.ac.uk|
+|[Scott McLaughlan](https://github.com/scottevo) |	█████████@caledonian.ac.uk|
 
 # How to run?
 
